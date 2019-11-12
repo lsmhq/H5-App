@@ -50,5 +50,5 @@
 商城功能|React Native + postgresql 
 购物车|postgresql 
 数据存储|[postgresql](https://www.runoob.com/postgresql/postgresql-tutorial.html) 
-后台支持|[express](http://www.expressjs.com.cn/guide/routing.html) 
+后台支持|[express](http://www.expressjs.com.cn/guide/routing.html) + Nginx
 服务器|云服务器(CentOS) 
