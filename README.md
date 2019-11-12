@@ -23,10 +23,10 @@
 功能|技术支持
 -|-
 移动端App|React Native
-页面布局|(flex box)[https://css-tricks.com/snippets/css/a-guide-to-flexbox/]
-聊天功能|React Native WebSocket + localstorage + (npm文档)[https://www.npmjs.com/package/react-native-websocket]
+页面布局|[flex box](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+聊天功能|React Native WebSocket + localstorage + [npm文档](https://www.npmjs.com/package/react-native-websocket)
 登录功能|express + session 状态保持 (参考 cookie 操作)
-商城功能|React Native + postgresql
+商城功能|React Native + postgresql 
 购物车|localstorage
 数据存储|postgresql
 后台支持|express
