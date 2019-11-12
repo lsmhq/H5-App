@@ -1,4 +1,4 @@
-# H5 App
+# 实训说明
 <div style='text-align:center'>
 	<img src="https://github.com/daifang/H5-App/blob/master/img/Logo-%E5%A4%A7.png" alt="Sample"  width="140" height="140" />
 	<p>
