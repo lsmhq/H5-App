@@ -1,6 +1,6 @@
 # H5 App
 <div style='text-align:center'>
-	<img src="https://github.com/daifang/H5-App/blob/master/img/Logo-%E5%A4%A7.png" alt="Sample"  width="250" height="140" />
+	<img src="https://github.com/daifang/H5-App/blob/master/img/Logo-%E5%A4%A7.png" alt="Sample"  width="140" height="140" />
 	<p>
 		<em>logo</em>
 	</p>
