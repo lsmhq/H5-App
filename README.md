@@ -1,5 +1,13 @@
 # H5 App
-![LOGO](https://github.com/daifang/H5-App/blob/master/img/Logo-%E5%A4%A7.png)
+<div style='text-align:center'>
+	<img src="https://github.com/daifang/H5-App/blob/master/img/Logo-%E5%A4%A7.png" alt="Sample"  width="250" height="140" />
+	<p>
+		<em>logo</em>
+	</p>
+</div>
+————————————————
+版权声明：本文为CSDN博主「菜鸟_伊织」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/lovechris00/article/details/82379382
 ### 项目拉下来后执行以下
 
     ```
