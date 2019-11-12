@@ -13,7 +13,7 @@
 姓名|身份职务
 -|-
 代天放|
-粟慧军|
+粟慧军|数据库设计
 冯菲柯|UI设计师
 赵晓宇|
 赵政|
@@ -23,7 +23,7 @@
 功能|技术支持
 -|-
 移动端App|React Native
-页面布局|[flex box](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+页面布局|[flex box](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html?utm_source=tuicool)
 聊天功能|React Native WebSocket + localstorage + [npm文档](https://www.npmjs.com/package/react-native-websocket)
 登录功能|express + session 状态保持 (参考 cookie 操作)
 商城功能|React Native + postgresql 
