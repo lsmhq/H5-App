@@ -25,7 +25,7 @@
 
         $ npm i
         //或者 
-        $ yarn add
+        $ yarn install
 
         //虚拟调试
         $ react-native run-android
