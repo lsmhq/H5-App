@@ -6,14 +6,22 @@
 	</p>
 </div>
 
-### 项目拉下来后执行以下
+## 仓库分支
+   * 不需要在master分支上直接修改
+   * 为了前后端分离创建了两个分支
+      * JavascriptWeb : 前端开发
+      * Nodejs : 后台开发
 
+### 项目拉下来后执行以下
+   * 前端人员
     ```
+        //git命令,创建本地分支并切换分支
+        $ git checkout -b js origin/JavascriptWeb
         //安装依赖包
+        $ cd acgwiki
         $ npm i
         //或者 
         $ yarn add 
-        //运行
         //虚拟调试
         $ react-native run-android
         //真机调试
@@ -21,10 +29,17 @@
         //再运行
         $ react-native run-android
     ```
-## 仓库分支
-   * 为了前后端分离创建了两个分支
-      * JavascriptWeb : 前端开发
-      * Nodejs : 后台开发
+    * 后台人员
+    ```
+       //git 命令行
+       $ git checkout -b node origin/Nodejs 
+
+       //安装依赖包
+       $ cd BackControl
+       $ npm i 
+       $ npm start
+    ```
+
 ## ACG-Wiki
 信息|-
 -|-
