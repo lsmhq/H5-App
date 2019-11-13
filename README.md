@@ -14,13 +14,17 @@
         //或者 
         $ yarn add 
         //运行
-        //虚拟机
+        //虚拟调试
         $ react-native run-android
         //真机调试
         //先用USB连接电脑，选择传输文件，打开开发人员选项选择USB调试
         //再运行
         $ react-native run-android
     ```
+## 仓库分支
+   * 为了前后端分离创建了两个分支
+      * JavascriptWeb : 前端开发
+      * Nodejs : 后台开发
 ## ACG-Wiki
 信息|-
 -|-
