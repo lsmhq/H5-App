@@ -11,34 +11,43 @@
    * 为了前后端分离创建了两个分支
       * JavascriptWeb : 前端开发
       * Nodejs : 后台开发
-
+      
 ### 项目拉下来后执行以下
-   * 前端人员
-    ```
+   * # 前端人员
+        ```
         //git命令,创建本地分支并切换分支
+
         $ git checkout -b js origin/JavascriptWeb
+
         //安装依赖包
+        //切换到acgwiki目录
         $ cd acgwiki
+
         $ npm i
         //或者 
-        $ yarn add 
+        $ yarn add
+
         //虚拟调试
         $ react-native run-android
+
         //真机调试
         //先用USB连接电脑，选择传输文件，打开开发人员选项选择USB调试
         //再运行
         $ react-native run-android
-    ```
-    * 后台人员
-    ```
-       //git 命令行
+        ```
+   * # 后台人员
+
+        ```
+       //git命令,创建本地分支并切换分支
        $ git checkout -b node origin/Nodejs 
 
        //安装依赖包
+       //切换到BackControl目录
+
        $ cd BackControl
        $ npm i 
        $ npm start
-    ```
+        ```
 
 ## ACG-Wiki
 信息|-
