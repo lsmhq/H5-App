@@ -6,34 +6,34 @@ console.log(pages);
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   var page = qs.parse(req.url.split('?')[1]).page;
-  console.log('page:',page);
+  // console.log('page:',page);
   switch(page){
     case 'person':{
-      console.log('person');
+      // console.log('person');
       let data = {list:pages.list,data:pages.data[1]}
       res.render('pages',{data});
       break;
     }
     case 'consumer':{
-      console.log('consumer');
+      // console.log('consumer');
       let data = {list:pages.list,data:pages.data[2]}
       res.render('pages',{data});
       break;
     }
     case 'chapter':{
-      console.log('chapter');
+      // console.log('chapter');
       let data = {list:pages.list,data:pages.data[3]}
       res.render('pages',{data});
       break;
     }
     case 'talk':{
-      console.log('talk');
+      // console.log('talk');
       let data = {list:pages.list,data:pages.data[4]}
       res.render('pages',{data});
       break;
     }
     case 'orders':{
-      console.log('order');
+      // console.log('order');
       let data = {list:pages.list,data:pages.data[5]}
       res.render('pages',{data});
       break;
