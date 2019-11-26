@@ -36,7 +36,6 @@
         $ react-native run-android
         ```
    * # 后台人员
-
         ```
        //git命令,创建本地分支并切换分支
        $ git checkout -b node origin/Nodejs 
@@ -75,6 +74,7 @@
 页面布局|[flex box](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html?utm_source=tuicool) 
 聊天功能|React Native WebSocket + localstorage + [npm文档](https://www.npmjs.com/package/react-native-websocket) 
 登录功能|express + session 状态保持 (参考 cookie 操作) 
+密码加密|Base64加密
 商城功能|React Native + postgresql 
 购物车|postgresql 
 数据存储|[postgresql](https://www.runoob.com/postgresql/postgresql-tutorial.html) 
