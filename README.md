@@ -15,10 +15,6 @@
 ### 项目拉下来后执行以下
    * # 前端人员
         ```
-        //git命令,创建本地分支并切换分支
-
-        $ git checkout -b js origin/JavascriptWeb
-
         //安装依赖包
         //切换到acgwiki目录
         $ cd acgwiki
@@ -37,9 +33,6 @@
         ```
    * # 后台人员
         ```
-       //git命令,创建本地分支并切换分支
-       $ git checkout -b node origin/Nodejs 
-
        //安装依赖包
        //切换到BackControl目录
 
