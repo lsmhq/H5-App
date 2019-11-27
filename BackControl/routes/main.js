@@ -12,17 +12,16 @@ var pgdb = new pg.Pool({
   password: '147852369',
   database: 'ACG'
 })
+const pool = new pg.Pool(pgConfig);
 /* GET home page. */
 
 router.get('/',function(req,res,next){
-  let sql = 'SELECT userid,username FROM users';
-  let ret = pgdb.query(sql);
-  if(ret.rowCount <=0 ){
-    res.json({status:-1});
-    // console.log(-1);
-  }else{
-    res.json({status:0,data:ret.rows});
-    // console.log(0);
-  }
+  pool.connect(function(error, client, done) {
+    let sqlStr = 'SELECT * FROM test';      // 查表的SQL语句
+    client.query(sqlStr, [], function(err, response) {
+        done();
+        console.log(response.rows)  		  // 根据SQL语句查出的数据
+    })
+  })
 })
 module.exports = router;
