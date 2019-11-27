@@ -56,7 +56,7 @@
       let index = window.location.href.split('?')[1].split('=')[1];
       document.getElementById(index).style.backgroundColor = 'red';
   }
-  fetch('../routes/mian.js').then((req,res)=>{
+  fetch('/data/api/main').then((req,res)=>{
     console.log(res.data);
   })
 </script>
