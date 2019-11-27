@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', loginRouter);
-app.use('/pages?main', pagesRouter);
+app.use('/pages', pagesRouter);
 
 app.use('/data/api/main',mainRouter);
 // app.use('data/api/person',personRouter);
