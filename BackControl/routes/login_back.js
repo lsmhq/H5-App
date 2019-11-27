@@ -12,11 +12,13 @@ var pgdb = new pg.Pool({
 router.get('/', function(req, res, next) {
   res.render('login');
 });
-
+//登录验证
 router.post('/',function(req,res,next){
   let data = req.body;
+  console.log(data);
   res.setHeader('Content-Type','text/plain;charset=utf-8');
-  if(data.length === 2){
+  if(getObjLen(data) === 2){
+    console.log('登录验证');
     pgdb.connect((error,client,done)=>{
       let sqlStr = 'SELETE username,password FROM users WHERE username=$1';
       client.query(sqlStr,[data.username],(err,value) => {
@@ -31,8 +33,23 @@ router.post('/',function(req,res,next){
         }
       })
     })
-  }else if(data.length === 4){
-    
   }
 });
+//注册提交
+router.post('/',function(req,res,next){
+  let data = req.body;
+  console.log(data);
+  res.setHeader('Content-Type','text/plain;charset=utf-8');
+  if(getObjLen(data) ===4){
+    console.log('注册提交');
+  }
+});
+
+function getObjLen(obj){
+  let i = 0;
+  for(let j in obj) {
+      i++;
+  }
+  return i;
+}
 module.exports = router;
