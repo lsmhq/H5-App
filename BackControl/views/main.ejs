@@ -58,8 +58,9 @@
   }
   fetch('data/api/main').then(response => response.json()).then(data => {
     console.log(data.data);
-    // var userNum = document.getElementById("userNum");
-    // userNum.innerHTML(data);
+    var userNum = document.getElementById("userNum");
+    var text1 = document.createTextNode(data.data);
+    userNum.appendChild(text1);
   });
 </script>
 </html>
