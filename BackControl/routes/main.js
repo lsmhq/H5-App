@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const pg = require('pg');
+const pg = require("pg");
 
 // var list = {
 
@@ -23,5 +23,4 @@ router.get('/',function(req,res,next){
     res.json({status:0,data:ret.rows});
   }
 })
-
 module.exports = router;
