@@ -13,9 +13,6 @@ var pgdb = new pg.Pool({
   database: 'ACG'
 })
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('login');
-});
 
 router.get('/data/api/main',function(req,res,next){
   let sql = 'SELECT userid,username FROM users';
