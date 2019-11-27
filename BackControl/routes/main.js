@@ -17,7 +17,11 @@ var pgdb = new pg.Pool({
 router.get('/',function(req,res,next){
   let sql = 'SELECT userid,username FROM users';
   let ret = pgdb.query(sql);
-  res.end(ret.rowCount);
+  if(ret.rowCount <=0 ){
+    res.end({status:-1});
+  }else{
+    res.end({status:0,data:ret.rows});
+  }
 })
 
 module.exports = router;
