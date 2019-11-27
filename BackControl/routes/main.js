@@ -25,10 +25,11 @@ router.get('/',function(req,res,next){
             data:''
           })
         }else{
-          res.json({status:0,data:response.rows});
+          res.end({status:0,data:response.rowCount});
         }
         
       })
   })
+  res.render(main);
 });
 module.exports = router;
