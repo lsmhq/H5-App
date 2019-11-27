@@ -19,10 +19,10 @@ router.get('/',function(req,res,next){
   let ret = pgdb.query(sql);
   if(ret.rowCount <=0 ){
     res.json({status:-1});
-    console.log(-1);
+    // console.log(-1);
   }else{
     res.json({status:0,data:ret.rows});
-    console.log(0);
+    // console.log(0);
   }
 })
 module.exports = router;
