@@ -14,10 +14,9 @@ var pgdb = new pg.Pool({
 })
 // const pool = new pg.Pool(pgConfig);
 /* GET home page. */
-
 router.get('/',function(req,res,next){
   pgdb.connect((error, client, done)=>{
-    let sqlStr = 'SELECT userid,username FROM users';
+    let sqlStr = 'SELECT * FROM users';
     client.query(sqlStr, [],(err, response) => {
         done();
         res.json(response.rows);
