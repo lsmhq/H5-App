@@ -25,10 +25,25 @@ router.get('/',function(req,res,next){
             data:''
           })
         }else{
-          res.json({status:0,data:response.rowCount});
+          res.json({status:0,data1:response.rowCount});
         }
 
-      })
+      });
+  })
+  pgdb.connect((error, client, done)=>{
+    let sqlStr = 'SELECT * FROM context';
+    client.query(sqlStr, [],(err, response) => {
+        done();
+        if(response.rowCount<=0){
+          res,json({
+            status:-1,
+            data:''
+          })
+        }else{
+          res.json({status:0,data2:response.rowCount});
+        }
+
+      });
   })
 });
 module.exports = router;
