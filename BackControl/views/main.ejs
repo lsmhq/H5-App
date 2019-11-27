@@ -56,6 +56,8 @@
       let index = window.location.href.split('?')[1].split('=')[1];
       document.getElementById(index).style.backgroundColor = 'red';
   }
-
+  fetch(url).then((req,res)=>{
+    console.log(res.data);
+  })
 </script>
 </html>
