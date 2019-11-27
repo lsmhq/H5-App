@@ -19,57 +19,50 @@
                 <img src="/images/ship.png" alt="船" id="ship" >
                 <img src="/images/bg2.jpg" alt="背景" id="bg_img">
             </div>
-            <form action="" method="POST">
-                <div id = 'login'>
+           
+            <div id = 'login'>
+                 <form action="" method="POST">
                     <ul>
                         <li><input type="text" placeholder="用户名" name='username' id='user'/></li>
                         <li><input type="password" placeholder="密码" name='password' id='pwd'/></li>
                         <li><input type="submit" value="登录" id='btn'/></li>
                         <li><input type="button" value="注册" id="btn1"></li>
                     </ul>
-                </div>
-                <div id="login_on">
-                    <form action="" method="POST">
-                        <ul>
-                            <li>邮箱:<input type="email" name='email'></li>
-                            <li>用户名:</li>
-                            <li>密码:</li>
-                            <li>确认密码:</li>
-                            <li><input type="submit" value="确认注册"></li>
-                        </ul>
-                    </form>
-                </div>
-            </form>
+                </form>
+            </div>
+            <div id="login_on">
+                <form action="" method="POST">
+                    <ul>
+                        <li><input type="email" name='email' id="user" placeholder="邮箱"></li>
+                        <li><input type="text" name='username' id="user" placeholder="用户名"></li>
+                        <li><input type="password" name="pwd" id="pwd" placeholder="密码"></li>
+                        <li><input type="password" name="pwd" id="pwd" placeholder="确认密码"></li>
+                        <li><input type="submit" value="确认注册" id="btn2"></li>
+                        <li><input type="button" value="已有账号" id="btn3"></li>
+                    </ul>
+                </form>
+            </div>
         </div>
         <!-- <div class="footer">
         </div> -->
     </div>
 </body>
 <script>
-    // ((d,w)=>{
-    //     w.onload = ()=>{
-    //         let ele = d.getElementsByClassName('footer')[0];
-    //         sea(ele,1000);
-    //     }
-    //     sea = (ele,num) =>{
-    //         let con = d.createElement('div');
-    //         for(let i = 0;i<num;i++){
-    //             var div = d.createElement('div');
-    //             div.className = 'sea';
-    //             div.style = `animation:sea infinite 5s;animation-delay: ${-0.1*i}s;`;
-    //             con.append(div);
-    //         }
-    //         ele.append(con);
-    //     }
-    // })(document,window);
-</script>
-<script>
     //注册显示
     ((w,d)=>{
         w.onload = ()=>{
             let login_on = d.getElementById('btn1');
+            let btn = d.getElementById('btn');
+            let login = d.getElementById('login');                
+            let login_in = d.getElementById('login_on');
             login_on.onclick = ()=>{
-
+                login.style.display = 'none';
+                login_in.style.display = 'block';
+            }
+            let btn3 = d.getElementById('btn3');
+            btn3.onclick = ()=>{
+                login.style.display = 'block';
+                login_in.style.display = 'none';
             }
         }
     })(window,document)

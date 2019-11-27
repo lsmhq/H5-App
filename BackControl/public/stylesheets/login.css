@@ -1,4 +1,6 @@
-
+body{
+    -webkit-user-select: none;
+}
 ul,li{
     list-style: none;
     margin-top: 30px;
@@ -14,10 +16,6 @@ ul,li{
     font-size: 40px;
     color: rgb(255, 56, 115);
     font-weight: 1000;
-}
-.login{
-    float: left;
-    margin-left: 1%;
 }
 .header{
     width: 100%;
@@ -43,7 +41,6 @@ ul,li{
     transition: all linear 0.8s;
     box-shadow: 2px 2px 10px gray;
     opacity: 1;
-
 }
 #user{
     width: 100%;
@@ -99,7 +96,7 @@ ul,li{
 }
 #btn1:hover{
     transition: all linear 0.3s;
-    background-color: rgb(0, 219, 73);
+    background-color: rgb(0, 132, 255);
     opacity: 0.9;
 }
 #btn:hover{
@@ -107,7 +104,9 @@ ul,li{
     background-color: rgb(0, 132, 255);
     opacity: 0.9;
 }
-
+#btn1:focus{
+    background-color: rgb(0, 173, 58);
+}
 #bg_img{
     width: 99%;
     height: 550px;
@@ -120,6 +119,11 @@ ul,li{
     top: 200px;
     left: 35%;
     width: 30%;
+    transition: all linear 0.5s;
+}
+.login{
+    float: left;
+    margin-left: 1%;
 }
 .footer{
     width: 99.5%;
@@ -152,4 +156,43 @@ ul,li{
     0%{margin-top: 0px;}
     50%{margin-top: -20px;}
     100%{margin-top: 0px;}
+}
+#login_on{
+    position: absolute;
+    top: 150px;
+    left: 35%;
+    width: 30%;
+    display: none;
+}
+#btn2{
+    width: 100%;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: rgb(0, 187, 56);
+    font-size: 20px;
+    height: 50px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all linear 0.3s;
+    opacity: 0.8;
+}
+#btn2:hover{
+    background-color: rgb(0, 139, 231);
+}
+#btn3{
+    width: 100%;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: rgb(0, 187, 56);
+    font-size: 20px;
+    height: 50px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all linear 0.3s;
+    opacity: 0.8;
+}
+#btn3:hover{
+    background-color: rgb(0, 139, 231);
 }
