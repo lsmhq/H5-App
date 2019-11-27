@@ -64,6 +64,15 @@
                 login.style.display = 'block';
                 login_in.style.display = 'none';
             }
+            let btn = d.getElementById('btn');
+            btn.onclick = ()=>{
+                if(d.cookie.loginStatus){
+                    let login = d.cookie.loginStatus;
+                    if(login === false){
+
+                    }
+                }
+            }
         }
     })(window,document)
 </script>
