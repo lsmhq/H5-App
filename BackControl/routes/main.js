@@ -28,7 +28,8 @@ router.get('/',function(req,res,next){
           res.json({status:0,data:response.rowCount});
         }
 
-      })
+      });
   })
+  
 });
 module.exports = router;

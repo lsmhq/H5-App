@@ -32,15 +32,15 @@
               <div id="right_main">
                 <div class="box">
                     <h3>文章总数</h3>
-                    <span></span>
+                    <span id="contextNum"></span>
                   </div>
                   <div class="box">
                     <h3>用户总量</h3>
-                    <span></span>
+                    <span id="userNum"></span>
                   </div>
                   <div class="box">
                     <h3>今日活跃</h3>
-                    <span></span>
+                    <span id="online"></span>
                   </div>
             </div>
 
@@ -56,11 +56,11 @@
       let index = window.location.href.split('?')[1].split('=')[1];
       document.getElementById(index).style.backgroundColor = 'red';
   }
-  fetch('data/api/main').then(response => response.json()).then(data => console.log(data));
   fetch('data/api/main').then(response => response.json()).then(data => {
-    console.log(data);
+    console.log(data.data);
     var userNum = document.getElementById("userNum");
-    userNum.innerHTML(data);
+    var text1 = document.createTextNode(data.data);
+    userNum.appendChild(text1);
   });
 </script>
 </html>
