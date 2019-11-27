@@ -59,8 +59,11 @@
   fetch('data/api/main').then(response => response.json()).then(data => {
     console.log(data.data);
     var userNum = document.getElementById("userNum");
-    var text1 = document.createTextNode(data.data);
+    var text1 = document.createTextNode(data.data1);
+    var userNum = document.getElementById("contextNum");
+    var text2 = document.createTextNode(data.data2);
     userNum.appendChild(text1);
+    contextNum.appendChild(text2);
   });
 </script>
 </html>
