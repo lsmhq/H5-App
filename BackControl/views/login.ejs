@@ -20,12 +20,24 @@
                 <img src="/images/bg2.jpg" alt="背景" id="bg_img">
             </div>
             <form action="" method="POST">
-                <div id = 'form'>
+                <div id = 'login'>
                     <ul>
                         <li><input type="text" placeholder="用户名" name='username' id='user'/></li>
                         <li><input type="password" placeholder="密码" name='password' id='pwd'/></li>
                         <li><input type="submit" value="登录" id='btn'/></li>
+                        <li><input type="button" value="注册" id="btn1"></li>
                     </ul>
+                </div>
+                <div id="login_on">
+                    <form action="" method="POST">
+                        <ul>
+                            <li>邮箱:<input type="email" name='email'></li>
+                            <li>用户名:</li>
+                            <li>密码:</li>
+                            <li>确认密码:</li>
+                            <li><input type="submit" value="确认注册"></li>
+                        </ul>
+                    </form>
                 </div>
             </form>
         </div>
@@ -50,5 +62,16 @@
     //         ele.append(con);
     //     }
     // })(document,window);
+</script>
+<script>
+    //注册显示
+    ((w,d)=>{
+        w.onload = ()=>{
+            let login_on = d.getElementById('btn1');
+            login_on.onclick = ()=>{
+
+            }
+        }
+    })(window,document)
 </script>
 </html>
