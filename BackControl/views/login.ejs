@@ -11,20 +11,18 @@
 <body>
     <div id = 'container'>
         <div class="header">
-            <div class="login"><img src="/images/Logo-大.png" alt="logo_acg" width="80px"/></div>
-            <div class="title"><span>后台管理系统</span></div>
+            <div class="title"><span>ACG后台管理系统</span></div>
         </div>
         <div class="body">
             <div>
                 <img src="/images/ship.png" alt="船" id="ship" >
                 <img src="/images/bg2.jpg" alt="背景" id="bg_img">
             </div>
-           
             <div id = 'login'>
                  <form action="/" method="POST">
                     <ul>
-                        <li><input type="text" placeholder="用户名" name='username' id='user'/></li>
-                        <li><input type="password" placeholder="密码" name='password' id='pwd'/></li>
+                        <li><input type="text" placeholder="用户名" name='username' class='user' required='required' autocomplete="name"></li>
+                        <li><input type="password" placeholder="密码" name='password' class='pwd' required='required' autocomplete="on"/></li>
                         <li><input type="submit" value="登录" id='btn'/></li>
                         <li><input type="button" value="注册" id="btn1"></li>
                     </ul>
@@ -33,10 +31,10 @@
             <div id="login_on">
                 <form action="/" method="POST">
                     <ul>
-                        <li><input type="email" name='email' id="user" placeholder="邮箱"></li>
-                        <li><input type="text" name='username' id="user" placeholder="用户名"></li>
-                        <li><input type="password" name="pwd" id="pwd" placeholder="密码"></li>
-                        <li><input type="password" name="pwd" id="pwd" placeholder="确认密码"></li>
+                        <li><input type="email" name='email' class="email" placeholder="邮箱" required='required' autocomplete="email"></li>
+                        <li><input type="text" name='username' class="user" placeholder="用户名" required='required' autocomplete="on"></li>
+                        <li><input type="password" name="pwd" class="pwd" placeholder="密码" required='required' autocomplete="on"></li>
+                        <li><input type="password" name="pwd" class="pwd" placeholder="确认密码" required='required' autocomplete="on"></li>
                         <li><input type="submit" value="确认注册" id="btn2"></li>
                         <li><input type="button" value="已有账号" id="btn3"></li>
                     </ul>
@@ -51,11 +49,11 @@
     //注册显示
     ((w,d)=>{
         w.onload = ()=>{
-            let login_on = d.getElementById('btn1');
+            let btn1 = d.getElementById('btn1');
             let btn = d.getElementById('btn');
-            let login = d.getElementById('login');                
+            let login = d.getElementById('login');           
             let login_in = d.getElementById('login_on');
-            login_on.onclick = ()=>{
+            btn1.onclick = ()=>{
                 login.style.display = 'none';
                 login_in.style.display = 'block';
             }
@@ -64,12 +62,19 @@
                 login.style.display = 'block';
                 login_in.style.display = 'none';
             }
-            let btn = d.getElementById('btn');
             btn.onclick = ()=>{
                 if(d.cookie.loginStatus){
-                    let login = d.cookie.loginStatus;
-                    if(login === false){
-
+                    let login = d.cookie.split('=')[1];
+                    console.log(login === false);
+                    if(login === 'false'){
+                        d.getElementById('username').oninput = ()=>{
+                            setCustomValidity('');
+                        }
+                        d.getElementById('username').oninvalid = ()=>{
+                            setCustomValidity('用户名或密码错误');
+                        };
+                    }else if(login === 'true'){
+                        w.location.href = '/pages?page=main';
                     }
                 }
             }
