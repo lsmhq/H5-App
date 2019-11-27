@@ -18,9 +18,9 @@ router.get('/',function(req,res,next){
   let sql = 'SELECT userid,username FROM users';
   let ret = pgdb.query(sql);
   if(ret.rowCount <=0 ){
-    res.end({status:-1});
+    res.json({status:-1});
   }else{
-    res.end({status:0,data:ret.rows});
+    res.json({status:0,data:ret.rows});
   }
 })
 
