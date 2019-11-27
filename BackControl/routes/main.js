@@ -19,7 +19,15 @@ router.get('/',function(req,res,next){
     let sqlStr = 'SELECT * FROM users';
     client.query(sqlStr, [],(err, response) => {
         done();
-        res.json(response.rows);
+        if(response.rowCount<=0){
+          res,json({
+            status:-1,
+            data:''
+          })
+        }else{
+          res.json({status:0,data:response.rows});
+        }
+        
       })
   })
 });
