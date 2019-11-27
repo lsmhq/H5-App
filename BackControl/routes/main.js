@@ -12,11 +12,11 @@ var pgdb = new pg.Pool({
   password: '147852369',
   database: 'ACG'
 })
-const pool = new pg.Pool(pgConfig);
+// const pool = new pg.Pool(pgConfig);
 /* GET home page. */
 
 router.get('/',function(req,res,next){
-  pool.connect(function(error, client, done) {
+  pgdb.connect(function(error, client, done) {
     let sqlStr = 'SELECT * FROM test';      // 查表的SQL语句
     client.query(sqlStr, [], function(err, response) {
         done();
