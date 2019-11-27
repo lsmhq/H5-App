@@ -56,8 +56,6 @@
       let index = window.location.href.split('?')[1].split('=')[1];
       document.getElementById(index).style.backgroundColor = 'red';
   }
-  fetch('/data/api/main',(req)=>{
-    return req.json();
-  }).then(data=>{console.log(data)})
+  fetch(url).then(response => response.json()).then(data => console.log(data));
 </script>
 </html>
