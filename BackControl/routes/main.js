@@ -25,9 +25,9 @@ router.get('/',function(req,res,next){
             data:''
           })
         }else{
-          res.end({status:0,data:response.rowCount});
+          res.json({status:0,data:response.rowCount});
         }
-        
+
       })
   })
 });
