@@ -14,7 +14,7 @@ var pgdb = new pg.Pool({
 })
 /* GET home page. */
 
-router.get('/data/api/main',function(req,res,next){
+router.get('/',function(req,res,next){
   let sql = 'SELECT userid,username FROM users';
   let ret = pgdb.query(sql);
   res.end(ret.rowCount);
