@@ -12,6 +12,7 @@ var pgdb = new pg.Pool({
   password: '147852369',
   database: 'ACG'
 })
+// const pool = new pg.Pool(pgConfig);
 /* GET home page. */
 
 router.get('/',function(req,res,next){
@@ -20,7 +21,7 @@ router.get('/',function(req,res,next){
     client.query(sqlStr, [],(err, response) => {
         done();
         res.json(response.rows);
-    })
+      })
   })
-})
+});
 module.exports = router;
