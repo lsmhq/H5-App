@@ -18,9 +18,9 @@ var pgdb = new pg.Pool({
 router.get('/',function(req,res,next){
   pgdb.connect(function(error, client, done) {
     let sqlStr = 'SELECT * FROM test';      // 查表的SQL语句
-    client.query(sqlStr, [], function(err, response) {
+    client.query(sqlStr, [], function(err, res) {
         done();
-        console.log(response.rows)  		  // 根据SQL语句查出的数据
+        console.log(res.rows)  		  // 根据SQL语句查出的数据
     })
   })
 })
