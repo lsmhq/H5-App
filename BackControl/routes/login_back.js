@@ -22,7 +22,8 @@ router.post('/',function(req,res,next){
     pgdb.connect((error,client,done)=>{
       let sqlStr = 'SELETE username,password FROM users WHERE username=$1';
       client.query(sqlStr,[data.username],(err,value) => {
-        if(value.rowCount!=0){
+        res.json(value.rows);
+        if(value.rowCount != 0){
           if(value.rows.password === data.password){
             res.setHeader('Set-cookie',[`loginStatus=true`]);
           }else{
