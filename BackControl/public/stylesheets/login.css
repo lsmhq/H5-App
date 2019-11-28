@@ -221,11 +221,10 @@ ul,li{
 }
 #error{
     font-size: 20px;
-    color: rgb(238, 255, 0);
-    font-weight: 800;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    left: 10%;
+    color: rgb(0, 255, 221);
     opacity: 0;
+    display: block;
+    font-weight: 1000;
+    left: 35%;
+    position: absolute;
 }
