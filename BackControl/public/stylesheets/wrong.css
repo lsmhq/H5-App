@@ -1,0 +1,10 @@
+#container{
+    text-align: center;
+
+}
+#container>p{
+    font-size: 20px;
+}
+#container>h3{
+    font-size: 30px;
+}
