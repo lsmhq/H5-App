@@ -13,10 +13,8 @@ var pgdb = new pg.Pool({
 // const pool = new pg.Pool(pgConfig);
 /* GET home page. */
 router.get('/',function(req,res,next){
-  pgdb.connect((error, client, done)=>{
     let sqlStr = 'SELECT * FROM users';
-    client.query(sqlStr, [],(err, response) => {
-        done();
+    pgdb.query(sqlStr, [],(err, response) => {
         if(response.rowCount<=0){
           res,json({
             status:-1,
@@ -25,9 +23,6 @@ router.get('/',function(req,res,next){
         }else{
           res.json({status:0,data:response.rowCount});
         }
-
       });
-  })
-  
 });
 module.exports = router;
