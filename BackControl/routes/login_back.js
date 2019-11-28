@@ -20,17 +20,22 @@ router.post('/',function(req,res,next){
   if(getObjLen(data) === 2){
     console.log('登录验证');
     pgdb.connect((error,client,done)=>{
-      let sqlStr = 'SELETE username,password FROM users WHERE username=$1';
+      let sqlStr = 'SELECT username,password FROM users WHERE username=$1';
       client.query(sqlStr,[data.username],(err,value) => {
-        res.json(value.rows);
-        if(value.rowCount != 0){
-          if(value.rows.password === data.password){
+        done();
+        // console.log(value.rows[0].password);
+        if(value.rowCount > 0){
+          if(value.rows[0].password === data.password){
+            console.log(1);
             res.setHeader('Set-cookie',[`loginStatus=true`]);
+            res.redirect('/pages?page=main');
           }else{
             res.setHeader('Set-cookie',[`loginStatus=false`]);
+            res.redirect('/pages?page=main');
           }
         }else{
           res.setHeader('Set-cookie',[`loginStatus=false`]);
+          res.redirect('/pages?page=main');
         }
       })
     })
@@ -43,6 +48,13 @@ router.post('/',function(req,res,next){
   res.setHeader('Content-Type','text/plain;charset=utf-8');
   if(getObjLen(data) ===4){
     console.log('注册提交');
+    pgdb.connect((error,client,done)=>{
+      let sqlStr = 'INSERT INTO users (email,userid,password) VALUES($1,$3,$2)';
+      client.query(sqlStr,[data.email,data.username,data.password],(err,value)=>{
+        done();
+        res.redirect('/');
+      });
+    });
   }
 });
 
