@@ -10,6 +10,8 @@
 }
 #container>img{
     position: absolute;
+    left: 1%;
+    top: 1%;
 }
 ul,li{
     list-style: none;
