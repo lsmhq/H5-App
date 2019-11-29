@@ -35,22 +35,29 @@ router.post('/',function(req,res,next){
       let sqlStr = 'SELECT username,password,state FROM admin WHERE username=$1';
       pgdb.query(sqlStr,[data.username],(err,value) => {
         // console.log(value.rows[0].password);
-        if(value.rowCount > 0){
-          if(value.rows[0].password === md5(data.password)&&value.rows[0].username===data.username&&value.rows[0].state==='已激活'){
-            console.log(1);
-            res.setHeader('Set-cookie',[`loginStatus=true`]);
-            res.redirect('/pages?page=main');
-          }else if(value.rows[0].state==='未激活'){
-            res.setHeader('Set-cookie',[`loginStatus=false`]);
-            // res.render('success',{success:'账号未激活,无法登录'});
-            res.redirect('/pages?page=main');
+        if(err){
+          msg.error = `似乎出了点问题`;
+          msg.val = '返回';
+          msg.title = 'Error';
+          res.render('msg',{msg});
+        }else{
+          if(value.rowCount > 0){
+            if(value.rows[0].password === md5(data.password)&&value.rows[0].username===data.username&&value.rows[0].state==='已激活'){
+              console.log(1);
+              res.setHeader('Set-cookie',[`loginStatus=true`]);
+              res.redirect('/pages?page=main');
+            }else if(value.rows[0].state==='未激活'){
+              res.setHeader('Set-cookie',[`loginStatus=false`]);
+              // res.render('success',{success:'账号未激活,无法登录'});
+              res.redirect('/pages?page=main');
+            }else{
+              res.setHeader('Set-cookie',[`loginStatus=false`]);
+              res.redirect('/pages?page=main');
+            }
           }else{
             res.setHeader('Set-cookie',[`loginStatus=false`]);
             res.redirect('/pages?page=main');
           }
-        }else{
-          res.setHeader('Set-cookie',[`loginStatus=false`]);
-          res.redirect('/pages?page=main');
         }
       })
   }else if(getObjLen(data) === 3){

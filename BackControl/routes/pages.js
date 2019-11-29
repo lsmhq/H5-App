@@ -3,6 +3,11 @@ var qs = require('querystring');
 var router = express.Router();
 var pages = require('../public/json/list.json');
 console.log(pages);
+let msg = {
+  error:'',
+  val:'',
+  title:''
+}
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   var cookie = cookieToObj(req.headers.cookie);
@@ -49,11 +54,20 @@ router.get('/', function(req, res, next) {
       }
     }
   }else if(cookie.loginStatus === 'false'){
-    let msg = {
+    msg = {
       error:'用户名或密码错误',
-      val:'尝试注册或激活账号'
+      val:'尝试注册或激活账号',
+      title:'Error'
     }
-    res.render('wrong',{msg});
+    res.render('msg',{msg});
+  }
+  else if(cookie.loginStatus == undefined){
+    msg = {
+      error:'您还没有进行登录',
+      val:'马上登录',
+      title:'Error'
+    }
+    res.render('msg',{msg});
   }
 });
 //解析cookie
