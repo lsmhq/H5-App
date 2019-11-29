@@ -108,7 +108,7 @@ router.post('/',function(req,res,next){
       secure: true,
       auth : { 
         user : 'acg_wiki@qq.com',
-        pass : 'ogavunslmkqxbcif'   
+        pass : 'ogavunslmkqxbcif'
       },
   });
     let mailOptions = {
@@ -119,7 +119,10 @@ router.post('/',function(req,res,next){
     };
     mailTransport.sendMail(mailOptions, (error, info) => {
       if (error) {
-        return console.log(error.message);
+        msg.error = `发送失败<${error.message}>`;
+        msg.val = '返回重新注册';
+        msg.title = 'Error';
+        res.render('msg',{msg});
       }else{
         msg.error='邮件已发送成功,注意查收';
         msg.val = '激活后点击返回登录';
