@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/stylesheets/wrong.css">
+    <title>账号激活</title>
+</head>
+<body>
+    <div id = 'container'>
+        <form action="/check" method="post">
+            <ul style="margin-left:30%;width:30%">
+                <li><input type="text" name="email" id="email" style="width:100%" readonly></li>
+                <li><input type="text" name="username" id="username" style="width:100%" readonly></li>
+                <li><input type='submit' value = '点击激活' id='check'></li>
+            </ul>
+        </form>
+    </div>
+<script>
+    ((d,w)=>{
+        w.onload = ()=>{
+        let email = d.getElementById('email');
+        let username = d.getElementById('username');
+        let data = decodeURI(window.location.href).split('?')[1].split('&');//['email=xxx','username=xxx']
+        console.log(data);
+        email.value = data[0].split('=')[1];
+        username.value = data[1].split('=')[1];
+        }
+    })(document,window)
+</script>
+</body>
+
+</html>
