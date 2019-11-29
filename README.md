@@ -37,7 +37,7 @@
 -|- 
 移动端站点|react
 登录功能|express + session 状态保持 (参考 cookie 操作) 
-密码加密|Base64加密
+密码加密|MD5加密
 商城功能|React + postgresql 
 购物车|postgresql 
 数据存储|[postgresql](https://www.runoob.com/postgresql/postgresql-tutorial.html) 
