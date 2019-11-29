@@ -43,3 +43,11 @@
 数据存储|[postgresql](https://www.runoob.com/postgresql/postgresql-tutorial.html) 
 后台支持|[express](http://www.expressjs.com.cn/guide/routing.html) + Nginx
 服务器|云服务器(CentOS) 
+
+
+## 后台进度
+
+* ### 2019-11-25 后台主要UI
+* ### 2019-11-26 后台系统管理员登录
+* ### 2019-11-27 后台系统管理员注册
+* ### 2019-11-29 上午:后台系统管理员注册+邮箱激活 下午:后台系统管理员密码md5加密
