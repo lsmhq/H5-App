@@ -8,6 +8,9 @@
 #container>h3{
     font-size: 30px;
 }
+#container>img{
+    position: absolute;
+}
 ul,li{
     list-style: none;
     margin-top: 30px;
