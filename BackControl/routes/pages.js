@@ -49,7 +49,11 @@ router.get('/', function(req, res, next) {
       }
     }
   }else if(cookie.loginStatus === 'false'){
-    res.render('wrong',{error:'用户名或密码错误'});
+    let msg = {
+      error:'用户名或密码错误',
+      val:'尝试注册或激活账号'
+    }
+    res.render('wrong',{msg});
   }
 });
 //解析cookie
