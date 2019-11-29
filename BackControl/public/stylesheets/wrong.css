@@ -10,8 +10,11 @@
 }
 #container>img{
     position: absolute;
-    left: 1%;
+    left: 0.5%;
     top: 1%;
+    border-radius: 5px;
+    filter: blur(10px);
+    z-index: -1;
 }
 ul,li{
     list-style: none;
