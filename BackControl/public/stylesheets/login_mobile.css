@@ -1,0 +1,97 @@
+@media screen and (max-width:1000px) and (min-width:200px){
+    #bg_img_mobile{
+        width: 95%;
+        position: absolute;
+        z-index: -1;
+        filter:blur(5px);
+        display: block;
+        left: 2.5%;
+        top: 0;
+    }
+    #bg_img{
+        display: none;
+    }
+    .title{
+        position: absolute;
+        top: 0;
+        color: white;
+        left: 30%;
+        font-size: 25px;
+        top:50px;
+    }
+    #login{
+        position:absolute;
+        top: 100px;
+        width: 95%;
+    }
+    #login_on{
+        position:absolute;
+        top: 100px;
+        display: none;
+        width: 95%;
+    }
+    ul,li{
+        list-style: none;
+        margin-top: 30px;
+    }
+    input{
+        width:80%;
+        outline: none;
+        border: none;
+        border-radius: 3px;
+        height: 40px;
+        font-size: 20px;
+    }
+    .pwd{
+        text-indent: 20px;
+    }
+    .pwd:hover{
+        transition: all linear 0.3s;
+        box-shadow: 1px 1px 5px gray;
+    }
+    .user{
+        text-indent: 20px;
+    }
+    .user:hover{
+        transition: all linear 0.3s;
+        box-shadow: 1px 1px 5px gray;
+    }
+    #btn{
+        background-color: rgb(75, 104, 199);
+    }
+    #btn:hover{
+        transition: all linear 0.3s;
+        background-color: rgb(0, 132, 255);
+        opacity: 0.9;
+    }
+    #btn1{
+        background-color: rgb(0, 187, 56);
+    }
+    #btn1:hover{
+        background-color: rgb(58, 255, 91);
+    }
+    .email{
+        text-indent:20px;
+    }
+    #error{
+        opacity: 0;
+        float: left;
+        color: rgb(197, 217, 255);
+        margin-left: 25%;
+    }
+    #btn2{
+        background-color: rgb(0, 187, 56);
+    }
+    #btn2:hover{
+        background-color: rgb(25, 255, 94);
+    }
+    #btn3{
+        background-color: rgb(0, 139, 231);
+    }
+    #btn3:hover{
+        background-color: rgb(0, 139, 255);
+    }
+    #ship{
+        display: none;
+    }
+}

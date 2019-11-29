@@ -23,7 +23,7 @@
         w.onload = ()=>{
         let email = d.getElementById('email');
         let username = d.getElementById('username');
-        let data = decodeURI(window.location.href).split('?')[1].split('&');//['email=xxx','username=xxx']
+        let data = decodeURI(window.location.href).split('?')[1].split('&');
         console.log(data);
         email.value = data[0].split('=')[1];
         username.value = data[1].split('=')[1];
