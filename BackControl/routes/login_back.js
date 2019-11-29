@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var pg = require('pg');
 var nodemailer = require('nodemailer');
+var md5 = require('md5-node');
 var server = 'qq';
 var url = '';
 
@@ -34,7 +35,7 @@ router.post('/',function(req,res,next){
       pgdb.query(sqlStr,[data.username],(err,value) => {
         // console.log(value.rows[0].password);
         if(value.rowCount > 0){
-          if(value.rows[0].password === data.password&&value.rows[0].username===data.username&&value.rows[0].state==='已激活'){
+          if(value.rows[0].password === md5(data.password)&&value.rows[0].username===data.username&&value.rows[0].state==='已激活'){
             console.log(1);
             res.setHeader('Set-cookie',[`loginStatus=true`]);
             res.redirect('/pages?page=main');
@@ -64,7 +65,7 @@ router.post('/',function(req,res,next){
         }else{
           if (val.rowCount <= 0){
             // console.log(val);
-            pgdb.query(sqlStr_insert,[data.email+'',strRandom(10),data.pwd[0]+'',data.username+''],(err,val1)=>{
+            pgdb.query(sqlStr_insert,[data.email+'',strRandom(10),md5(data.pwd[0]+''),data.username+''],(err,val1)=>{
               // console.log(val1);
               if(err){
                 msg.error = err.message;
