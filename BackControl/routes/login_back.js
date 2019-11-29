@@ -63,7 +63,7 @@ router.post('/',function(req,res,next){
           msg.error = '后台又双叒叕炸了';
           msg.val = '稍后再试';
           msg.title = 'Error'
-          res.render('wrong',{msg});
+          res.render('msg',{msg});
         }else{
           if (val.rowCount <= 0){
             // console.log(val);
@@ -73,7 +73,7 @@ router.post('/',function(req,res,next){
                 msg.error = err.message;
                 msg.val = '稍后再试';
                 msg.title = 'Error';
-                res.render('wrong',{msg});
+                res.render('msg',{msg});
                 // console.log(err.message);
               }else if(val1.rowCount > 0){
                 data_time = data;
@@ -83,18 +83,18 @@ router.post('/',function(req,res,next){
         }else if(val.rows[0].username === data.username){
           msg.error = '用户名已存在';
           msg.val = '返回登录界面';
-          msg.title = 'Wrong'
-          res.render('wrong',{msg});
+          msg.title = 'msg'
+          res.render('msg',{msg});
         }else if(val.rows[0].email === data.email){
           msg.error = '邮箱已被注册过';
           msg.val = '点击激活';
-          msg.title = 'Wrong';
+          msg.title = 'msg';
           res.render('success',{success});
         }else{
           msg.error = '似乎出了些问题';
           msg.val = '返回登录界面';
-          msg.title = 'Wrong';
-          res.render('wrong',{msg});
+          msg.title = 'msg';
+          res.render('msg',{msg});
         }
         }
       })
@@ -124,7 +124,7 @@ router.post('/',function(req,res,next){
         msg.error='邮件已发送成功,注意查收';
         msg.val = '激活后点击返回登录';
         msg.title = 'Success';
-        res.render('wrong',{msg});
+        res.render('msg',{msg});
       }
     });
   }

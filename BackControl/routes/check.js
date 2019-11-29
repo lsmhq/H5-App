@@ -34,20 +34,20 @@ router.post('/',(req,res,next)=>{
                         msg.error = '激活成功';
                         msg.val = '跳转登录';
                         msg.title = 'Success';
-                        res.render('wrong',{msg});
+                        res.render('msg',{msg});
                     }
                 });
             }else{
                 msg.error = '激活失败,请检查注册信息是否正确';
                 msg.val = '重新注册';
                 msg.title = 'Failed';
-                res.render('wrong',{msg});
+                res.render('msg',{msg});
             }
         }else{
             msg.error = '查找不到该信息';
             msg.val = '重新注册';
             msg.title = 'Lost';
-            res.render('wrong',{msg});
+            res.render('msg',{msg});
         }
     })
 });
