@@ -7,6 +7,7 @@ var logger = require('morgan');
 var loginRouter = require('./routes/login_back');
 var pagesRouter = require('./routes/pages');
 var mainRouter = require('./routes/main');
+var checkRouter = require('./routes/check');
 // var personRouter = require('./routes/person');
 // var consumerRouter = require('./routes/consumer');
 // var chapterRouter = require('./routes/chapter');
@@ -27,7 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', loginRouter);
 app.use('/pages', pagesRouter);
-
+app.use('/check',checkRouter);
 app.use('/data/api/main',mainRouter);
 // app.use('data/api/person',personRouter);
 // app.use('data/api/consumer',consumerRouter);
