@@ -24,7 +24,9 @@ router.post('/',(req,res,next)=>{
         val:''
     }
     pgdb.query(sqlStr,[data.username,data.email],(err,val)=>{
-        if(data.username === val.rows[0].username && data.email === val.rows[0].email){
+        if(err){
+            console.log(err.message);
+        }else if(data.username === val.rows[0].username && data.email === val.rows[0].email){
             pgdb.query(sqlStr_Alter,[data.username,data.email],(err,val1)=>{
                 if(val1.rowCount > 0){
                     msg.error = '激活成功';
