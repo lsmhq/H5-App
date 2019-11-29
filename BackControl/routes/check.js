@@ -24,18 +24,24 @@ router.post('/',(req,res,next)=>{
         val:''
     }
     pgdb.query(sqlStr,[data.username,data.email],(err,val)=>{
-        if(err){
-            console.log(err.message);
-        }else if(data.username === val.rows[0].username && data.email === val.rows[0].email){
-            pgdb.query(sqlStr_Alter,[data.username,data.email],(err,val1)=>{
-                if(val1.rowCount > 0){
-                    msg.error = '激活成功';
-                    msg.val = '跳转登录';
-                    res.render('wrong',{msg});
-                }
-            });
+        if(val.rowCount > 0){
+            if(err){
+                console.log(err.message);
+            }else if(data.username === val.rows[0].username && data.email === val.rows[0].email){
+                pgdb.query(sqlStr_Alter,[data.username,data.email],(err,val1)=>{
+                    if(val1.rowCount > 0){
+                        msg.error = '激活成功';
+                        msg.val = '跳转登录';
+                        res.render('wrong',{msg});
+                    }
+                });
+            }else{
+                msg.error = '激活失败,请检查注册信息是否正确';
+                msg.val = '重新注册';
+                res.render('wrong',{msg});
+            }
         }else{
-            msg.error = '激活失败,请检查注册信息是否正确';
+            msg.error = '查找不到该信息';
             msg.val = '重新注册';
             res.render('wrong',{msg});
         }
