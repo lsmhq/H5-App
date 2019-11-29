@@ -21,7 +21,8 @@ router.post('/',(req,res,next)=>{
     let sqlStr_Alter = "UPDATE admin SET state='已激活' WHERE username=$1 AND email=$2";
     let msg = {
         error:'',
-        val:''
+        val:'',
+        title:''
     }
     pgdb.query(sqlStr,[data.username,data.email],(err,val)=>{
         if(val.rowCount > 0){
@@ -32,17 +33,20 @@ router.post('/',(req,res,next)=>{
                     if(val1.rowCount > 0){
                         msg.error = '激活成功';
                         msg.val = '跳转登录';
+                        msg.title = 'Success';
                         res.render('wrong',{msg});
                     }
                 });
             }else{
                 msg.error = '激活失败,请检查注册信息是否正确';
                 msg.val = '重新注册';
+                msg.title = 'Failed';
                 res.render('wrong',{msg});
             }
         }else{
             msg.error = '查找不到该信息';
             msg.val = '重新注册';
+            msg.title = 'Lost';
             res.render('wrong',{msg});
         }
     })

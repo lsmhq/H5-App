@@ -8,7 +8,8 @@ var url = '';
 
 let msg = {
   error:'',
-  val:''
+  val:'',
+  title:''
 }
 var data_time;
 //数据库基本配置  
@@ -61,6 +62,7 @@ router.post('/',function(req,res,next){
         if(err){
           msg.error = '后台又双叒叕炸了';
           msg.val = '稍后再试';
+          msg.title = 'Error'
           res.render('wrong',{msg});
         }else{
           if (val.rowCount <= 0){
@@ -70,6 +72,7 @@ router.post('/',function(req,res,next){
               if(err){
                 msg.error = err.message;
                 msg.val = '稍后再试';
+                msg.title = 'Error';
                 res.render('wrong',{msg});
                 // console.log(err.message);
               }else if(val1.rowCount > 0){
@@ -80,14 +83,17 @@ router.post('/',function(req,res,next){
         }else if(val.rows[0].username === data.username){
           msg.error = '用户名已存在';
           msg.val = '返回登录界面';
+          msg.title = 'Wrong'
           res.render('wrong',{msg});
         }else if(val.rows[0].email === data.email){
           msg.error = '邮箱已被注册过';
           msg.val = '点击激活';
+          msg.title = 'Wrong';
           res.render('success',{success});
         }else{
           msg.error = '似乎出了些问题';
           msg.val = '返回登录界面';
+          msg.title = 'Wrong';
           res.render('wrong',{msg});
         }
         }
@@ -99,7 +105,7 @@ router.post('/',function(req,res,next){
     url = `https://daitianfang.1459.top/check?email=${data_time.email}&username=${data_time.username}`;
     const mailTransport = nodemailer.createTransport({
       host : `smtp.${server}.com`,    
-      secure: true,   
+      secure: true,
       auth : { 
         user : 'acg_wiki@qq.com',
         pass : 'ogavunslmkqxbcif'   
@@ -109,7 +115,7 @@ router.post('/',function(req,res,next){
       from: '784433957@qq.com',
       to: `${data_time.email}`,
       subject: 'acg--账号激活(官方)',
-      html: `<h4>亲爱的${data_time.username},您已注册成功,点击下方链接进行激活操作</h4><a href = ${url}>这是一个神秘链接</a>`
+      html: `<h4>亲爱的< ${data_time.username} >,您已注册成功,点击下方链接进行激活操作,不激活无法正常登录</h4><a href = ${url}>这是一个神秘链接</a>`
     };
     mailTransport.sendMail(mailOptions, (error, info) => {
       if (error) {
@@ -117,9 +123,9 @@ router.post('/',function(req,res,next){
       }else{
         msg.error='邮件已发送成功,注意查收';
         msg.val = '激活后点击返回登录';
+        msg.title = 'Success';
         res.render('wrong',{msg});
       }
-      
     });
   }
 });
