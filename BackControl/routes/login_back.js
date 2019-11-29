@@ -101,7 +101,7 @@ router.post('/',function(req,res,next){
       host : `smtp.${server}.com`,    
       secure: true,   
       auth : { 
-        user : '784433957@qq.com',       
+        user : 'acg_wiki@qq.com',
         pass : 'ogavunslmkqxbcif'   
       },
   });
