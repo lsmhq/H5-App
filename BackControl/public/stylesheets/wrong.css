@@ -1,9 +1,9 @@
-@media screen and(max-width:1920px)and(min-width:1000px){
+@media screen and (max-width:1920px) and (min-width:1000px){
     #container>h3{
         font-size: 30px;
     }
 }
-@media screen and(max-width:1000px)and(min-width:200px){
+@media screen and (max-width:1000px) and (min-width:200px){
     #container>h3{
         font-size: 20px;
     }
