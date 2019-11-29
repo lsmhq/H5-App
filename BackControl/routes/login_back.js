@@ -109,8 +109,7 @@ router.post('/',function(req,res,next){
       from: '784433957@qq.com',
       to: `${data_time.email}`,
       subject: 'acg--账号激活(官方)',
-      text: `亲爱的${data_time.username},您已注册成功,点击下方链接进行激活操作`, 
-      html: `<a href = ${url}>这是一个神秘链接</a>`
+      html: `<h4>亲爱的${data_time.username},您已注册成功,点击下方链接进行激活操作</h4><a href = ${url}>这是一个神秘链接</a>`
     };
     mailTransport.sendMail(mailOptions, (error, info) => {
       if (error) {
