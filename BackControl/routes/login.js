@@ -32,7 +32,7 @@ router.post('/',function(req,res,next){
   res.setHeader('Content-Type','text/html;charset=utf-8');
   if(getObjLen(data) === 2){
     console.log('登录验证');
-      let sqlStr = 'SELECT username,password,state FROM admin WHERE username=$1';
+      let sqlStr = 'SELECT username,password,state FROM users WHERE username=$1';
       pgdb.query(sqlStr,[data.username],(err,value) => {
         // console.log(value.rows[0].password);
         if(err){
@@ -62,8 +62,8 @@ router.post('/',function(req,res,next){
       })
   }else if(getObjLen(data) === 3){
     console.log('注册提交');
-      let sqlStr_insert = 'INSERT INTO admin (email,userid,password,username) VALUES($1,$2,$3,$4)';
-      let sqlStr_select = 'SELECT username,email FROM admin WHERE username=$1 OR email=$2'; 
+      let sqlStr_insert = 'INSERT INTO users (email,userid,password,username) VALUES($1,$2,$3,$4)';
+      let sqlStr_select = 'SELECT username,email FROM users WHERE username=$1 OR email=$2'; 
       pgdb.query(sqlStr_select,[data.username,data.email],(err,val)=>{
         // console.log(val.rows[0]);
         if(err){
@@ -96,7 +96,7 @@ router.post('/',function(req,res,next){
           msg.error = '邮箱已被注册过';
           msg.val = '点击激活';
           msg.title = 'msg';
-          res.render('msg',{msg});
+          res.render('success',{success});
         }else{
           msg.error = '似乎出了些问题';
           msg.val = '返回登录界面';
@@ -109,7 +109,7 @@ router.post('/',function(req,res,next){
     //发送邮件
     console.log('发送邮件');
     server = data_time.email.split('@')[1].split('.')[0];
-    url = `https://daitianfang.1459.top/check?email=${data_time.email}&username=${data_time.username}&type=back`;
+    url = `https://daitianfang.1459.top/check?email=${data_time.email}&username=${data_time.username}&type=font`;
     const mailTransport = nodemailer.createTransport({
       host : `smtp.${server}.com`,    
       secure: true,

@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var qs = require('querystring');
 var pg = require('pg');
+var url = require('url');
 //数据库基本配置  
 var pgdb = new pg.Pool({
     host: '127.0.0.1',
@@ -10,6 +12,7 @@ var pgdb = new pg.Pool({
     database: 'ACG'
   });
 
+
 router.get('/',(req,res,next)=>{
     res.render('check');
 });
@@ -17,14 +20,30 @@ router.get('/',(req,res,next)=>{
 router.post('/',(req,res,next)=>{
     let data = req.body;
     console.log(data);
-    let sqlStr = 'SELECT username,email FROM admin WHERE username=$1 AND email=$2';
-    let sqlStr_Alter = "UPDATE admin SET state='已激活' WHERE username=$1 AND email=$2";
-    let msg = {
-        error:'',
-        val:'',
-        title:''
+    let queryString = decodeURI(req.url).split('?')[1];
+    let obj = qs.parse(queryString);
+    switch (obj.type){
+        case 'back':{
+            check('admin',data,res);
+            break;
+        }
+        case 'font':{
+            check('users',data,res);
+            break;
+        }
     }
-    pgdb.query(sqlStr,[data.username,data.email],(err,val)=>{
+});
+
+check = (table_name,data,res)=>{
+
+let sqlStr = `SELECT username,email FROM ${table_name} WHERE username=$1 AND email=$2`;
+let sqlStr_Alter = `UPDATE ${table_name} SET state='已激活' WHERE username=$1 AND email=$2`;
+let msg = {
+    error:'',
+    val:'',
+    title:''
+}
+pgdb.query(sqlStr,[data.username,data.email],(err,val)=>{
         if(val.rowCount > 0){
             if(err){
                 console.log(err.message);
@@ -50,6 +69,5 @@ router.post('/',(req,res,next)=>{
             res.render('msg',{msg});
         }
     })
-});
-
+}
 module.exports = router;
