@@ -4,10 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var loginRouter = require('./routes/login_back');
-var pagesRouter = require('./routes/pages');
-var mainRouter = require('./routes/main');
-var checkRouter = require('./routes/check');
+var backloginRouter = require('./routes/login_back');//后台登录注册
+var pagesRouter = require('./routes/pages');//后台页面
+var mainRouter = require('./routes/main');//后台主页
+var checkRouter = require('./routes/check');//邮箱检测
+var fontloginRouter = require('./routes/login');//前端登录注册
 // var personRouter = require('./routes/person');
 // var consumerRouter = require('./routes/consumer');
 // var chapterRouter = require('./routes/chapter');
@@ -26,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', loginRouter);
+app.use('/backlogin', backloginRouter);
 app.use('/pages', pagesRouter);
 app.use('/check',checkRouter);
 app.use('/data/api/main',mainRouter);
