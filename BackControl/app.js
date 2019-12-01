@@ -6,15 +6,9 @@ var logger = require('morgan');
 
 var backloginRouter = require('./routes/login_back');//后台登录注册
 var pagesRouter = require('./routes/pages');//后台页面
-var mainRouter = require('./routes/main');//后台主页
 var checkRouter = require('./routes/check');//邮箱检测
 var fontloginRouter = require('./routes/login');//前端登录注册
-// var personRouter = require('./routes/person');
-// var consumerRouter = require('./routes/consumer');
-// var chapterRouter = require('./routes/chapter');
-// var talkRouter = require('./routes/talk');
-// var ordersRouter = require('./routes/orders');
-// var goodsRouter = require('./routes/goods');
+var apiRouter = require('./routes/api');//api接口
 
 var app = express();
 
@@ -27,16 +21,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/backlogin', backloginRouter);
-app.use('/pages', pagesRouter);
-app.use('/check',checkRouter);
-app.use('/data/api/main',mainRouter);
-// app.use('data/api/person',personRouter);
-// app.use('data/api/consumer',consumerRouter);
-// app.use('data/api/chapter',chapterRouter);
-// app.use('data/api/talk',talkRouter);
-// app.use('data/api/orders',ordersRouter);
-// app.use('data/api/goods',goodsRouter);
+app.use('/admin', backloginRouter);//后台登录
+app.use('/pages', pagesRouter);//后台页面
+app.use('/check',checkRouter);//检测
+app.use('/login',fontloginRouter);//前端登录
+app.use('/data/api',apiRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
