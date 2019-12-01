@@ -5,12 +5,13 @@ var nodemailer = require('nodemailer');
 var md5 = require('md5-node');
 var server = 'qq';
 var url = '';
-
+//msg.html 页面提示信息
 let msg = {
   error:'',
   val:'',
   title:''
 }
+//临时变量
 var data_time;
 //数据库基本配置  
 var pgdb = new pg.Pool({
@@ -29,34 +30,37 @@ router.get('/', function(req, res, next) {
 router.post('/',function(req,res,next){
   let data = req.body;
   console.log(data);
+  //设置头
   res.setHeader('Content-Type','text/html;charset=utf-8');
   if(getObjLen(data) === 2){
     console.log('登录验证');
+    //接入数据库查询
       let sqlStr = 'SELECT username,password,state FROM users WHERE username=$1';
       pgdb.query(sqlStr,[data.username],(err,value) => {
         // console.log(value.rows[0].password);
+        //返回error页面
         if(err){
           msg.error = `似乎出了点问题`;
           msg.val = '返回';
           msg.title = 'Error';
           res.render('msg',{msg});
         }else{
+          //对比信息
           if(value.rowCount > 0){
             if(value.rows[0].password === md5(data.password)&&value.rows[0].username===data.username&&value.rows[0].state==='已激活'){
               console.log(1);
-              res.setHeader('Set-cookie',[`loginStatus=true`]);
-              res.redirect('/pages?page=main');
+              res.setHeader('Set-cookie',[`loginStatus=${md5('true')}`]);
+              res.redirect('/pages');
             }else if(value.rows[0].state==='未激活'){
-              res.setHeader('Set-cookie',[`loginStatus=false`]);
-              // res.render('success',{success:'账号未激活,无法登录'});
-              res.redirect('/pages?page=main');
+              res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
+              res.redirect('/pages');
             }else{
-              res.setHeader('Set-cookie',[`loginStatus=false`]);
-              res.redirect('/pages?page=main');
+              res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
+              res.redirect('/pages');
             }
           }else{
-            res.setHeader('Set-cookie',[`loginStatus=false`]);
-            res.redirect('/pages?page=main');
+            res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
+            res.redirect('/pages');
           }
         }
       })
@@ -111,7 +115,7 @@ router.post('/',function(req,res,next){
     server = data_time.email.split('@')[1].split('.')[0];
     url = `https://daitianfang.1459.top/check?email=${data_time.email}&username=${data_time.username}&type=font`;
     const mailTransport = nodemailer.createTransport({
-      host : `smtp.${server}.com`,    
+      host : `smtp.${server}.com`,
       secure: true,
       auth : { 
         user : 'acg_wiki@qq.com',

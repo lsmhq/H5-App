@@ -12,7 +12,12 @@ var pgdb = new pg.Pool({
     database: 'ACG'
   });
 
-
+let msg = {
+    error:'',
+    val:'',
+    title:'',
+    url:''
+}
 router.get('/',(req,res,next)=>{
     res.render('check');
 });
@@ -24,25 +29,23 @@ router.post('/',(req,res,next)=>{
     let obj = qs.parse(queryString);
     switch (obj.type){
         case 'back':{
-            check('admin',data,res);
+            msg.url = '/admin';
+            check('admin',data,res,msg);
             break;
         }
         case 'font':{
-            check('users',data,res);
+            msg.url = '/login';
+            check('users',data,res,msg);
             break;
         }
     }
 });
 
-check = (table_name,data,res)=>{
+check = (table_name,data,res,msg)=>{
 
 let sqlStr = `SELECT username,email FROM ${table_name} WHERE username=$1 AND email=$2`;
 let sqlStr_Alter = `UPDATE ${table_name} SET state='已激活' WHERE username=$1 AND email=$2`;
-let msg = {
-    error:'',
-    val:'',
-    title:''
-}
+
 pgdb.query(sqlStr,[data.username,data.email],(err,val)=>{
         if(val.rowCount > 0){
             if(err){
