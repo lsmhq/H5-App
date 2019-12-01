@@ -1,5 +1,4 @@
 var express = require('express');
-var qs = require('querystring');
 var router = express.Router();
 var pages = require('../public/json/list.json');
 var md5 = require('md5-node');
@@ -10,7 +9,7 @@ let msg = {
   title:''
 }
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/main', function(req, res, next) {
   var cookie = cookieToObj(req.headers.cookie);
   if(cookie.loginStatus === md5('true')){
     res.render('main',{pages:pages.list});

@@ -12,7 +12,7 @@
 <body>
   <div class="container">
         <div class="header">
-          <img src="/images/logo.png" alt="Logo" width="50px">
+          <img src="/images/logo.png" alt="Logo" width="50px" id = 'logo'>
           <div class="user">
             <span>用户昵称</span>
             <input type="button" value="退出">
@@ -64,13 +64,12 @@
       orders:"订单管理",
       goods:'商品管理'
     }
-    // console.log(w.location.href.split('?')[1].split('=')[1]);
     //标题
     let index = w.location.href.split('/')[w.location.href.split('/').length-1];
     w.onload = ()=>{
       d.getElementsByTagName('title')[0].innerHTML = title[index];
       d.getElementById('title').innerHTML = title[index];
-      d.getElementById(index).style.backgroundColor = 'red';
+      d.getElementById(index).style.color = 'red';
     }
     //搜索
   })(document,window)

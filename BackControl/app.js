@@ -25,7 +25,7 @@ app.use('/admin', backloginRouter);//后台登录
 app.use('/pages', pagesRouter);//后台页面
 app.use('/check',checkRouter);//检测
 app.use('/login',fontloginRouter);//前端登录
-app.use('/data/api',apiRouter);
+app.use('/api/v1',apiRouter);
 
 
 // catch 404 and forward to error handler

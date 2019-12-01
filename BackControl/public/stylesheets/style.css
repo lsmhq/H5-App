@@ -31,8 +31,9 @@ a{
   height: 50px;
   background-color:rgb(65, 65, 65);
 }
-.header>img{
-  margin-left: 35px;
+#logo{
+  float: left;
+  
 }
 .left{
   float: left;

@@ -126,7 +126,25 @@ router.post('/',function(req,res,next){
       from: '784433957@qq.com',
       to: `${data_time.email}`,
       subject: 'acg--账号激活(官方)',
-      html: `<h4>亲爱的< ${data_time.username} >,您已注册成功,点击下方链接进行激活操作,不激活无法正常登录</h4><a href = ${url}>这是一个神秘链接</a>`
+      html: `<div style='background-color:#636363;width: 100%;height: 300px;'>
+	<div style="background-color:#303030;height: 50px;line-height: 50px;">
+		<img src="/images/logo.png" width='45px' style="float: left;margin-left: 2%;margin-top: 1px;border:1px solid pink;>
+		<span style="font-size: 25px;float: left;margin-left: 2%;font-weight: 800;color: #D6D6D6;">账号激活</span>
+	</div>
+	<hr style="height:5px;background-color: white;margin-top: -5px;width: 100%;" />
+	<div style="text-indent: 50px;line-height: 40px;font-family: 'SimHei'">
+		<span style="font-size: 20px;text-indent: 20px;">
+    		亲爱的< ${data_time.username} >,您已注册成功,请尽快点击下方链接进行激活操作,否则系统将自动清除注册信息
+    	</span>
+    	<br/>
+    	<div style="text-align: center; font-family: 'Microsoft Yahei';font-weight: 500;">
+			<a href=${url} style="text-decoration: none;color: #EE5C42;font-size: 20px;width: 100%;margin-top: 10px;display: block;text-decoration-line:underline;">这是一个神秘链接</a>
+    	</div>
+    	<div style="text-align: center; font-family: 'Microsoft Yahei'">
+			<span style="font-size: 10px;margin-top: 10px;color: #BABABA;">@第六开发集团</span>
+    	</div>
+	</div>
+</div>`
     };
     mailTransport.sendMail(mailOptions, (error, info) => {
       if (error) {
