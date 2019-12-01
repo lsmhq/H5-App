@@ -20,7 +20,7 @@
           <div class="left">
              <ul>
                <%- pages.map(item => {
-                  return(`<li class="li" id=${item.id}><a href=/pages?page=${item.id}>${item.name}</a></li>`);
+                  return(`<li class="li" id=${item.id}><a href=/pages/${item.id}>${item.name}</a></li>`);
                }) %>
              </ul>
              <img src="/images/bg3.jpg" alt="bg" width="100%">
@@ -56,11 +56,12 @@
       let index = window.location.href.split('?')[1].split('=')[1];
       document.getElementById(index).style.backgroundColor = 'red';
   }
-  fetch('data/api/main').then(response => response.json()).then(data => {
-    console.log(data.data);
+
+  setInterval(() => {
+    fetch('data/api/main').then(response => response.json()).then(data => {
     var userNum = document.getElementById("userNum");
-    var text1 = document.createTextNode(data.data);
-    userNum.appendChild(text1);
+    userNum.innerHTML = data.data.length;
   });
+  }, 500);
 </script>
 </html>

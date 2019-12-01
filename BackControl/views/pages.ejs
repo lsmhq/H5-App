@@ -22,7 +22,7 @@
           <div class="left">
              <ul>
                <%- data.list.map(item => {
-                  return(`<li class="li" id = ${item.id}><a href=/pages?page=${item.id}>${item.name}</a></li>`);
+                  return(`<li class = "li" id = ${item.id}><a href=/pages/${item.id}>${item.name}</a></li>`);
                }) %>
              </ul>
              <img src="/images/bg3.jpg" alt="bg" width="100%">
@@ -66,14 +66,13 @@
     }
     // console.log(w.location.href.split('?')[1].split('=')[1]);
     //标题
-    let index = w.location.href.split('?')[1].split('=')[1];
+    let index = w.location.href.split('/')[w.location.href.split('/').length-1];
     w.onload = ()=>{
       d.getElementsByTagName('title')[0].innerHTML = title[index];
       d.getElementById('title').innerHTML = title[index];
       d.getElementById(index).style.backgroundColor = 'red';
     }
     //搜索
-
   })(document,window)
 
 </script>
