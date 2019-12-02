@@ -118,8 +118,6 @@ router.post('/',function(req,res,next){
     let sqlStr = 'SELECT username,email FROM admin WHERE username=$1';
     let cookie = cookieToObj(req.headers.cookie);
     pgdb.query(sqlStr,[new Buffer(cookie.username,'base64').toString('utf8')],(err,val)=>{
-      console.log(val.rows);
-      server = val.rows[0].email.split('@')[1].split('.')[0];
       if(err){
         msg.error = '检测到您没有注册';
         msg.val = '返回登录界面';
@@ -127,7 +125,9 @@ router.post('/',function(req,res,next){
         msg.url = '/admin';
         res.render('msg',msg);
       }else{
-        url = `https://daitianfang.1459.top/check?email=${val.rows[0].email}&username=${val.rows[0].username}&type=back`;
+        server = val.rows[0].email.split('@')[1].split('.')[0];
+        let buf = new Buffer(`email=${val.rows[0].email}&username=${val.rows[0].username}&type=back`).toString('base64');
+        url = `https://daitianfang.1459.top/check?${buf}`;
         const mailTransport = nodemailer.createTransport({
           host : `smtp.${server}.com`,    
           secure: true,
@@ -148,7 +148,7 @@ router.post('/',function(req,res,next){
         <hr style="height:5px;background-color: white;margin-top: -5px;width: 100%;" />
         <div style="text-indent: 50px;line-height: 40px;font-family: 'SimHei'">
           <span style="font-size: 20px;text-indent: 20px;">
-              亲爱的< ${val.rows[0].username} >,您已注册成功,请尽快点击下方链接进行激活操作,否则系统将自动清除注册信息
+              亲爱的< ${val.rows[0].username} >,您已注册成功,请尽快点击下方链接进行激活操作,否则系统将于15分钟后自动清除注册信息
             </span>
             <br/>
             <div style="text-align: center; font-family: 'Microsoft Yahei';font-weight: 500;width:100%;">

@@ -19,33 +19,39 @@ let msg = {
     url:''
 }
 router.get('/',(req,res,next)=>{
-    res.render('check');
-});
-
-router.post('/',(req,res,next)=>{
-    let data = req.body;
-    console.log(data);
-    let queryString = decodeURI(req.url).split('?')[1];
-    let obj = qs.parse(queryString);
-    switch (obj.type){
+    let buf = new Buffer(req.url.split('?')[1],'base64');
+    let data = buf.toString('utf8').split("&");
+    let data_obj = arrToObj(data,'=');
+    switch(data_obj.type){
         case 'back':{
-            msg.url = '/admin';
-            check('admin',data,res,msg);
+            check('admin',data_obj,res,msg);
             break;
         }
         case 'font':{
-            msg.url = '/login';
-            check('users',data,res,msg);
+            check('users',data_obj,res,msg);
             break;
         }
     }
 });
 
-check = (table_name,data,res,msg)=>{
+// router.post('/',(req,res,next)=>{
+//     switch (obj.type){
+//         case 'back':{
+//             msg.url = '/admin';
+//             check('admin',data,res,msg);
+//             break;
+//         }
+//         case 'font':{
+//             msg.url = '/login';
+//             check('users',data,res,msg);
+//             break;
+//         }
+//     }
+// });
 
+check = (table_name,data,res,msg)=>{
 let sqlStr = `SELECT username,email FROM ${table_name} WHERE username=$1 AND email=$2`;
 let sqlStr_Alter = `UPDATE ${table_name} SET state='已激活' WHERE username=$1 AND email=$2`;
-
 pgdb.query(sqlStr,[data.username,data.email],(err,val)=>{
         if(val.rowCount > 0){
             if(err){
@@ -53,24 +59,35 @@ pgdb.query(sqlStr,[data.username,data.email],(err,val)=>{
             }else if(data.username === val.rows[0].username && data.email === val.rows[0].email){
                 pgdb.query(sqlStr_Alter,[data.username,data.email],(err,val1)=>{
                     if(val1.rowCount > 0){
-                        msg.error = '激活成功';
-                        msg.val = '跳转登录';
+                        msg.error = '激活成功,请关闭当前页';
                         msg.title = 'Success';
                         res.render('msg',{msg});
+                        return true;
                     }
                 });
             }else{
                 msg.error = '激活失败,请检查注册信息是否正确';
-                msg.val = '重新注册';
                 msg.title = 'Failed';
                 res.render('msg',{msg});
+                return false;
             }
         }else{
             msg.error = '查找不到该信息';
-            msg.val = '重新注册';
             msg.title = 'Lost';
             res.render('msg',{msg});
+            return false;
         }
     })
+}
+//数组->对象
+function arrToObj(arr,sign = '&'){
+    let obj = {};
+    for(let i =0;i<arr.length;i++){
+        let brr = arr[i].split(sign);
+        let attr = brr[0];
+        let val = brr[1];
+        obj[attr] = val;
+    }
+    return obj;
 }
 module.exports = router;

@@ -10,25 +10,23 @@
 </head>
 <body>
     <div id = 'container'>
-        <form method="post">
-            <ul style="margin-left:30%;width:30%">
-                <li><input type="text" name="email" id="email" style="width:100%" readonly></li>
-                <li><input type="text" name="username" id="username" style="width:100%" readonly></li>
-                <li><input type='submit' value = '点击激活' id='check'></li>
+            <ul style="margin-left:30%;width:30%;">
+                <li id='time'>正在激活 · · · </li>
             </ul>
-        </form>
     </div>
 <script>
-    ((d,w)=>{
-        w.onload = ()=>{
-        let email = d.getElementById('email');
-        let username = d.getElementById('username');
-        let data = decodeURI(window.location.href).split('?')[1].split('&');
-        console.log(data);
-        email.value = data[0].split('=')[1];
-        username.value = data[1].split('=')[1];
+    var arr = ['正在激活 · · ·','正在激活 · ·','正在激活 ·'];
+    var i = 0; 
+    let time = setInterval(() => {
+        if(document.getElementById('time').innerHTML === 0){
+            clearInterval(time);
+            return 0;
         }
-    })(document,window)
+        if(i === 3)
+            i=0;
+        document.getElementById('time').innerHTML = arr[i];
+        i++;
+    }, 1000);
 </script>
 </body>
 
