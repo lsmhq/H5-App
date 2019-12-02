@@ -8,6 +8,9 @@
         font-size: 20px;
     }
 }
+body{
+    -webkit-user-select: none;
+}
 #container{
     text-align: center;
 }
