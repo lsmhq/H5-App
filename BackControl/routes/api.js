@@ -39,6 +39,10 @@ router.get('/chapter',(req,res,next)=>{
         let sqlStr = `SELECT * FROM context WHERE contexttype = 'game'`;
         lend(sqlStr,res); 
     }
+    else if(params_obj.type === md5('all')){
+        let sqlStr = 'SELECT * FROM context';
+        lend(sqlStr,res);
+    }
 });
 router.get('/goods',(req,res,next)=>{
     let sqlStr = `SELECT * FROM market`;
@@ -69,8 +73,9 @@ router.post('/person',(req,res,next)=>{
     let sign;
     let work;
     switch(sign){
-        case DLE:
-            let sqlStr = `DELETE FROM users WHERE `
+        
+        case DLE://不合格，DLE应该是字符串
+            let sqlStr = `DELETE FROM users WHERE `;
             break;
         case UPDATA:
             break;
