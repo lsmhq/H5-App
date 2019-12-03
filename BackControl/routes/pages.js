@@ -2,17 +2,23 @@ var express = require('express');
 var router = express.Router();
 var pages = require('../public/json/list.json');
 var md5 = require('md5-node');
-console.log(pages);
+var fetch = require('node-fetch');
+var md5 = require('md5-node');
 let msg = {
   error:'',
   val:'',
   title:''
 }
-/* GET users listing. */
+//首页
 router.get('/main', function(req, res, next) {
   var cookie = cookieToObj(req.headers.cookie);
   if(cookie.loginStatus === md5('true')){
-    res.render('main',{pages:pages.list});
+    api_url = `https://daitianfang.1459.top/api/v1/main`;
+    fetch(api_url).then(req_f => req_f.json()).then(data=>{
+      let data = {list:pages.list,data:pages.data[1]};
+      data.tableData = data.data;
+      res.render('main',{data});
+    });
   }else if(cookie.loginStatus === md5('false')){
     msg = {
       error:'用户名或密码错误',
@@ -25,31 +31,54 @@ router.get('/main', function(req, res, next) {
 });
 
 router.get('/person',(req,res,next)=>{
-  let data = {list:pages.list,data:pages.data[1]}
-  res.render('pages',{data});
-});
+  api_url = `https://daitianfang.1459.top/api/v1/person?${md5('all')}`;
+  fetch(api_url).then(req_f => req_f.json()).then(data=>{
+    let data = {list:pages.list,data:pages.data[1]};
+    data.tableData = data.data;
+    res.render('pages',{data});
+  });
+}); 
+
 router.get('/consumer',(req,res,next)=>{
-  let data = {list:pages.list,data:pages.data[2]}
-  res.render('pages',{data});
+  api_url = `https://daitianfang.1459.top/api/v1/consumer?${md5('all')}`;
+  fetch(api_url).then(req_f => req_f.json()).then(data=>{
+    let data = {list:pages.list,data:pages.data[1]};
+    data.tableData = data.data;
+    res.render('pages',{data});
+  });
 });
+
 router.get('/chapter',(req,res,next)=>{
-  let data = {list:pages.list,data:pages.data[3]}
-  res.render('pages',{data});
+  api_url = `https://daitianfang.1459.top/api/v1/chapter?${md5('all')}`;
+  fetch(api_url).then(req_f => req_f.json()).then(data=>{
+    let data = {list:pages.list,data:pages.data[1]};
+    data.tableData = data.data;
+    res.render('pages',{data});
+  });
 });
 router.get('/talk',(req,res,next)=>{
-  let data = {list:pages.list,data:pages.data[4]}
-  res.render('pages',{data});
+  api_url = `https://daitianfang.1459.top/api/v1/talk?${md5('all')}`;
+  fetch(api_url).then(req_f => req_f.json()).then(data=>{
+    let data = {list:pages.list,data:pages.data[1]};
+    data.tableData = data.data;
+    res.render('pages',{data});                                                                                      
+  });
 });
 router.get('/orders',(req,res,next)=>{
-  let data = {list:pages.list,data:pages.data[5]}
-  res.render('pages',{data});
+  api_url = `https://daitianfang.1459.top/api/v1/orders?${md5('all')}`;
+  fetch(api_url).then(req_f => req_f.json()).then(data=>{
+    let data = {list:pages.list,data:pages.data[1]};
+    data.tableData = data.data;
+    res.render('pages',{data});
+  });
 });
 router.get('/goods',(req,res,next)=>{
-  let data = {list:pages.list,data:pages.data[6]}
-  res.render('pages',{data});
-});
-router.get('/person',(req,res,next)=>{
-  
+  api_url = `https://daitianfang.1459.top/api/v1/goods?${md5('all')}`;
+  fetch(api_url).then(req_f => req_f.json()).then(data=>{
+    let data = {list:pages.list,data:pages.data[1]};
+    data.tableData = data.data;
+    res.render('pages',{data});
+  });
 });
 //解析cookie
 function cookieToObj(cookie){
