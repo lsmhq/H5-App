@@ -13,30 +13,6 @@ var pgdb = new pg.Pool({
     database: 'ACG'
 });
 router.get('/main',(req,res,next)=>{
-<<<<<<< HEAD
-    let sqlStr = `SELECT username FROM users`;
-    let sqlStr_context = `SELECT contextid FROM context`;
-    pgdb.query(sqlStr_context,[],(err,val1)=>{
-        pgdb.query(sqlStr,[],(err,val)=>{
-            if(err || val.rowCount < 0){
-                res.json({status:'1',data:''});
-            }else{
-                res.json({status:'0',data:[{users_num:val.rowCount},{context_num:val1.rowCount}]});
-            }
-        });
-    });
-});
-router.get('/chapter',(req,res,next)=>{
-    let sqlStr = `SELECT * FROM context`;
-    pgdb.query(sqlStr,[],(err,val)=>{
-        if(err || val.rowCount<0){
-            res.json({status:'1',data:'error'});
-        }else{
-            res.json({status:'0',data:''});
-        }
-    });
-
-=======
     let sqlStr_user = `SELECT userid FROM users`;
     let sqlStr_context = `SELECT contextid FROM context`;
     pgdb.query(sqlStr_context,[],(err,val1)=>{
@@ -64,7 +40,6 @@ router.get('/chapter',(req,res,next)=>{
         let sqlStr = `SELECT * FROM context WHERE contexttype = 'game'`;
         lend(sqlStr,res); 
     }
->>>>>>> 1b24e6b1c372957b9a33898dbf17de18a20fabdd
 });
 router.get('/goods',(req,res,next)=>{
     let sqlStr = `SELECT * FROM market`;
