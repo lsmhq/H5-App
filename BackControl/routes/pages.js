@@ -15,7 +15,7 @@ router.get('/main', function(req, res, next) {
   if(cookie.loginStatus === md5('true')){
     api_url = `https://daitianfang.1459.top/api/v1/main`;
     fetch(api_url).then(req_f => req_f.json()).then(data=>{
-      let data = {list:pages.list,data:pages.data[1]};
+      data = {list:pages.list,data:pages.data[1]};
       data.tableData = data.data;
       res.render('main',{data});
     });
@@ -33,7 +33,7 @@ router.get('/main', function(req, res, next) {
 router.get('/person',(req,res,next)=>{
   api_url = `https://daitianfang.1459.top/api/v1/person?${md5('all')}`;
   fetch(api_url).then(req_f => req_f.json()).then(data=>{
-    let data = {list:pages.list,data:pages.data[1]};
+    data = {list:pages.list,data:pages.data[1]};
     data.tableData = data.data;
     res.render('pages',{data});
   });
@@ -42,7 +42,7 @@ router.get('/person',(req,res,next)=>{
 router.get('/consumer',(req,res,next)=>{
   api_url = `https://daitianfang.1459.top/api/v1/consumer?${md5('all')}`;
   fetch(api_url).then(req_f => req_f.json()).then(data=>{
-    let data = {list:pages.list,data:pages.data[1]};
+    data = {list:pages.list,data:pages.data[1]};
     data.tableData = data.data;
     res.render('pages',{data});
   });
@@ -51,7 +51,7 @@ router.get('/consumer',(req,res,next)=>{
 router.get('/chapter',(req,res,next)=>{
   api_url = `https://daitianfang.1459.top/api/v1/chapter?${md5('all')}`;
   fetch(api_url).then(req_f => req_f.json()).then(data=>{
-    let data = {list:pages.list,data:pages.data[1]};
+    data = {list:pages.list,data:pages.data[1]};
     data.tableData = data.data;
     res.render('pages',{data});
   });
@@ -59,7 +59,7 @@ router.get('/chapter',(req,res,next)=>{
 router.get('/talk',(req,res,next)=>{
   api_url = `https://daitianfang.1459.top/api/v1/talk?${md5('all')}`;
   fetch(api_url).then(req_f => req_f.json()).then(data=>{
-    let data = {list:pages.list,data:pages.data[1]};
+    data = {list:pages.list,data:pages.data[1]};
     data.tableData = data.data;
     res.render('pages',{data});                                                                                      
   });
@@ -67,7 +67,7 @@ router.get('/talk',(req,res,next)=>{
 router.get('/orders',(req,res,next)=>{
   api_url = `https://daitianfang.1459.top/api/v1/orders?${md5('all')}`;
   fetch(api_url).then(req_f => req_f.json()).then(data=>{
-    let data = {list:pages.list,data:pages.data[1]};
+    data = {list:pages.list,data:pages.data[1]};
     data.tableData = data.data;
     res.render('pages',{data});
   });
@@ -75,7 +75,7 @@ router.get('/orders',(req,res,next)=>{
 router.get('/goods',(req,res,next)=>{
   api_url = `https://daitianfang.1459.top/api/v1/goods?${md5('all')}`;
   fetch(api_url).then(req_f => req_f.json()).then(data=>{
-    let data = {list:pages.list,data:pages.data[1]};
+    data = {list:pages.list,data:pages.data[1]};
     data.tableData = data.data;
     res.render('pages',{data});
   });
