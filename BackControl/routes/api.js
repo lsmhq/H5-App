@@ -3,7 +3,6 @@ var router = express.Router();
 var pg = require('pg');
 var qs = require('querystring');
 var md5 = require('md5-node');
-var router_params;
 //数据库基本配置  
 var pgdb = new pg.Pool({
     host: '127.0.0.1',
@@ -13,8 +12,8 @@ var pgdb = new pg.Pool({
     database: 'ACG'
 });
 router.get('/main',(req,res,next)=>{
-    let sqlStr_user = `SELECT userid FROM users`;
-    let sqlStr_context = `SELECT contextid FROM context`;
+    let sqlStr_user = `SELECT id FROM users`;
+    let sqlStr_context = `SELECT id FROM context`;
     pgdb.query(sqlStr_context,[],(err,val1)=>{
         pgdb.query(sqlStr_user,[],(err,val)=>{
             if(err || val.rowCount < 0){
@@ -47,18 +46,36 @@ router.get('/goods',(req,res,next)=>{
 });
 router.get('/orders',(req,res,next)=>{
     var params_obj = qs.parse(req.url.split('?')[1]);
-    if(params_obj.sign === rmd5('all')){
+    if(params_obj.type === md5('all')){
         let sqlStr = `SELECT * FROM ordercontent`;
         lend(sqlStr,res);
     }else{
-        let sqlStr = `SELECT * FROM ordercontent WHERE userid = ${params_obj.sign}`;
+        console.log(decodeURI(params_obj.type));
+        let sqlStr = `SELECT * FROM ordercontent WHERE userid = ${params_obj.type}`;
         lend(sqlStr,res);
     }
 });
 router.get('/person',(req,res,next)=>{
-    let sqlStr = `SELECT userid,username,level,rightlevel,email FROM users`;
-    lend(sqlStr,res);
+    var params_obj = qs.parse(req.url.split('?')[1]);
+    if(params_obj.type === md5('all')){
+        let sqlStr = `SELECT id,name,level,email FROM users`;
+        lend(sqlStr,res);
+    }else{
+        let sqlStr = `SELECT * FROM ordercontent WHERE id = ${params_obj.type}`;
+        lend(sqlStr,res);
+    }
 });
+router.post('/person',(req,res,next)=>{
+    let sign;
+    let work;
+    switch(sign){
+        case DLE:
+            let sqlStr = `DELETE FROM users WHERE `
+            break;
+        case UPDATA:
+            break;
+    }
+})
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err || val.rowCount < 0){
