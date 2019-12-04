@@ -9,8 +9,8 @@ export default class Table extends Component {
     }
     inputOnchange = (e)=>{
         let arr = e.target.name.split('#');
-        console.log(arr);
-        console.log(this.state.data);
+        // console.log(arr);
+        // console.log(this.state.data);
         this.state.data.map((item,index)=>{
             if(index == arr[1]){
                 item[arr[0]]=e.target.value
@@ -25,7 +25,6 @@ export default class Table extends Component {
             this.setState({
                 data:data.data
             });
-            console.log(data);
         })    
     }
     render() {
@@ -62,6 +61,7 @@ export default class Table extends Component {
                                 <ul className='ul_inner'>
                                     {
                                         this.props.data.map((item1,index1)=>{
+                                                                                                                                        //item:属性名#item1:属性索引
                                             return(<li className='li_inner' key={index1}><input type='text' name={item1+'#'+index} value={item[item1]} onChange={(e)=>{this.inputOnchange(e)}}/></li>)
                                         })
                                     }

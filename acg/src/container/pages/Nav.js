@@ -12,9 +12,9 @@ export default class Nav extends Component {
         console.log(document.cookie);
         return (
             <div style = {header_style}>
-                <img src='/logo.png' width='50px' style={{marginLeft:'6%'}}/>
+                <img src='/images/logo.png' width='50px' style={{marginLeft:'6%'}}/>
                 <div style={{float:'right'}}>
-                    <span style={{color:'white'}}>{`欢迎${this.cookieToObj(document.cookie).username||'？？？'}登录`}</span>
+                    <span style={{color:'white'}}>{`欢迎< ${decodeURIComponent(atob(this.cookieToObj(document.cookie).username)) ||'？？？'} >登录`}</span>
                     <input type='button' value='退出登录' onClick={this.exit}/>
                 </div>
             </div>
