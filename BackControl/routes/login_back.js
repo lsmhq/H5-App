@@ -45,19 +45,19 @@ router.post('/',function(req,res,next){
           if(value.rowCount > 0){
             if(value.rows[0].password === md5(data.password)&&value.rows[0].username===data.username&&value.rows[0].state==='已激活'){
               console.log(1);
-              res.setHeader('Set-cookie',[`loginStatus=${md5('true')}`,`username=${new Buffer(value.rows[0].username).toString('base64')}`]);
-              res.redirect('/pages');
+              res.setHeader('Set-cookie',[`loginStatus=${md5('true')}`,`username=${new Buffer(encodeURIComponent(value.rows[0].username)).toString('base64')}`]);
+              res.redirect('/pages/#/');
             }else if(value.rows[0].state==='未激活'){
               res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
               // res.render('success',{success:'账号未激活,无法登录'});
-              res.redirect('/pages');
+              res.redirect('/pages/#/');
             }else{
               res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
-              res.redirect('/pages');
+              res.redirect('/pages/#/');
             }
           }else{
             res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
-            res.redirect('/pages');
+            res.redirect('/pages/#/');
           }
         }
       })

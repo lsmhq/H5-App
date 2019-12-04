@@ -11,34 +11,6 @@ router.get('/', function(req, res, next) {
   var cookie = cookieToObj(req.headers.cookie);
   check(res,cookie,msg);
 });
-router.get('/main',(req,res,next)=>{
-  var cookie = cookieToObj(req.headers.cookie);
-  check(res,cookie,msg);
-})
-router.get('/root',(req,res,next)=>{
-  var cookie = cookieToObj(req.headers.cookie);
-  check(res,cookie,msg);
-})
-router.get('/chapter',(req,res,next)=>{
-  var cookie = cookieToObj(req.headers.cookie);
-  check(res,cookie,msg);
-})
-router.get('/goods',(req,res,next)=>{
-  var cookie = cookieToObj(req.headers.cookie);
-  check(res,cookie,msg);
-})
-router.get('/orders',(req,res,next)=>{
-  var cookie = cookieToObj(req.headers.cookie);
-  check(res,cookie,msg);
-})
-router.get('/person',(req,res,next)=>{
-  var cookie = cookieToObj(req.headers.cookie);
-  check(res,cookie,msg);
-})
-router.get('/talk',(req,res,next)=>{
-  var cookie = cookieToObj(req.headers.cookie);
-  check(res,cookie,msg);
-})
 //解析cookie
 function cookieToObj(cookie){
   let obj = {};
