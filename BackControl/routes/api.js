@@ -69,11 +69,34 @@ router.get('/person',(req,res,next)=>{
         lend(sqlStr,res);
     }
 });
+router.get('/admin',(req,res,next)=>{
+    let sqlStr = `SELECT * FROM admin`;
+    lend(sqlStr,res);
+});
+router.get('/talk',(req,res,next)=>{
+    var params_obj = qs.parse(req.url.split('?')[1]);
+    if(params_obj.type === md5('all')){
+        let sqlStr = `SELECT * FROM evaluation`;
+        lend(sqlStr,res);
+    }else{
+        let sqlStr = `SELECT * FROM evaluation WHERE contentid = ${params_obj.type}`;
+        lend(sqlStr,res);
+    }
+});
+router.get('/goods',(req,res,next)=>{
+    var params_obj = qs.parse(req.url.split('?')[1]);
+    if(params_obj.type === md5('all')){
+        let sqlStr = `SELECT * FROM market`;
+        lend(sqlStr,res);
+    }else{
+        let sqlStr = `SELECT * FROM market WHERE id = ${params_obj.type}`;
+        lend(sqlStr,res);
+    }
+})
 router.post('/person',(req,res,next)=>{
     let sign;
     let work;
     switch(sign){
-        
         case DLE://不合格，DLE应该是字符串
             let sqlStr = `DELETE FROM users WHERE `;
             break;
@@ -81,6 +104,7 @@ router.post('/person',(req,res,next)=>{
             break;
     }
 })
+
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err || val.rowCount < 0){
