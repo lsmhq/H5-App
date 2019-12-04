@@ -11,13 +11,13 @@ export default class Body extends Component {
     render() {
         return (
             <div>
-                <Route path='/pages/main' component={Main}/>
-                <Route path='/pages/root' component={Root}/>
-                <Route path='/pages/person' component={Person}/>
-                <Route path='/pages/goods' component={Goods}/>
-                <Route path='/pages/chapter' component={Chapter}/>
-                <Route path='/pages/talk' component={Talk}/>
-                <Route path='/pages/orders' component={Orders}/>
+                <Route path='/' exact component={Main}/>
+                <Route path='/root' component={Root}/>
+                <Route path='/person' component={Person}/>
+                <Route path='/goods' component={Goods}/>
+                <Route path='/chapter' component={Chapter}/>
+                <Route path='/talk' component={Talk}/>
+                <Route path='/orders' component={Orders}/>
             </div>
         )
     }

@@ -7,8 +7,18 @@ export default class Table extends Component {
             inputVal:''
         }
     }
-    input = (e)=>{
-        
+    inputOnchange = (e)=>{
+        let arr = e.target.name.split('#');
+        console.log(arr);
+        console.log(this.state.data);
+        this.state.data.map((item,index)=>{
+            if(index == arr[1]){
+                item[arr[0]]=e.target.value
+            }
+        })
+        this.setState({
+            data:this.state.data
+        })
     }
     componentDidMount(){
         fetch(this.props.url || 'null').then(req=>req.json()).then(data=>{
@@ -47,15 +57,15 @@ export default class Table extends Component {
                         </ul>
                     </li>
                     {
-                        this.state.data.map(item=>{
+                        this.state.data.map((item,index)=>{
                             return(
                                 <ul className='ul_inner'>
                                     {
-                                        this.props.data.map(item1=>{
-                                            return(<li className='li_inner' key={item[item1]||' '}><input type='text' value={item[item1]||' '}/></li>)
+                                        this.props.data.map((item1,index1)=>{
+                                            return(<li className='li_inner' key={index1}><input type='text' name={item1+'#'+index} value={item[item1]} onChange={(e)=>{this.inputOnchange(e)}}/></li>)
                                         })
                                     }
-                                    <li className='li_inner' key={`submit${Math.random()*10000}`}>
+                                    <li className='li_inner' key={item+index}>
                                         <form method='POST'>
                                             <input type='submit' value='提交' id='alter' name='alter'/>
                                             <input type='submit' value='删除' id='delete' name='delete'/>
