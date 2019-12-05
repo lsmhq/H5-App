@@ -43,10 +43,6 @@ router.get('/chapter',(req,res,next)=>{
         lend(sqlStr,res);
     }
 });
-router.get('/goods',(req,res,next)=>{
-    let sqlStr = `SELECT * FROM market`;
-    lend(sqlStr,res);
-});
 router.get('/orders',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
     if(params_obj.id === ('all')){
