@@ -64,7 +64,7 @@ router.get('/person',(req,res,next)=>{
         let sqlStr = `SELECT id,name,level,email FROM users`;
         lend(sqlStr,res);
     }else{
-        let sqlStr = `SELECT * FROM ordercontent WHERE id = ${decodeURIComponent(params_obj.id)}`;
+        let sqlStr = `SELECT * FROM users WHERE id = ${params_obj.id}`;
         lend(sqlStr,res);
     }
 });
