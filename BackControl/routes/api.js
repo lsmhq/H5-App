@@ -54,7 +54,7 @@ router.get('/orders',(req,res,next)=>{
         lend(sqlStr,res);
     }else{
         console.log(decodeURI(params_obj.type));
-        let sqlStr = `SELECT * FROM ordercontent WHERE userid = ${params_obj.id}`;
+        let sqlStr = `SELECT * FROM ordercontent WHERE userid = '${decodeURIComponent(params_obj.id)}'`;
         lend(sqlStr,res);
     }
 });
@@ -64,7 +64,9 @@ router.get('/person',(req,res,next)=>{
         let sqlStr = `SELECT id,name,level,email FROM users`;
         lend(sqlStr,res);
     }else{
-        let sqlStr = `SELECT * FROM users WHERE id = ${params_obj.id}`;
+        console.log(params_obj);
+        console.log(typeof params_obj.id);
+        let sqlStr = `SELECT * FROM users WHERE id = '${decodeURIComponent(params_obj.id)}'`;
         lend(sqlStr,res);
     }
 });
@@ -78,17 +80,19 @@ router.get('/talk',(req,res,next)=>{
         let sqlStr = `SELECT * FROM evaluation`;
         lend(sqlStr,res);
     }else{
-        let sqlStr = `SELECT * FROM evaluation WHERE contentid = ${params_obj.id}`;
+        let sqlStr = `SELECT * FROM evaluation WHERE contentid = '${decodeURIComponent(params_obj.id)}'`;
         lend(sqlStr,res);
     }
 });
 router.get('/goods',(req,res,next)=>{
     var params_obj = qs.parse(req.url.split('?')[1]);
+    console.log(params_obj);
     if(params_obj.id === ('all')){
         let sqlStr = `SELECT * FROM market`;
         lend(sqlStr,res);
     }else{
-        let sqlStr = `SELECT * FROM market WHERE id = ${params_obj.id}`;
+        console.log(params_obj.id);
+        let sqlStr = `SELECT * FROM market WHERE id = '${(params_obj.id)}'`;
         lend(sqlStr,res);
     }
 })
@@ -109,7 +113,7 @@ router.post('/chapter',(req,res,next)=>{
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err || val.rowCount < 0){
-            console.log(err.message);
+            console.log(err);
             res.json({status:'1',data:'error'});
         }else{
             res.json({status:'0',data:val.rows});
