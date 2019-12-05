@@ -98,7 +98,7 @@ router.get('/goods',(req,res,next)=>{
             lend(sqlStr,res);
         }
     }
-})
+});
 router.post('/person',(req,res,next)=>{
     let data = req.body;
     console.log(data);
