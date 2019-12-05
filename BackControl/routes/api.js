@@ -25,7 +25,7 @@ router.get('/main',(req,res,next)=>{
 });
 
 router.get('/chapter',(req,res,next)=>{
-    var params_obj = qs.parse(req.url.split('?')[1]);
+    let params_obj = qs.parse(req.url.split('?')[1]);
     if(params_obj.type == 'animation'){
         let sqlStr = `SELECT * FROM context WHERE contexttype = 'animation'`;
         lend(sqlStr,res);            
@@ -48,7 +48,7 @@ router.get('/goods',(req,res,next)=>{
     lend(sqlStr,res);
 });
 router.get('/orders',(req,res,next)=>{
-    var params_obj = qs.parse(req.url.split('?')[1]);
+    let params_obj = qs.parse(req.url.split('?')[1]);
     if(params_obj.id === ('all')){
         let sqlStr = `SELECT * FROM ordercontent`;
         lend(sqlStr,res);
@@ -59,7 +59,7 @@ router.get('/orders',(req,res,next)=>{
     }
 });
 router.get('/person',(req,res,next)=>{
-    var params_obj = qs.parse(req.url.split('?')[1]);
+    let params_obj = qs.parse(req.url.split('?')[1]);
     if(params_obj.id === ('all')){
         let sqlStr = `SELECT id,name,level,email FROM users`;
         lend(sqlStr,res);
@@ -75,7 +75,7 @@ router.get('/admin',(req,res,next)=>{
     lend(sqlStr,res);
 });
 router.get('/talk',(req,res,next)=>{
-    var params_obj = qs.parse(req.url.split('?')[1]);
+    let params_obj = qs.parse(req.url.split('?')[1]);
     if(params_obj.id === ('all')){
         let sqlStr = `SELECT * FROM evaluation`;
         lend(sqlStr,res);
@@ -85,7 +85,7 @@ router.get('/talk',(req,res,next)=>{
     }
 });
 router.get('/goods',(req,res,next)=>{
-    var params_obj = qs.parse(req.url.split('?')[1]);
+    let params_obj = qs.parse(req.url.split('?')[1]);
     console.log(params_obj);
     if(params_obj.id === ('all')){
         let sqlStr = `SELECT * FROM market`;
