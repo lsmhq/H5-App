@@ -84,7 +84,6 @@ router.get('/goods',(req,res,next)=>{
     console.log('goods');
     let params_obj = qs.parse(req.url.split('?')[1]);
     console.log(params_obj);
-    if(params_obj.id){
         if(params_obj.id === ('all')){
             let sqlStr = `SELECT * FROM market`;
             lend(sqlStr,res);
@@ -93,7 +92,6 @@ router.get('/goods',(req,res,next)=>{
             let sqlStr = `SELECT * FROM market WHERE id = '${(params_obj.id)}'`;
             lend(sqlStr,res);
         }
-    }
 });
 router.post('/person',(req,res,next)=>{
     let data = req.body;
