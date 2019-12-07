@@ -6,9 +6,10 @@ export default class App extends Component {
     render() {
         return (
             <Router>
-                <Route path='/pages' component={Pages}/>
                 <Route path='/login' component={Login}/>
+                <Route path='/pages' component={Pages}/>
             </Router>
         )
     }
+
 }
