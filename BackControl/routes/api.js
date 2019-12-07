@@ -43,6 +43,30 @@ router.get('/chapter',(req,res,next)=>{
         lend(sqlStr,res);
     }
 });
+//文章修改接口
+router.post('/chapter',(req,res,next)=>{
+    let data = req.body;
+    switch (data.type) {
+        case 'del':{
+            sqlStr = `DELETE FROM context WHERE userid = '${data.contentid}'`
+            del(sqlStr,res);
+            break;
+        }
+        case 'update':{
+            sqlStr =  `UPDATE admin SET userid = '${data.userid}',email = '${data.email}',username = '${data.username}',character = '${data.character}' WHERE userid='${data.userid}'`;
+            update(sqlStr,res);
+            break;
+        }
+        case 'insert':{
+            insert(sqlStr,res);
+            break;
+        }
+        case 'select':{
+            select(sqlStr,res);
+            break;
+        }
+    }
+});
 router.get('/orders',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
     if(params_obj.id === ('all')){
@@ -69,6 +93,33 @@ router.get('/person',(req,res,next)=>{
 router.get('/admin',(req,res,next)=>{
     let sqlStr = `SELECT * FROM admin`;
     lend(sqlStr,res);
+});
+//管理员接口
+router.post('/admin',(req,res,next)=>{
+    let data = req.body;
+    console.log(getObjLen(data));
+    console.log(data);
+    var sqlStr;
+    switch (data.type) {
+        case 'del':{
+            sqlStr = `DELETE FROM admin WHERE userid = '${data.userid}'`
+            del(sqlStr,res);
+            break;
+        }
+        case 'update':{
+            sqlStr =  `UPDATE admin SET userid = '${data.userid}',email = '${data.email}',username = '${data.username}',character = '${data.character}' WHERE userid='${data.userid}'`;
+            update(sqlStr,res);
+            break;
+        }
+        case 'insert':{
+            insert(sqlStr,res);
+            break;
+        }
+        case 'select':{
+            select(sqlStr,res);
+            break;
+        }
+    }
 });
 router.get('/talk',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
@@ -109,7 +160,7 @@ router.post('/chapter',(req,res,next)=>{
 });
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
-        if(err || val.rowCount < 0){
+        if(err || val.rowCount <= 0){
             console.log(err);
             res.json({status:'1',data:'error'});
         }else{
@@ -117,4 +168,34 @@ function lend(sqlStr,res){
         }
     });
 }
+
+//对象元素个数
+function getObjLen(obj){
+    let i = 0;
+    for(let j in obj) {
+        i++;
+    }
+    return i;
+  }
+
+  //删除
+let del = (sqlStr,res)=>{
+    pgdb.query(sqlStr,[],(err,val)=>{
+        if(err || val.rowCount <= 0){
+            res.send('error:');
+        }else{
+            res.send('success');
+        }
+    });
+  }
+  //更新数据
+  let update = (sqlStr,res)=>{
+    pgdb.query(sqlStr,[],(err,val)=>{
+        if(err || val.rowCount <= 0){
+            res.send('error:');
+        }else{
+            res.send('success');
+        }
+    });
+  }
 module.exports = router;
