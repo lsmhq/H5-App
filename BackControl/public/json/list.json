@@ -1,0 +1,53 @@
+ {
+     "list":[
+        {
+            "name":"首页",
+            "id":"main"
+          },{
+            "name":"人员管理",
+            "id":"person"
+          },{
+            "name":"客户管理",
+            "id":"consumer"
+          },{
+            "name":"文章管理",
+            "id":"chapter"
+          },{
+            "name":"评论管理",
+            "id":"talk"
+          },{
+            "name":"订单管理",
+            "id":"orders"
+          },{
+            "name":"商品管理",
+            "id":"goods"
+          }
+     ],
+     "data":[
+         {
+            "name":"main"
+
+         },{
+             "name":"person",
+             "table":["ID","用户名","权限","联系方式","操作"]
+         },{
+             "name":"consumer",
+             "table":["ID","用户名","签名","密码","操作"]
+         },{
+             "name":"chapter",
+             "table":["ID","标题","作者","发表日期","操作"]
+         },{
+             "name":"talk",
+             "table":["用户名","内容","文章","日期","操作"]
+         },{
+             "name":"orders",
+             "table":["ID","商品","时间","状态","操作"]
+         },{
+             "name":"goods",
+             "table":["ID","库存","商品名","状态","操作"]
+         }
+     ]
+ }
+ 
+ 
+ 
