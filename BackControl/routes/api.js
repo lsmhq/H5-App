@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
+var formidable = require('formidable');
+var md5 = require('md5-node');
 var qs = require('querystring');
 //数据库基本配置  
 var pgdb = new pg.Pool({
@@ -48,20 +50,22 @@ router.post('/chapter',(req,res,next)=>{
     let data = req.body;
     switch (data.type) {
         case 'del':{
-            sqlStr = `DELETE FROM context WHERE userid = '${data.contentid}'`
+            sqlStr = `DELETE FROM context WHERE id = '${data.id}'`;
             del(sqlStr,res);
             break;
         }
         case 'update':{
-            sqlStr =  `UPDATE admin SET userid = '${data.userid}',email = '${data.email}',username = '${data.username}',character = '${data.character}' WHERE userid='${data.userid}'`;
+            sqlStr =  `UPDATE context SET id = '${data.id}',title = '${data.title}',auther = '${data.auther}',timetamp = '${data.timetamp}' WHERE id='${data.id}'`;
             update(sqlStr,res);
             break;
         }
         case 'insert':{
+            sqlStr = `INSERT INTO context VALUES(${strRandom(10)},${data.contexttype},${data.autherid},${data.auther},${data.context},${data.good||'0'},${data.visit||'0'},${data.collect||'0'},${data.evaluationnum},${data.timetamp},${data.title})`;
             insert(sqlStr,res);
             break;
         }
         case 'select':{
+            sqlStr = `SELECT * from context WHERE title LIKE'%${data.search||''}%' OR id='${data.search}' OR auther LIKE '%${data.search}%'`;
             select(sqlStr,res);
             break;
         }
@@ -78,6 +82,32 @@ router.get('/orders',(req,res,next)=>{
         lend(sqlStr,res);
     }
 });
+router.post('/orders',(req,res,next)=>{
+    let data = req.body;
+    switch (data.type) {
+        case 'select':{
+            let sqlStr = `SELECT * FROM ordercontent WHERE id = '${data.id}' OR username LIKE '%${data.username}%' OR commodityid='${data.commodityid}'`;
+            select(sqlStr,res);
+            break;
+        }case 'del':{
+            let sqlStr = `DELETE FROM ordercontent WHERE id = '${data.id}'`;
+            del(sqlStr,res);
+            break;
+        }case 'update':{
+            let sqlStr = `UPDATE ordercontent SET id = '${data.id}',price = '${data.price}',username = '${data.username}',logistics = '${data.logistics}' `;
+            update(sqlStr,res);
+            break;
+        }case 'insert':{
+            let sqlStr ;
+            break;
+        }
+            
+            
+    
+        default:
+            break;
+    }
+})
 router.get('/person',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
     if(params_obj.id === ('all')){
@@ -90,6 +120,26 @@ router.get('/person',(req,res,next)=>{
         lend(sqlStr,res);
     }
 });
+router.post('/person',(req,res,next)=>{
+    let data = req.body;
+    console.log(data);
+    switch (data.type) {
+        case 'del':{
+            let sqlStr = `DELETE FROM users WHERE id='${data.id}'`;
+            console.log(sqlStr);
+            del(sqlStr,res);
+            break; 
+        }case 'update':{
+            let sqlStr =  `UPDATE users SET id='${data.id}',name='${data.name}',level='${data.level},email='${data.email}'`;
+            update(sqlStr,res);
+            break;
+        }case "select":{
+            let sqlStr = `SELECT * FROM users WHERE name LIKE '%${data.search}%'`;
+            select(sqlStr,res);
+            break;
+        }
+    }
+})
 router.get('/admin',(req,res,next)=>{
     let sqlStr = `SELECT * FROM admin`;
     lend(sqlStr,res);
@@ -102,21 +152,13 @@ router.post('/admin',(req,res,next)=>{
     var sqlStr;
     switch (data.type) {
         case 'del':{
-            sqlStr = `DELETE FROM admin WHERE userid = '${data.userid}'`
+            sqlStr = `DELETE FROM admin WHERE userid = '${data.userid}'`;
             del(sqlStr,res);
             break;
         }
         case 'update':{
             sqlStr =  `UPDATE admin SET userid = '${data.userid}',email = '${data.email}',username = '${data.username}',character = '${data.character}' WHERE userid='${data.userid}'`;
             update(sqlStr,res);
-            break;
-        }
-        case 'insert':{
-            insert(sqlStr,res);
-            break;
-        }
-        case 'select':{
-            select(sqlStr,res);
             break;
         }
     }
@@ -144,27 +186,39 @@ router.get('/goods',(req,res,next)=>{
             lend(sqlStr,res);
         }
 });
-router.post('/person',(req,res,next)=>{
+router.post('/goods',(req,res,next)=>{
     let data = req.body;
     console.log(data);
-    switch(sign){
-        case DLE://不合格，DLE应该是字符串
-            let sqlStr = `DELETE FROM users WHERE `;
+    switch (data.type) {
+        case 'select':{
+            let sqlStr = `SELECT * FROM market WHERE id = '${data.search}' OR name LIKE '%${data.search}%'`;
+            select(sqlStr,res);
             break;
-        case UPDATA:
+        }case 'del':{
+            let sqlStr = `DELETE FROM market WHERE id = '${data.id}'`;
+            del(sqlStr,res);
             break;
+        }case 'insert':{
+            let sqlStr = `INSERT INTO market VALUES(${data.id},${data.name},${data.path||'?'},${data.price},${data.source||'？'},${data.brand ||'?'},${data.evaluation||'?'},${data.collect})`;
+            insert(sqlStr,res);
+            break;
+        }case 'update':{
+            let sqlStr = `UPDATE market SET id='${data.id}',name='${data.name}',price='${data.price}',collect='${data.collect}' WHERE id = '${data.id}'`;
+            update(sqlStr,res);
+            break;
+        }
     }
-})
-router.post('/chapter',(req,res,next)=>{
-
 });
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
-        if(err || val.rowCount <= 0){
+        if(err){
             console.log(err);
             res.json({status:'1',data:'error'});
         }else{
-            res.json({status:'0',data:val.rows});
+            if(val.rowCount<=0)
+                res.json({status:'0',data:[]})
+            else
+                res.json({status:'0',data:val.rows});
         }
     });
 }
@@ -181,21 +235,73 @@ function getObjLen(obj){
   //删除
 let del = (sqlStr,res)=>{
     pgdb.query(sqlStr,[],(err,val)=>{
-        if(err || val.rowCount <= 0){
+        if(err){
+            console.log(err.message);
             res.send('error:');
         }else{
-            res.send('success');
+            if(val.rowCount<=0){
+                res.send(JSON.stringify([]));
+            }else{
+                res.send('success');
+            }
+            
         }
     });
   }
   //更新数据
   let update = (sqlStr,res)=>{
     pgdb.query(sqlStr,[],(err,val)=>{
-        if(err || val.rowCount <= 0){
-            res.send('error:');
+        if(err){
+            console.log(err.message);
+            res.send('error');
         }else{
-            res.send('success');
+            if(val.rowCount <= 0){
+                res.send('可能存在外部约束');
+            }else{
+                res.send('success');
+            }
         }
     });
+  }
+//插入
+let insert = (sqlStr,res)=>{
+    pgdb.query(sqlStr,[],(err,val)=>{
+        if(err){
+            console.log(err.message);
+            res.send('error');
+        }else{
+            if(val.rowCount<=0){
+                res.send(JSON.stringify([]))
+            }else{
+                res.send('success');
+            }
+        }
+    })
+}
+//查询
+let select = (sqlStr,res)=>{
+    pgdb.query(sqlStr,[],(err,val)=>{
+        if(err){
+            console.log(err.message);
+            res.send('error');
+        }else{
+            if(val.rowCount<=0){
+                res.send(JSON.stringify([]))
+            }else{
+                console.log(val.rows);
+                res.send(JSON.stringify(val.rows));
+            }
+        }
+    })
+}
+
+  //随机字符串
+function strRandom(j){
+    var str = 'ABCDEFGHIGKLMNOPQRSTUVWXYZabcdefghigklmnopqrstuvwxyz123456789';
+    var outStr = '';
+    for(let i =0;i<j;i++){
+      outStr += str[parseInt(Math.random()*str.length-1)];
+    }
+    return outStr;
   }
 module.exports = router;
