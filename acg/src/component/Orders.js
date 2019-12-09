@@ -6,7 +6,7 @@ export default class Orders extends Component {
         return (
             <div>
                 <Header title='订单管理'/>
-                <Table title={["ID","商品ID","用户名","状态","操作"]} url='https://daitianfang.1459.top/api/v1/orders?type=all' data={['id','commodityid','username','logistics']} type='orders'/>
+                <Table title={["ID","价格","用户名","状态","操作"]} url='https://daitianfang.1459.top/api/v1/orders?id=all' data={['id','price','username','logistics']} type='orders'/>
             </div>
         )
     }

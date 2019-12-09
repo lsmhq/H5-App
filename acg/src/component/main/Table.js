@@ -4,13 +4,12 @@ export default class Table extends Component {
         super();
         this.state = {
             data:[],
-            inputVal:''
+            inputVal:'',
+            addVal:''
         }
     }
     inputOnchange = (e)=>{
         let arr = e.target.name.split('#');
-        // console.log(arr);
-        // console.log(this.state.data);
         this.state.data.map((item,index)=>{
             if(index == arr[1]){
                 item[arr[0]]=e.target.value
@@ -28,6 +27,7 @@ export default class Table extends Component {
     }
     fetchData = ()=>{
         fetch(this.props.url || 'null').then(req=>req.json()).then(data=>{
+            console.log(data.data);
             this.setState({
                 data:data.data
             });
@@ -56,7 +56,7 @@ export default class Table extends Component {
                             <li className='li_inner_form' key={`search${Math.random()*10000}`}>
                                 <form method='POST'>
                                     <input type='search' placeholder='搜索' style={{position:'relative'}} id='search' name='search'/>
-                                    <input type='submit' value='搜索' id='search_btn'/>
+                                    <input type='button' value='搜索' id='search_btn' onClick={(e)=>{this.fetch_select(e)}}/>
                                 </form>
                             </li>
                         </ul>
@@ -67,8 +67,7 @@ export default class Table extends Component {
                                 <ul className='ul_inner'>
                                     <form method='POST'>
                                     {
-                                        this.props.data.map((item1,index1)=>{
-                                                                                                                                        //item:属性名#item1:属性索引
+                                        this.props.data.map((item1,index1)=>{                                                                                                                              //item:属性名#item1:属性索引
                                             return(<li className='li_inner' key={index1}><input type='text' name={item1+'#'+index} value={item[item1]} onChange={(e)=>{this.inputOnchange(e)}}/></li>)
                                         })
                                     }
@@ -77,7 +76,7 @@ export default class Table extends Component {
                                             <input type='button' value='删除' id='delete' name={`delete#${index}`} onClick={(e)=>{this.fetch_del(e)}}/>
                                     </li> 
                                 </form>
-                                </ul>    
+                                </ul>
                             )
                         })
                     }
@@ -103,6 +102,7 @@ export default class Table extends Component {
                 },mode:"cors",
                 body: JSON.stringify(data)
               }).then(req=>req.text()).then(data=>{
+                  console.log(data);
                   if(data === 'success'){
                     this.fetchData();
                   }
@@ -130,10 +130,28 @@ export default class Table extends Component {
                 },mode:"cors",
                 body: JSON.stringify(data)
               }).then(res=>res.text()).then((data)=>{
-                  console.log(data);
+                console.log(data);
+                this.fetchData();
               })
         }else{
             return 0;
         }
     }
+    fetch_select = (e)=>{
+        let data = {
+            search:document.getElementById('search').value
+        };
+        data.type = 'select';
+        fetch(`https://daitianfang.1459.top/api/v1/${this.props.type}`,{
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },mode:"cors",
+            body: JSON.stringify(data)
+        }).then(req=>req.json()).then(data=>{
+            this.setState({
+                data:data
+            })
+        })
+    }   
 }
