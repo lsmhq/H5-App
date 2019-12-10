@@ -3,7 +3,6 @@ var router = express.Router();
 var pg = require('pg');
 var nodemailer = require('nodemailer');
 var md5 = require('md5-node');
-var server = 'qq';
 var url = '';
 //数据库基本配置  
 var pgdb = new pg.Pool({
@@ -51,11 +50,6 @@ router.post('/',function(req,res,next){
     console.log('注册提交');
       let sqlStr_insert = 'INSERT INTO users (email,id,password,name) VALUES($1,$2,$3,$4)';
       let sqlStr_select = 'SELECT name,email FROM users WHERE name=$1 OR email=$2'; 
-      let test = /@qq.com/;
-      if(test.test(data.email)===false){
-        console.log(data.email);
-        res.send('请检查邮箱地址格式');
-      }else{
         pgdb.query(sqlStr_select,[data.username,data.email],(err,val)=>{
           if(err){
             res.send('db is error');
@@ -81,22 +75,18 @@ router.post('/',function(req,res,next){
           }
           }
         })
-      }
   }else if(data.type==='check'){
     //发送邮件
     console.log('发送邮件');
-    
     let sqlStr = 'SELECT name,email FROM users WHERE name=$1';
     pgdb.query(sqlStr,[data.username],(err,val)=>{
       if(err){
         res.send('error');
       }else{
-        let gba;
-        server = val.rows[0].email.split('@')[1].split('.')[0];
         let buf = new Buffer(`email=${val.rows[0].email}&username=${val.rows[0].name}`).toString('base64');
         url = `https://daitianfang.1459.top/check?${buf}`;
         const mailTransport = nodemailer.createTransport({
-          host : `smtp.${server}.com`,    
+          host : `smtp.qq.com`,    
           secure: true,
           auth : { 
             user : 'acg_wiki@qq.com',
@@ -115,7 +105,7 @@ router.post('/',function(req,res,next){
         <hr style="height:5px;background-color: white;margin-top: -5px;width: 100%;" />
         <div style="text-indent: 50px;line-height: 40px;font-family: 'SimHei'">
           <span style="font-size: 20px;text-indent: 20px;">
-              亲爱的< ${val.rows[0].name} >,您已注册成功,请尽快点击下方链接进行激活操作,否则系统将于15分钟后自动清除注册信息
+              亲爱的< ${val.rows[0].name} >,您已注册成功,请尽快点击下方链接进行激活操作,否则系统将于24小时后自动清除未激活信息
             </span>
             <br/>
             <div style="text-align: center; font-family: 'Microsoft Yahei';font-weight: 500;width:100%;">

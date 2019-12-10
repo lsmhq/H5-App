@@ -43,6 +43,9 @@ router.get('/chapter',(req,res,next)=>{
     else if(params_obj.type == 'all'){
         let sqlStr = 'SELECT * FROM context';
         lend(sqlStr,res);
+    }else{
+        let sqlStr = `SELECT * FROM context WHERE id = '${params_obj.type}'`;
+        lend(sqlStr,res);
     }
 });
 //文章修改接口
