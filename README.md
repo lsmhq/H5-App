@@ -1,4 +1,4 @@
-# 实训说明
+﻿# 实训说明
 <div style='text-align:center'>
 	<img src="https://github.com/daifang/H5-App/blob/master/img/Logo-%E5%A4%A7.png" alt="Sample"  width="140" height="140" />
 	<p>
@@ -71,14 +71,22 @@
 * #### 2019-12-4
 	* ##### 上午完善各个接口 -- daifang
 	* ##### 下午将后台管理系统部署到服务器,并实现Input可输入更改 -- daifang
+<<<<<<< HEAD
 * #### 2019-12-9
     * ##### 在部分数据库填写了数据
+=======
+>>>>>>> f1988bf216a7f4281baaaebb2d49865600ad5f1f
 * #### 2019-12-6
     * ##### 晚上完成所有数据接口 -- daifang
 * #### 2019-12-7
     * ##### 完成admin的删除和修改信息功能 -- daifang
 * #### 2019-12-9
     * ##### 完成所有改数据删数据查询数据功能post接口 -- daifang
+<<<<<<< HEAD
+=======
+* #### 2019-12-9
+    * ##### 在部分数据库填写了数据
+>>>>>>> f1988bf216a7f4281baaaebb2d49865600ad5f1f
 ## 前端进度
 
 * #### 
