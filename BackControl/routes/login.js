@@ -22,100 +22,74 @@ var pgdb = new pg.Pool({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('login');
+  res.render('fontIndex');
 });
 //登录验证
 router.post('/',function(req,res,next){
   let data = req.body;
   console.log(data);
-  if(getObjLen(data) === 2){
+  if(data.type==='login'){
     console.log('登录验证');
       let sqlStr = 'SELECT username,password,state FROM users WHERE username=$1';
       pgdb.query(sqlStr,[data.username],(err,value) => {
         // console.log(value.rows[0].password);
         if(err){
-          msg.error = `似乎出了点问题`;
-          msg.val = '返回';
-          msg.title = 'Error';
-          msg.url = '/admin';
-          res.render('msg',{msg});
+          res.send('db is error');
         }else{
           if(value.rowCount > 0){
             if(value.rows[0].password === md5(data.password)&&value.rows[0].username===data.username&&value.rows[0].state==='已激活'){
-              console.log(1);
               res.setHeader('Set-cookie',[`loginStatus=${md5('true')}`,`username=${new Buffer(encodeURIComponent(value.rows[0].username)).toString('base64')}`]);
+              res.send('success');
             }else if(value.rows[0].state==='未激活'){
               res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
+              res.send('error');
             }else{
               res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
+              res.send('error');
             }
           }else{
             res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
+            res.send('error');
           }
         }
       })
-  }else if(getObjLen(data) === 3){
+  }else if(data.type==='logup'){
     console.log('注册提交');
       let sqlStr_insert = 'INSERT INTO users (email,userid,password,username) VALUES($1,$2,$3,$4)';
       let sqlStr_select = 'SELECT username,email FROM users WHERE username=$1 OR email=$2'; 
       pgdb.query(sqlStr_select,[data.username,data.email],(err,val)=>{
         if(err){
-          msg.error = '后台又双叒叕炸了';
-          msg.val = '稍后再试';
-          msg.title = 'Error';
-          msg.url = '/admin';
-          res.render('msg',{msg});
+          res.send('db is error');
         }else{
           if (val.rowCount <= 0){
             // console.log(val);
             pgdb.query(sqlStr_insert,[data.email+'',strRandom(10),md5(data.pwd[0]+''),data.username+''],(err,val1)=>{
               // console.log(val1);
               if(err){
-                msg.error = '后台又双叒叕炸了';
-                msg.val = '稍后再试';
-                msg.title = 'Error';
-                msg.url = '/admin';
-                res.render('msg',{msg});
-                // console.log(err.message);
+                res.send('error');
               }else if(val1.rowCount > 0){
                 console.log(val1.rows);
-                res.setHeader('Set-cookie',[`username=${new Buffer(data.username).toString('base64')}`]);
-                res.render('success',{success:'注册成功,点击下方激活'});
+                res.send('success');
               }
           });
         }else if(val.rows[0].username === data.username){
-          msg.error = '用户名已存在';
-          msg.val = '返回登录界面';
-          msg.title = 'msg';
-          msg.url = '/admin';
-          res.render('msg',{msg});
+          res.send('用户名已存在');
         }else if(val.rows[0].email === data.email){
-          msg.error = '邮箱已被注册过';
-          msg.val = '点击激活';
-          msg.title = 'msg';
-          res.render('msg',{msg});
+          res.send('邮箱已被注册');
         }else{
-          msg.error = '似乎出了些问题';
-          msg.val = '返回登录界面';
-          msg.title = 'msg';
-          msg.url = '/admin';
-          res.render('msg',{msg});
+          res.send('似乎出了些错误');
         }
         }
       })
-  }else if(getObjLen(data) === 0){
+  }else if(data.type==='check'){
     //发送邮件
     console.log('发送邮件');
     
-    let sqlStr = 'SELECT username,email FROM admin WHERE username=$1';
+    let sqlStr = 'SELECT username,email FROM users WHERE username=$1';
     let cookie = cookieToObj(req.headers.cookie);
     pgdb.query(sqlStr,[new Buffer(cookie.username,'base64').toString('utf8')],(err,val)=>{
       if(err){
-        msg.error = '检测到您没有注册';
-        msg.val = '返回登录界面';
-        msg.title = 'Error';
-        msg.url = '/admin';
-        res.render('msg',msg);
+        res.send('error');
       }else{
         server = val.rows[0].email.split('@')[1].split('.')[0];
         let buf = new Buffer(`email=${val.rows[0].email}&username=${val.rows[0].username}&type=back`).toString('base64');
@@ -154,31 +128,15 @@ router.post('/',function(req,res,next){
       };
       mailTransport.sendMail(mailOptions, (error, info) => {
         if (error) {
-          msg.error = `发送失败<${error.message}>`;
-          msg.val = '返回重新注册';
-          msg.title = 'Error';
-          msg.url = '/admin';
-          res.render('msg',{msg});
+          res.send('发送失败,请检查邮箱');
         }else{
-          msg.error='邮件已发送成功,注意查收';
-          msg.val = '激活后点击返回登录';
-          msg.title = 'Success';
-          msg.url = '/admin';
-          res.render('msg',{msg});
+          res.send('success');
         }
       });
     }
   });
 }
 });
-//对象元素个数
-function getObjLen(obj){
-  let i = 0;
-  for(let j in obj) {
-      i++;
-  }
-  return i;
-}
 //随机字符串
 function strRandom(j){
   var str = 'ABCDEFGHIGKLMNOPQRSTUVWXYZabcdefghigklmnopqrstuvwxyz123456789';
