@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var backloginRouter = require('./routes/login_back');//后台登录注册
-var pagesRouter = require('./routes/pages');//后台页面
 var checkRouter = require('./routes/check');//邮箱检测
 var fontloginRouter = require('./routes/login');//前端登录注册
 var apiRouter = require('./routes/api');//api
