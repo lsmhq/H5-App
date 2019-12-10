@@ -26,13 +26,13 @@ router.get('/',(req,res,next)=>{
 });
 
 check = (table_name,data,res,msg)=>{
-let sqlStr = `SELECT username,email FROM ${table_name} WHERE username=$1 AND email=$2`;
-let sqlStr_Alter = `UPDATE ${table_name} SET state='已激活' WHERE username=$1 AND email=$2`;
+let sqlStr = `SELECT name,email FROM ${table_name} WHERE name=$1 AND email=$2`;
+let sqlStr_Alter = `UPDATE ${table_name} SET state='已激活' WHERE name=$1 AND email=$2`;
 pgdb.query(sqlStr,[data.username,data.email],(err,val)=>{
         if(val.rowCount > 0){
             if(err){
                 console.log(err.message);
-            }else if(data.username === val.rows[0].username && data.email === val.rows[0].email){
+            }else if(data.username === val.rows[0].name && data.email === val.rows[0].email){
                 pgdb.query(sqlStr_Alter,[data.username,data.email],(err,val1)=>{
                     if(val1.rowCount > 0){
                         msg.error = '激活成功,请关闭当前页';
