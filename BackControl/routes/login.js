@@ -51,31 +51,36 @@ router.post('/',function(req,res,next){
     console.log('注册提交');
       let sqlStr_insert = 'INSERT INTO users (email,id,password,name) VALUES($1,$2,$3,$4)';
       let sqlStr_select = 'SELECT name,email FROM users WHERE name=$1 OR email=$2'; 
-      pgdb.query(sqlStr_select,[data.username,data.email],(err,val)=>{
-        if(err){
-          res.send('db is error');
-        }else{
-          if (val.rowCount <= 0){
-            // console.log(val);
-            pgdb.query(sqlStr_insert,[data.email,strRandom(10),md5(data.password),data.username],(err,val1)=>{
-              // console.log(val1);
-              if(err){
-                console.log(err.message);
-                res.send('注册失败');
-              }else if(val1.rowCount > 0){
-                console.log(val1.rows);
-                res.send('success');
-              }
-          });
-        }else if(val.rows[0].name === data.username){
-          res.send('用户名已存在');
-        }else if(val.rows[0].email === data.email){
-          res.send('邮箱已被注册');
-        }else{
-          res.send('似乎出了些错误');
-        }
-        }
-      })
+      let test = /@qq.com/;
+      if(test.test(data.email)===false){
+        res.send('请检查邮箱地址格式');
+      }else{
+        pgdb.query(sqlStr_select,[data.username,data.email],(err,val)=>{
+          if(err){
+            res.send('db is error');
+          }else{
+            if (val.rowCount <= 0){
+              // console.log(val);
+              pgdb.query(sqlStr_insert,[data.email,strRandom(10),md5(data.password),data.username],(err,val1)=>{
+                // console.log(val1);
+                if(err){
+                  console.log(err.message);
+                  res.send('注册失败');
+                }else if(val1.rowCount > 0){
+                  console.log(val1.rows);
+                  res.send('success');
+                }
+            });
+          }else if(val.rows[0].name === data.username){
+            res.send('用户名已存在');
+          }else if(val.rows[0].email === data.email){
+            res.send('邮箱已被注册');
+          }else{
+            res.send('似乎出了些错误');
+          }
+          }
+        })
+      }
   }else if(data.type==='check'){
     //发送邮件
     console.log('发送邮件');
@@ -85,6 +90,7 @@ router.post('/',function(req,res,next){
       if(err){
         res.send('error');
       }else{
+        let gba;
         server = val.rows[0].email.split('@')[1].split('.')[0];
         let buf = new Buffer(`email=${val.rows[0].email}&username=${val.rows[0].name}`).toString('base64');
         url = `https://daitianfang.1459.top/check?${buf}`;
