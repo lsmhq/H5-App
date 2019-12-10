@@ -37,19 +37,19 @@ router.post('/',function(req,res,next){
           res.send('db is error');
         }else{
           if(value.rowCount > 0){
-            if(value.rows[0].password === md5(data.password)&&value.rows[0].username===data.username&&value.rows[0].status==='已激活'){
-              res.setHeader('Set-cookie',[`loginStatus=${md5('true')}`,`username=${new Buffer(encodeURIComponent(value.rows[0].username)).toString('base64')}`]);
+            if(value.rows[0].password === md5(data.password)&&value.rows[0].name===data.username&&value.rows[0].status==='已激活'){
+              res.setHeader('Set-cookie',[`loginStatus=${md5('true')}`,`username=${new Buffer(encodeURIComponent(value.rows[0].name)).toString('base64')}`]);
               res.send('success');
             }else if(value.rows[0].state==='未激活'){
               res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
-              res.send('error');
+              res.send('未激活账号');
             }else{
               res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
               res.send('error');
             }
           }else{
             res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
-            res.send('error');
+            res.send('未注册账号');
           }
         }
       })
