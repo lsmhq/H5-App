@@ -11,7 +11,6 @@ let msg = {
   title:'',
   url:''
 }
-var data_time;
 //数据库基本配置  
 var pgdb = new pg.Pool({
   host: '127.0.0.1',
@@ -29,7 +28,6 @@ router.get('/', function(req, res, next) {
 router.post('/',function(req,res,next){
   let data = req.body;
   console.log(data);
-  res.setHeader('Content-Type','text/html;charset=utf-8');
   if(getObjLen(data) === 2){
     console.log('登录验证');
       let sqlStr = 'SELECT username,password,state FROM users WHERE username=$1';
@@ -46,17 +44,13 @@ router.post('/',function(req,res,next){
             if(value.rows[0].password === md5(data.password)&&value.rows[0].username===data.username&&value.rows[0].state==='已激活'){
               console.log(1);
               res.setHeader('Set-cookie',[`loginStatus=${md5('true')}`,`username=${new Buffer(encodeURIComponent(value.rows[0].username)).toString('base64')}`]);
-              res.redirect('/pages/#/');
             }else if(value.rows[0].state==='未激活'){
               res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
-              res.redirect('/pages/#/');
             }else{
               res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
-              res.redirect('/pages/#/');
             }
           }else{
             res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
-            res.redirect('/pages/#/');
           }
         }
       })
@@ -65,7 +59,6 @@ router.post('/',function(req,res,next){
       let sqlStr_insert = 'INSERT INTO users (email,userid,password,username) VALUES($1,$2,$3,$4)';
       let sqlStr_select = 'SELECT username,email FROM users WHERE username=$1 OR email=$2'; 
       pgdb.query(sqlStr_select,[data.username,data.email],(err,val)=>{
-        // console.log(val.rows[0]);
         if(err){
           msg.error = '后台又双叒叕炸了';
           msg.val = '稍后再试';
