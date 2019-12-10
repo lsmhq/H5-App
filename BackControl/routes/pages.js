@@ -8,41 +8,6 @@ let msg = {
 }
 //首页
 router.get('/', function(req, res, next) {
-  var cookie = cookieToObj(req.headers.cookie);
-  check(res,cookie,msg);
+  res.render('index-font');
 });
-//解析cookie
-function cookieToObj(cookie){
-  let obj = {};
-  if(cookie){
-      cookie.split(';').map(item=>{
-          item = item.trim();
-          let arr = item.split('=');
-          obj[arr[0]] = arr[1];
-      });
-  }
-  return obj;
-}
-
-function check(res,cookie,msg){
-  if(cookie.loginStatus === md5('true')){
-    res.render('index');
-}else if(cookie.loginStatus === md5('false')){
-  msg = {
-    error:'用户名或密码错误',
-    val:'尝试注册或激活账号',
-    title:'Error',
-    url:'/admin'
-  }
-  res.render('msg',{msg});
-}else{
-  msg = {
-    error:'您还没有进行登录',
-    val:'请注册账号',
-    title:'Error',
-    url:'/admin'
-  }
-  res.render('msg',{msg});
-}
-}
 module.exports = router;
