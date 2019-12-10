@@ -6,8 +6,7 @@ export default class Nav extends Component {
         let header_style = {
             width:"100%",
             height:'50px',
-            backgroundColor:'#272727'
-            
+            backgroundColor:'#272727'   
         }
         console.log(document.cookie);
         return (

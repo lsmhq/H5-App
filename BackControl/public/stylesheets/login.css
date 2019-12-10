@@ -133,6 +133,10 @@
         left: 35%;
         width: 30%;
         transition: all linear 0.5s;
+        background-color: white;
+        height: 300px;
+        text-align: center;
+        opacity: 0.9;
     }
     .login{
         float: left;

@@ -8,7 +8,8 @@ var backloginRouter = require('./routes/login_back');//后台登录注册
 var pagesRouter = require('./routes/pages');//后台页面
 var checkRouter = require('./routes/check');//邮箱检测
 var fontloginRouter = require('./routes/login');//前端登录注册
-var apiRouter = require('./routes/api');//api接口
+var apiRouter = require('./routes/api');//api
+var postRouter = require('./routes/post_api');//post接口
 
 var app = express();
 
@@ -26,7 +27,7 @@ app.use('/pages', pagesRouter);//后台页面
 app.use('/check',checkRouter);//检测
 app.use('/login',fontloginRouter);//前端登录
 app.use('/api/v1',apiRouter);
-
+app.use('/postapi',postRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
