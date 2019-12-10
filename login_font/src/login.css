@@ -1,0 +1,88 @@
+.nav{
+    width:100%;
+    background-color: rgb(0, 132, 209);
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
+    font-weight: 1000;
+    color: white;
+}
+.bg{
+    width: 100%;
+}
+.logo{
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+.input{
+    width: 80%;
+    height: 50px;
+    border: none;
+    outline: none;
+    text-indent: 20px;
+    margin-left: 10%;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px gray;
+    font-size: 20px;
+}
+.input_btn{
+    width: 80%;
+    height: 50px;
+    background-color: rgb(0, 122, 221);
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    margin-top: 20px;
+    margin-left: 10%;
+    cursor: pointer;
+    font-size: 20px;
+    color:white;
+    transition: all linear 0.2s;
+}
+.input_btn:focus{
+    transition: all linear 0.2s;
+    background-color: rgb(0, 84, 153);
+}
+#alert{
+    width: 81%;
+    position: absolute;
+    left: 10%;
+    height: 220px;
+    background-color: rgb(255, 209, 200);
+    z-index: 50;
+    border-radius: 5px;
+    display: none;
+}
+#alert>img{
+    margin-left: 35%;
+}
+#alert>span{
+    display: block;
+    margin-top: 20px;
+    font-size: large;
+    width: 100%;
+    text-align: center;
+}
+#check{
+    display: none;
+    position: absolute;
+    width: 100%;
+    color: tomato;
+    text-align: center;
+    font-size: 15px;
+}
+
+#pass{
+    position: absolute;
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    bottom: 5%;
+    right: 10%;
+    background-color: rgb(255, 208, 199);
+    border-radius: 2px;
+    cursor: pointer;
+}
