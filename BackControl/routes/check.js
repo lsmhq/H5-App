@@ -22,6 +22,7 @@ router.get('/',(req,res,next)=>{
     let buf = new Buffer(req.url.split('?')[1],'base64');
     let data = buf.toString('utf8').split("&");
     let data_obj = arrToObj(data,'=');
+    console.log(data_obj);
     check('users',data_obj,res,msg);
 });
 
