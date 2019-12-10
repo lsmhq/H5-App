@@ -55,8 +55,8 @@ router.post('/',function(req,res,next){
       })
   }else if(data.type==='logup'){
     console.log('注册提交');
-      let sqlStr_insert = 'INSERT INTO users (email,userid,password,username) VALUES($1,$2,$3,$4)';
-      let sqlStr_select = 'SELECT username,email FROM users WHERE username=$1 OR email=$2'; 
+      let sqlStr_insert = 'INSERT INTO users (email,id,password,name) VALUES($1,$2,$3,$4)';
+      let sqlStr_select = 'SELECT name,email FROM users WHERE name=$1 OR email=$2'; 
       pgdb.query(sqlStr_select,[data.username,data.email],(err,val)=>{
         if(err){
           res.send('db is error');
