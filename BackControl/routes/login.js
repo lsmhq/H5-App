@@ -53,6 +53,7 @@ router.post('/',function(req,res,next){
       let sqlStr_select = 'SELECT name,email FROM users WHERE name=$1 OR email=$2'; 
       let test = /@qq.com/;
       if(test.test(data.email)===false){
+        console.log(data.email);
         res.send('请检查邮箱地址格式');
       }else{
         pgdb.query(sqlStr_select,[data.username,data.email],(err,val)=>{
