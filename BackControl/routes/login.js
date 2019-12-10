@@ -63,7 +63,7 @@ router.post('/',function(req,res,next){
         }else{
           if (val.rowCount <= 0){
             // console.log(val);
-            pgdb.query(sqlStr_insert,[data.email+'',strRandom(10),md5(data.pwd[0]+''),data.username+''],(err,val1)=>{
+            pgdb.query(sqlStr_insert,[data.email+'',strRandom(10),md5(data.password+''),data.username+''],(err,val1)=>{
               // console.log(val1);
               if(err){
                 res.send('error');
