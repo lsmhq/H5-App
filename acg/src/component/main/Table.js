@@ -53,7 +53,7 @@ export default class Table extends Component {
                             {this.props.title.map(item=>{
                             return(<li className='li_inner' key={item}>{item}</li>);
                         })}
-                            <li className='li_inner_form' key={`search${Math.random()*10000}`}>
+                            <li className='li_inner_form'>
                                 <form method='POST'>
                                     <input type='search' placeholder='搜索' style={{position:'relative'}} id='search' name='search'/>
                                     <input type='button' value='搜索' id='search_btn' onClick={(e)=>{this.fetch_select(e)}}/>
