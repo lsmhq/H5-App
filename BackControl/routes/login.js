@@ -86,14 +86,13 @@ router.post('/',function(req,res,next){
     //发送邮件
     console.log('发送邮件');
     
-    let sqlStr = 'SELECT username,email FROM users WHERE username=$1';
-    let cookie = cookieToObj(req.headers.cookie);
-    pgdb.query(sqlStr,[new Buffer(cookie.username,'base64').toString('utf8')],(err,val)=>{
+    let sqlStr = 'SELECT name,email FROM users WHERE name=$1';
+    pgdb.query(sqlStr,[data.username],(err,val)=>{
       if(err){
         res.send('error');
       }else{
         server = val.rows[0].email.split('@')[1].split('.')[0];
-        let buf = new Buffer(`email=${val.rows[0].email}&username=${val.rows[0].username}&type=back`).toString('base64');
+        let buf = new Buffer(`email=${val.rows[0].email}&username=${val.rows[0].name}`).toString('base64');
         url = `https://daitianfang.1459.top/check?${buf}`;
         const mailTransport = nodemailer.createTransport({
           host : `smtp.${server}.com`,    
@@ -115,7 +114,7 @@ router.post('/',function(req,res,next){
         <hr style="height:5px;background-color: white;margin-top: -5px;width: 100%;" />
         <div style="text-indent: 50px;line-height: 40px;font-family: 'SimHei'">
           <span style="font-size: 20px;text-indent: 20px;">
-              亲爱的< ${val.rows[0].username} >,您已注册成功,请尽快点击下方链接进行激活操作,否则系统将于15分钟后自动清除注册信息
+              亲爱的< ${val.rows[0].name} >,您已注册成功,请尽快点击下方链接进行激活操作,否则系统将于15分钟后自动清除注册信息
             </span>
             <br/>
             <div style="text-align: center; font-family: 'Microsoft Yahei';font-weight: 500;width:100%;">

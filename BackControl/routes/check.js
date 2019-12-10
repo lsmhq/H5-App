@@ -22,32 +22,8 @@ router.get('/',(req,res,next)=>{
     let buf = new Buffer(req.url.split('?')[1],'base64');
     let data = buf.toString('utf8').split("&");
     let data_obj = arrToObj(data,'=');
-    switch(data_obj.type){
-        case 'back':{
-            check('admin',data_obj,res,msg);
-            break;
-        }
-        case 'font':{
-            check('users',data_obj,res,msg);
-            break;
-        }
-    }
+    check('users',data_obj,res,msg);
 });
-
-// router.post('/',(req,res,next)=>{
-//     switch (obj.type){
-//         case 'back':{
-//             msg.url = '/admin';
-//             check('admin',data,res,msg);
-//             break;
-//         }
-//         case 'font':{
-//             msg.url = '/login';
-//             check('users',data,res,msg);
-//             break;
-//         }
-//     }
-// });
 
 check = (table_name,data,res,msg)=>{
 let sqlStr = `SELECT username,email FROM ${table_name} WHERE username=$1 AND email=$2`;
