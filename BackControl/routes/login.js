@@ -30,14 +30,14 @@ router.post('/',function(req,res,next){
   console.log(data);
   if(data.type==='login'){
     console.log('登录验证');
-      let sqlStr = 'SELECT username,password,state FROM users WHERE username=$1';
+      let sqlStr = 'SELECT username,password,status FROM users WHERE username=$1';
       pgdb.query(sqlStr,[data.username],(err,value) => {
         // console.log(value.rows[0].password);
         if(err){
           res.send('db is error');
         }else{
           if(value.rowCount > 0){
-            if(value.rows[0].password === md5(data.password)&&value.rows[0].username===data.username&&value.rows[0].state==='已激活'){
+            if(value.rows[0].password === md5(data.password)&&value.rows[0].username===data.username&&value.rows[0].status==='已激活'){
               res.setHeader('Set-cookie',[`loginStatus=${md5('true')}`,`username=${new Buffer(encodeURIComponent(value.rows[0].username)).toString('base64')}`]);
               res.send('success');
             }else if(value.rows[0].state==='未激活'){
