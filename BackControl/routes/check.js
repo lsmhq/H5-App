@@ -28,7 +28,7 @@ router.get('/',(req,res,next)=>{
 
 check = (table_name,data,res,msg)=>{
 let sqlStr = `SELECT name,email FROM ${table_name} WHERE name=$1 AND email=$2`;
-let sqlStr_Alter = `UPDATE ${table_name} SET state='已激活' WHERE name=$1 AND email=$2`;
+let sqlStr_Alter = `UPDATE ${table_name} SET status='已激活' WHERE name=$1 AND email=$2`;
 pgdb.query(sqlStr,[data.username,data.email],(err,val)=>{
         if(val.rowCount > 0){
             if(err){
