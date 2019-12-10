@@ -22,7 +22,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/admin', backloginRouter);//后台登录
-app.use('/pages', pagesRouter);//后台页面
 app.use('/check',checkRouter);//检测
 app.use('/login',fontloginRouter);//前端登录
 app.use('/api/v1',apiRouter);
