@@ -63,16 +63,16 @@ router.post('/',function(req,res,next){
         }else{
           if (val.rowCount <= 0){
             // console.log(val);
-            pgdb.query(sqlStr_insert,[data.email+'',strRandom(10),md5(data.password+''),data.username+''],(err,val1)=>{
+            pgdb.query(sqlStr_insert,[data.email,strRandom(10),md5(data.password),data.username],(err,val1)=>{
               // console.log(val1);
               if(err){
-                res.send('error');
+                res.send('注册失败');
               }else if(val1.rowCount > 0){
                 console.log(val1.rows);
                 res.send('success');
               }
           });
-        }else if(val.rows[0].username === data.username){
+        }else if(val.rows[0].name === data.username){
           res.send('用户名已存在');
         }else if(val.rows[0].email === data.email){
           res.send('邮箱已被注册');
