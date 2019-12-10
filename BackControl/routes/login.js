@@ -66,6 +66,7 @@ router.post('/',function(req,res,next){
             pgdb.query(sqlStr_insert,[data.email,strRandom(10),md5(data.password),data.username],(err,val1)=>{
               // console.log(val1);
               if(err){
+                console.log(err.message);
                 res.send('注册失败');
               }else if(val1.rowCount > 0){
                 console.log(val1.rows);
