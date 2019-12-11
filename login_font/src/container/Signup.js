@@ -16,11 +16,11 @@ export default class Signup extends Component {
             <div className='bg'>
                 <Nav title='注册'/>
                 <div className='logo'>
-                    <img src='/Logo-big.png' width='100px'/>
+                    <img src='/images/logo.png' width='100px'/>
                 </div>
                 <Alert msg={this.state.msg} toPath={()=>{this.state.fun()}} btn={this.state.btn}/>
-                <input type='email' placeholder='邮箱' className='input' name='email'/>
-                <input type='text' placeholder='用户名' className='input' name='username'/>
+                <input type='email' placeholder='邮箱      name@qq.com' className='input' name='email' autoComplete='off'/>
+                <input type='text' placeholder='用户名' className='input' name='username' autoComplete='off'/>
                <input type='password' placeholder='密码' className='input' id='password' name='password' onKeyUp={(e)=>{this.check(e)}}/>
                <input type='password' placeholder='确认密码' className='input' onKeyUp={(e)=>{this.check(e)}} id='password_check'/>
                 <span id='check'>{'两次密码不一致'}</span>
@@ -60,7 +60,7 @@ export default class Signup extends Component {
                 ReactDom.findDOMNode(document.getElementById('alert')).style.display='block';
             })
         }else{
-            fetch('https://daitianfang.1459.top/login',{
+            fetch('https://daitianfang.1459.top/acg',{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json'
@@ -69,8 +69,6 @@ export default class Signup extends Component {
                 body:JSON.stringify(data)
             }).then(req=>req.text()).then(text=>{
                 if(text === 'success'){
-                    
-                    console.log(data);
                     this.setState({
                         msg:'注册成功,点击确定跳转激活',
                         btn:'点击激活',
@@ -84,7 +82,7 @@ export default class Signup extends Component {
                     })
                 }else{
                     this.setState({
-                        msg:data,
+                        msg:text,
                         btn:'确定',
                         fun:()=>{
                             ReactDom.findDOMNode(document.getElementById('alert')).style.display='none';

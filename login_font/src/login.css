@@ -1,6 +1,6 @@
 .nav{
     width:100%;
-    background-color: rgb(0, 132, 209);
+    background-color: rgb(255, 0, 157);
     text-align: center;
     height: 50px;
     line-height: 50px;
@@ -25,13 +25,13 @@
     margin-left: 10%;
     margin-top: 20px;
     border-radius: 5px;
-    box-shadow: 1px 1px 5px gray;
+    box-shadow: 1px 1px 5px rgb(77, 77, 77);
     font-size: 20px;
 }
 .input_btn{
     width: 80%;
     height: 50px;
-    background-color: rgb(0, 122, 221);
+    background-color: rgb(0, 180, 204);
     border-radius: 5px;
     border: none;
     outline: none;
@@ -78,11 +78,37 @@
 #pass{
     position: absolute;
     display: block;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
-    bottom: 5%;
-    right: 10%;
-    background-color: rgb(255, 208, 199);
-    border-radius: 2px;
+    top: 0px;
+    right: 0px;
+    background-color: rgb(139, 0, 81);
     cursor: pointer;
+    color: white;
+    width: 80px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+}
+.waves{
+    position:relative;
+    cursor:pointer;
+    display:inline-block;
+    overflow:hidden;
+    text-align: center;
+    -webkit-tap-highlight-color:transparent;
+    z-index:1;
+}
+.waves .waves-animation{
+    position:absolute;
+    border-radius:50%;
+    width:25px;
+    height:25px;
+    opacity:0;
+    background:rgba(255,255,255,0.3);
+    transition:all 0.7s ease-out;
+    transition-property:transform, opacity, -webkit-transform;
+    -webkit-transform:scale(0);
+    transform:scale(0);
+    pointer-events:none
 }

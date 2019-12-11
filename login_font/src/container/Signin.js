@@ -15,14 +15,14 @@ export default class Signin extends Component {
             <div className='bg'>
                 <Nav title='登录'/>
                 <div className='logo'>
-                    <img src='/Logo-big.png' width='100px'/>
+                    <img src='/images/logo.png' width='100px'/>
                 </div>
                 <Alert msg={this.state.msg} toPath = {()=>{this.hidden()}}/>
-               <input type='text' placeholder='用户名' className='input' name='username'/>
-               <input type='password' placeholder='密码' className='input' name='password'/>
+               <input type='text' placeholder='用户名' className='input' name='username' autoComplete='off'/>
+               <input type='password' placeholder='密码' className='input' name='password' autoComplete='off'/>
                <input type='button' value='登录' className='input_btn' onClick={(e)=>{this.fetch_login(e)}} required/>
                <input type='button' value='注册' className='input_btn' onClick={(e)=>{this.toLogup(e)}} required/>
-               <span id='pass' onClick={()=>{this.toMain()}}>跳过登录></span>
+               <span id='pass' onClick={()=>{this.toMain()}}>跳过</span>
             </div>
         )
     }
@@ -44,7 +44,7 @@ export default class Signin extends Component {
                 ReactDom.findDOMNode(document.getElementById('alert')).style.display='block';
             })
         }else{
-                    fetch('https://daitianfang.1459.top/login',{
+                    fetch('https://daitianfang.1459.top/acg',{
             method:'POST',
             mode:'cors',
             headers: {'Content-Type':'application/json'},
