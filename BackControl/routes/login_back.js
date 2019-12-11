@@ -59,7 +59,7 @@ router.post('/',function(req,res,next){
         if(val.rowCount > 0){
           if(val.rows[0].password === md5(data.password)&&val.rows[0].name===data.username){
             console.log(1);
-            res.setHeader('Set-cookie',[`loginStatus=${md5('true')}`,`username=${new Buffer(encodeURIComponent(value.rows[0].username)).toString('base64')}`]);
+            res.setHeader('Set-cookie',[`loginStatus=${md5('true')}`,`username=${new Buffer(encodeURIComponent(val.rows[0].username)).toString('base64')}`]);
             res.send('success');
           }else{
             res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
