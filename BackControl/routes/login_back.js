@@ -53,6 +53,7 @@ router.post('/',function(req,res,next){
     console.log(data);
     pgdb.query(sqlStr,[data.username],(err,val)=>{
       if(err){
+        console.log(err.message);
         res.send('failed');
       }else{
         if(val.rowCount > 0){
