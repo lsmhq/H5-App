@@ -137,7 +137,7 @@ router.post('/person',(req,res,next)=>{
             del(sqlStr,res);
             break; 
         }case 'update':{
-            let sqlStr =  `UPDATE users SET id='${data.id}',name='${data.name}',level='${data.level},email='${data.email}', WHERE id='${data.id}'`;
+            let sqlStr =  `UPDATE users SET name='${data.name}',level='${data.level},email='${data.email}', WHERE id='${data.id}'`;
             update(sqlStr,res);
             break;
         }case "select":{
