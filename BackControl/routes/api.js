@@ -219,7 +219,7 @@ router.post('/goods',(req,res,next)=>{
 });
 //动态路由,路由按数据库表名称
 router.get('/',(req,res,next)=>{
-
+    
 })
 
 router.post('/',(req,res,next)=>{
@@ -268,7 +268,7 @@ let del = (sqlStr,res)=>{
   let update = (sqlStr,res)=>{
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
-            // console.log(err.message);
+            console.log(err.message);
             res.send('error');
         }else{
             if(val.rowCount <= 0){

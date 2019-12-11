@@ -88,3 +88,27 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
+function delunActive(){
+  let sqlStr = "SELECT * FROM users WHERE status = '未激活'";
+  pgdb.query(sqlStr,[],(err,val)=>{
+      if(err){
+          console.log(err.message);
+      }else{
+          let sqlStr_del = "DELETE FROM users WHERE id=$1";
+          for(let i = 0;i<val.rowCount;i++){
+              pgdb.query(sqlStr_del,[val.rows[i].id],(err,val)=>{
+                if(err){
+                    console.log(err.message);
+                }else{
+                    console.log('数据库已自动整理');
+                }
+              })
+          }
+      }
+  })
+}
+setInterval(()=>{
+  delunActive();
+},360000);

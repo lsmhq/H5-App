@@ -8,7 +8,6 @@ var pgdb = new pg.Pool({
     password: '147852369',
     database: 'ACG'
   });
-
   function delunActive(){
       let sqlStr = "SELECT * FROM users WHERE status = '未激活'";
       pgdb.query(sqlStr,[],(err,val)=>{
