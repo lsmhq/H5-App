@@ -217,6 +217,23 @@ router.post('/goods',(req,res,next)=>{
         }
     }
 });
+//动态路由,路由按数据库表名称
+router.get('/',(req,res,next)=>{
+
+})
+
+router.post('/',(req,res,next)=>{
+    let data = req.body;
+    switch (data.type) {
+        case 'insert':{
+            let sqlStr = ``;
+            insert(sqlStr,res);
+            break;
+        }case '':{
+
+        }
+    }
+})
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
