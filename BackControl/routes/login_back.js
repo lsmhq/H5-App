@@ -25,17 +25,13 @@ router.get('/', function(req, res, next) {
 router.post('/',function(req,res,next){
   let data = req.body;
   // console.log(data);
-  if(getObjLen(data) === 2){
+  if(data.type === 'admin'){
     console.log('登录验证');
-      let sqlStr = 'SELECT username,password,state FROM admin WHERE username=$1';
+      let sqlStr = 'SELECT username,password FROM admin WHERE username=$1';
       pgdb.query(sqlStr,[data.username],(err,value) => {
         // console.log(value.rows[0].password);
         if(err){
-          msg.error = `似乎出了点问题`;
-          msg.val = '返回';
-          msg.title = 'Error';
-          msg.url = '/admin';
-          res.render('msg',{msg});
+          res.send('failed');
         }else{
           if(value.rowCount > 0){
             if(value.rows[0].password === md5(data.password)&&value.rows[0].username===data.username){
@@ -52,15 +48,28 @@ router.post('/',function(req,res,next){
           }
         }
       })
+  }else if(data.type === 'whiter'){
+    let sqlStr = 'SELECT name,password,state FROM users WHERE name=$1';
+    pgdb.query(sqlStr,[data.username],(err,val)=>{
+      if(err){
+        res.send('failed');
+      }else{
+        if(val.rowCount > 0){
+          if(val.rows[0].password === md5(data.password)&&val.rows[0].name===data.username){
+            console.log(1);
+            res.setHeader('Set-cookie',[`loginStatus=${md5('true')}`,`username=${new Buffer(encodeURIComponent(value.rows[0].username)).toString('base64')}`]);
+            res.send('success');
+          }else{
+            res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
+            res.send('failed');
+          }
+        }else{
+          res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
+          res.send('failed');
+        }
+      }
+    })
   }
 });
-//对象元素个数
-function getObjLen(obj){
-  let i = 0;
-  for(let j in obj) {
-      i++;
-  }
-  return i;
-}
 
 module.exports = router;

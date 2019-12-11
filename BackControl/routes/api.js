@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
-var formidable = require('formidable');
-var md5 = require('md5-node');
+var fs = require('fs');
 var qs = require('querystring');
 //数据库基本配置  
 var pgdb = new pg.Pool({
@@ -63,7 +62,17 @@ router.post('/chapter',(req,res,next)=>{
             break;
         }
         case 'insert':{
-            sqlStr = `INSERT INTO context VALUES(${strRandom(10)},${data.contexttype},${data.autherid},${data.auther},${data.context},${data.good||'0'},${data.visit||'0'},${data.collect||'0'},${data.evaluationnum},${data.timetamp},${data.title})`;
+            let id = strRandom(10);
+            sqlStr = `INSERT INTO context VALUES(${id},${data.contexttype},${data.autherid},${data.auther},${data.context},${data.good||'0'},${data.visit||'0'},${data.collect||'0'},${data.evaluationnum},${data.timetamp},${data.title})`;
+            let content = {
+                    title:data.title,
+                    content:data.content
+            }
+            fs.writeFileSync(`../public/content/${data.contexttype}/${id}.json`,JSON.stringify(content));
+            if(data.src_img.indexOf('.png'))
+                fs.writeFileSync(`../public/images/animation/${id}/0.png`,data.img_data);
+            else if(data.src_img.indexOf('.jpg'))
+                fs.writeFileSync(`../public/images/animation/${id}/0.jpg`,data.img_data);
             insert(sqlStr,res);
             break;
         }
@@ -128,7 +137,7 @@ router.post('/person',(req,res,next)=>{
             del(sqlStr,res);
             break; 
         }case 'update':{
-            let sqlStr =  `UPDATE users SET id='${data.id}',name='${data.name}',level='${data.level},email='${data.email}'`;
+            let sqlStr =  `UPDATE users SET id='${data.id}',name='${data.name}',level='${data.level},email='${data.email}', WHERE id='${data.id}'`;
             update(sqlStr,res);
             break;
         }case "select":{

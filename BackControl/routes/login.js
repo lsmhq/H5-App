@@ -105,7 +105,7 @@ router.post('/',function(req,res,next){
         <hr style="height:5px;background-color: white;margin-top: -5px;width: 100%;" />
         <div style="text-indent: 50px;line-height: 40px;font-family: 'SimHei'">
           <span style="font-size: 20px;text-indent: 20px;">
-              亲爱的< ${val.rows[0].name} >,您已注册成功,请尽快点击下方链接进行激活操作,否则系统将于24小时后自动清除未激活信息
+              亲爱的< ${val.rows[0].name} >,您已注册成功,请尽快点击下方链接进行激活操作,否则系统将于1小时后自动清除未激活信息
             </span>
             <br/>
             <div style="text-align: center; font-family: 'Microsoft Yahei';font-weight: 500;width:100%;">
