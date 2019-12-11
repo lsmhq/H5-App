@@ -80,7 +80,7 @@ router.get('/orders',(req,res,next)=>{
         let sqlStr = `SELECT * FROM ordercontent`;
         lend(sqlStr,res);
     }else{
-        console.log(decodeURI(params_obj.type));
+        // console.log(decodeURI(params_obj.type));
         let sqlStr = `SELECT * FROM ordercontent WHERE userid = '${decodeURIComponent(params_obj.id)}'`;
         lend(sqlStr,res);
     }
@@ -104,11 +104,6 @@ router.post('/orders',(req,res,next)=>{
             let sqlStr ;
             break;
         }
-            
-            
-    
-        default:
-            break;
     }
 })
 router.get('/person',(req,res,next)=>{
@@ -117,19 +112,19 @@ router.get('/person',(req,res,next)=>{
         let sqlStr = `SELECT id,name,level,email FROM users`;
         lend(sqlStr,res);
     }else{
-        console.log(params_obj);
-        console.log(typeof params_obj.id);
+        // console.log(params_obj);
+        // console.log(typeof params_obj.id);
         let sqlStr = `SELECT * FROM users WHERE id = '${decodeURIComponent(params_obj.id)}'`;
         lend(sqlStr,res);
     }
 });
 router.post('/person',(req,res,next)=>{
     let data = req.body;
-    console.log(data);
+    // console.log(data);
     switch (data.type) {
         case 'del':{
             let sqlStr = `DELETE FROM users WHERE id='${data.id}'`;
-            console.log(sqlStr);
+            // console.log(sqlStr);
             del(sqlStr,res);
             break; 
         }case 'update':{
@@ -143,6 +138,7 @@ router.post('/person',(req,res,next)=>{
         }
     }
 })
+
 router.get('/admin',(req,res,next)=>{
     let sqlStr = `SELECT * FROM admin`;
     lend(sqlStr,res);
@@ -150,8 +146,8 @@ router.get('/admin',(req,res,next)=>{
 //管理员接口
 router.post('/admin',(req,res,next)=>{
     let data = req.body;
-    console.log(getObjLen(data));
-    console.log(data);
+    // console.log(getObjLen(data));
+    // console.log(data);
     var sqlStr;
     switch (data.type) {
         case 'del':{
@@ -177,21 +173,21 @@ router.get('/talk',(req,res,next)=>{
     }
 });
 router.get('/goods',(req,res,next)=>{
-    console.log('goods');
+    // console.log('goods');
     let params_obj = qs.parse(req.url.split('?')[1]);
-    console.log(params_obj);
+    // console.log(params_obj);
         if(params_obj.id === ('all')){
             let sqlStr = `SELECT * FROM market`;
             lend(sqlStr,res);
         }else{
-            console.log(params_obj.id);
+            // console.log(params_obj.id);
             let sqlStr = `SELECT * FROM market WHERE id = '${(params_obj.id)}'`;
             lend(sqlStr,res);
         }
 });
 router.post('/goods',(req,res,next)=>{
     let data = req.body;
-    console.log(data);
+    // console.log(data);
     switch (data.type) {
         case 'select':{
             let sqlStr = `SELECT * FROM market WHERE id = '${data.search}' OR name LIKE '%${data.search}%'`;
@@ -215,7 +211,7 @@ router.post('/goods',(req,res,next)=>{
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
-            console.log(err);
+            // console.log(err);
             res.json({status:'1',data:'error'});
         }else{
             if(val.rowCount<=0)
@@ -226,20 +222,11 @@ function lend(sqlStr,res){
     });
 }
 
-//对象元素个数
-function getObjLen(obj){
-    let i = 0;
-    for(let j in obj) {
-        i++;
-    }
-    return i;
-  }
-
   //删除
 let del = (sqlStr,res)=>{
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
-            console.log(err.message);
+            // console.log(err.message);
             res.send('error:');
         }else{
             if(val.rowCount<=0){
@@ -255,7 +242,7 @@ let del = (sqlStr,res)=>{
   let update = (sqlStr,res)=>{
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
-            console.log(err.message);
+            // console.log(err.message);
             res.send('error');
         }else{
             if(val.rowCount <= 0){
@@ -270,7 +257,7 @@ let del = (sqlStr,res)=>{
 let insert = (sqlStr,res)=>{
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
-            console.log(err.message);
+            // console.log(err.message);
             res.send('error');
         }else{
             if(val.rowCount<=0){
@@ -285,13 +272,13 @@ let insert = (sqlStr,res)=>{
 let select = (sqlStr,res)=>{
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
-            console.log(err.message);
+            // console.log(err.message);
             res.send('error');
         }else{
             if(val.rowCount<=0){
                 res.send(JSON.stringify([]))
             }else{
-                console.log(val.rows);
+                // console.log(val.rows);
                 res.send(JSON.stringify(val.rows));
             }
         }

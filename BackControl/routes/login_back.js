@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
 //登录验证
 router.post('/',function(req,res,next){
   let data = req.body;
-  console.log(data);
+  // console.log(data);
   if(getObjLen(data) === 2){
     console.log('登录验证');
       let sqlStr = 'SELECT username,password,state FROM admin WHERE username=$1';

@@ -20,9 +20,9 @@ router.get('/', function(req, res, next) {
 //登录验证
 router.post('/',function(req,res,next){
   let data = req.body;
-  console.log(data);
+  // console.log(data);
   if(data.type==='login'){
-    console.log('登录验证');
+    // console.log('登录验证');
       let sqlStr = 'SELECT name,password,status,id FROM users WHERE name=$1';
       pgdb.query(sqlStr,[data.username],(err,value) => {
         // console.log(value.rows[0].password);
@@ -47,7 +47,7 @@ router.post('/',function(req,res,next){
         }
       })
   }else if(data.type==='logup'){
-    console.log('注册提交');
+    // console.log('注册提交');
       let sqlStr_insert = 'INSERT INTO users (email,id,password,name) VALUES($1,$2,$3,$4)';
       let sqlStr_select = 'SELECT name,email FROM users WHERE name=$1 OR email=$2'; 
         pgdb.query(sqlStr_select,[data.username,data.email],(err,val)=>{
@@ -59,10 +59,10 @@ router.post('/',function(req,res,next){
               pgdb.query(sqlStr_insert,[data.email,strRandom(10),md5(data.password),data.username],(err,val1)=>{
                 // console.log(val1);
                 if(err){
-                  console.log(err.message);
+                  // console.log(err.message);
                   res.send('注册失败');
                 }else if(val1.rowCount > 0){
-                  console.log(val1.rows);
+                  // console.log(val1.rows);
                   res.send('success');
                 }
             });
@@ -77,7 +77,7 @@ router.post('/',function(req,res,next){
         })
   }else if(data.type==='check'){
     //发送邮件
-    console.log('发送邮件');
+    // console.log('发送邮件');
     let sqlStr = 'SELECT name,email FROM users WHERE name=$1';
     pgdb.query(sqlStr,[data.username],(err,val)=>{
       if(err){
@@ -136,17 +136,5 @@ function strRandom(j){
     outStr += str[parseInt(Math.random()*str.length-1)];
   }
   return outStr;
-}
-//解析cookie
-function cookieToObj(cookie){
-  let obj = {};
-  if(cookie){
-      cookie.split(';').map(item=>{
-          item = item.trim();
-          let arr = item.split('=');
-          obj[arr[0]] = arr[1];
-      });
-  }
-  return obj;
 }
 module.exports = router;

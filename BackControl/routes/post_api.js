@@ -16,10 +16,10 @@ router.post('/admin',(req,res,next)=>{
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Cache-Control","no-cache"); 
     let data = req.body;
-    console.log(data);
+    // console.log(data);
     let len = Object.getOwnPropertySymbols(data).length;
     if(len == 1){
-        console.log('删除成功');
+        // console.log('删除成功');
         let sql_del = `DELETE FROM admin WHERE userid=${data.userid}#${col}`;
         pgdb.query(sql_del,[],(err,val)=>{
             if(err){
