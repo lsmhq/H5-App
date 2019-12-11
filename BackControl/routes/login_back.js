@@ -49,7 +49,7 @@ router.post('/',function(req,res,next){
         }
       })
   }else if(data.type === 'writer'){
-    let sqlStr = 'SELECT name,password,state FROM users WHERE name=$1';
+    let sqlStr = 'SELECT name,password,status FROM users WHERE name=$1';
     console.log(data);
     pgdb.query(sqlStr,[data.username],(err,val)=>{
       if(err){
