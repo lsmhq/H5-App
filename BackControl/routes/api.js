@@ -227,11 +227,11 @@ router.get('/activity',(req,res,next)=>{
 router.post('/activity',(req,res,next)=>{
     let data = req.body;
     let id = strRandom(10);
-    let today = new Date();
-    let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    let myDate = new Date();
+    let mytime=myDate.toLocaleTimeString();
     switch (data.type) {
         case 'insert':{
-            let sqlStr = `INSERT INTO activity VALUES(${id},${data.name},/content/activity/${id}.json,0,0,0,${date},${data.position},${data.title},/images/activity/${id})`;
+            let sqlStr = `INSERT INTO activity VALUES(${id},${data.name},/content/activity/${id}.json,0,0,0,${mytime},${data.position},${data.title},/images/activity/${id})`;
             let content = {
                 title:data.title,
                 content:data.content
@@ -243,6 +243,14 @@ router.post('/activity',(req,res,next)=>{
             let sqlStr = `DELETE FROM activity WHERE id = '${data.id}'`;
             del(sqlStr,res);
             break;
+        }case 'select':{
+            let sqlStr = `SELECT * FROM activity WHERE id = '${data.search}' OR name LIKE '%${data.search}%'`;
+            select(sqlStr,res);
+            break;
+        }case 'update':{
+            let sqlStr = `UPDATE market SET id='${data.id}',name='${data.name}',price='${data.price}',collect='${data.collect}' WHERE id = '${data.id}'`;
+            update(sqlStr,res);
+            break;
         }
     }
 })
@@ -250,13 +258,13 @@ router.post('/activity',(req,res,next)=>{
 //粉丝接口
 router.get('/fans',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
-    let sqlStr = `SELECT * FROM fans WHERE userid = '${params_obj.id}'`;
+    let sqlStr = `SELECT * FROM fans WHERE id = '${params_obj.id}'`;
     lend(sqlStr,res);
 })
 //关注接口
 router.get('/fouce',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
-    let sqlStr = `SELECT * FROM fouce WHERE userid = '${params_obj.id}'`;
+    let sqlStr = `SELECT * FROM fouce WHERE id = '${params_obj.id}'`;
     lend(sqlStr,res);
 })
 
