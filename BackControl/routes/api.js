@@ -217,23 +217,49 @@ router.post('/goods',(req,res,next)=>{
         }
     }
 });
+
 //动态路由,路由按数据库表名称
-router.get('/',(req,res,next)=>{
-    
+router.get('/activity',(req,res,next)=>{
+    let sqlStr = `SELECT * FROM activity`;
+    lend(sqlStr,res);
 })
 
-router.post('/',(req,res,next)=>{
+router.post('/activity',(req,res,next)=>{
     let data = req.body;
+    let id = strRandom(10);
+    let today = new Date();
+    let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     switch (data.type) {
         case 'insert':{
-            let sqlStr = ``;
+            let sqlStr = `INSERT INTO activity VALUES(${id},${data.name},/content/activity/${id}.json,0,0,0,${date},${data.position},${data.title},/images/activity/${id})`;
+            let content = {
+                title:data.title,
+                content:data.content
+            }
+            fs.writeFileSync(`../public/content/activity/${id}.json`,JSON.stringify(content));
             insert(sqlStr,res);
             break;
-        }case '':{
-
+        }case 'del':{
+            let sqlStr = `DELETE FROM activity WHERE id = '${data.id}'`;
+            del(sqlStr,res);
+            break;
         }
     }
 })
+
+//粉丝接口
+router.get('/fans',(req,res,next)=>{
+    let params_obj = qs.parse(req.url.split('?')[1]);
+    let sqlStr = `SELECT * FROM fans WHERE userid = '${params_obj.id}'`;
+    lend(sqlStr,res);
+})
+//关注接口
+router.get('/fouce',(req,res,next)=>{
+    let params_obj = qs.parse(req.url.split('?')[1]);
+    let sqlStr = `SELECT * FROM fouce WHERE userid = '${params_obj.id}'`;
+    lend(sqlStr,res);
+})
+
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
