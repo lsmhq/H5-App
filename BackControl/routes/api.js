@@ -110,7 +110,30 @@ router.post('/orders',(req,res,next)=>{
             update(sqlStr,res);
             break;
         }case 'insert':{
-            let sqlStr ;
+            let sqlStr = `INSERT INTO ordercontent (id,commodityname,commodityid,userid,username,price,logistics) VALUES('${strRandom(10)}',$2,$3,$4,$5,$6,'准备出库')`;
+            let sqlStr_select = `SELECT * from market WHERE id = $1`
+            pgdb.query(sqlStr_select,[data.commodityid],(err,val)=>{
+                if(err){
+                    res.send({
+                        status:'1',
+                        data:err
+                    });
+                }else if(val > 0){
+                    pgdb.query(sqlStr,[val[0].name,val[0].id,data.userid,data.username,val[0].price],(err,val1)=>{
+                        if(err){
+                            res.send({
+                                status:'1',
+                                data:err
+                            });
+                        }else if(val1 > 0){
+                            res.send({
+                                status:0,
+                                data:'success'
+                            });
+                        }
+                    })
+                }
+            });
             break;
         }
     }
