@@ -8,7 +8,6 @@ var app = require('../app');
 var debug = require('debug')('backcontrol:server');
 var http = require('http');
 var pg = require('pg');
-var fs = require('fs');
 
 /**
  * Get port from environment and store in Express.
@@ -118,19 +117,7 @@ function delunActive(){
       }
   })
 }
-function ac_num(){
-  let date = new Date();
-  if(date.getHours == '00'){
-
-  }
-  let json = {
-    num:'0'
-  }
-  let str = JSON.stringify(json);
-  fs.writeFileSync('../public/active.json',str);
-}
 setInterval(()=>{
   delunActive();
-  ac_num();
 },360000);
 

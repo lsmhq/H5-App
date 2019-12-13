@@ -5,7 +5,6 @@ var nodemailer = require('nodemailer');
 var md5 = require('md5-node');
 var url = '';
 var fs = require('fs');
-import active from '../public/active.json';
 //数据库基本配置  
 var pgdb = new pg.Pool({
   host: '127.0.0.1',
@@ -34,10 +33,6 @@ router.post('/',function(req,res,next){
           if(value.rowCount > 0){
             if(value.rows[0].password == md5(data.password)&&value.rows[0].name==data.username&&value.rows[0].status==='已激活'){
               res.setHeader('Set-cookie',[`loginStatus=${md5('true')}`,`username=${new Buffer(encodeURIComponent(value.rows[0].name)).toString('base64')}`,`userid=${value.rows[0].id}`]);
-              let ac_num = JSON.parse(active);
-              ac_num.num = parseInt(ac_num.num) + 1;
-              let ac_num_str = JSON.stringify(ac_num);
-              fs.writeFileSync('../public/active.json',ac_num_str); 
               res.send('success');
             }else if(value.rows[0].status==='未激活'){
               res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
