@@ -75,7 +75,7 @@
     font-size: 15px;
 }
 
-#pass{
+.pass{
     position: absolute;
     display: block;
     font-size: 18px;
@@ -89,6 +89,7 @@
     height: 50px;
     text-align: center;
     line-height: 50px;
+    transition: all linear 0.3s;
 }
 .waves{
     position:relative;
@@ -111,4 +112,8 @@
     -webkit-transform:scale(0);
     transform:scale(0);
     pointer-events:none
+}
+.pass:hover{
+    transition: all linear 0.3s;
+    background-color: rgb(0, 138, 18);
 }

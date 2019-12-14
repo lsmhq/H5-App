@@ -31,12 +31,12 @@ export default class Activate extends Component {
         // console.log(data);
         ReactDom.findDOMNode(document.getElementById('alert')).style.display='block';            
         this.setState({
-            msg:'正在发送中·····',
+            msg:'正在发送中 · · ·',
             btn:'请稍后',
             fun:()=>{
                 ReactDom.findDOMNode(document.getElementById('alert')).style.display='none';
             },
-            src:'/run.gif'
+            src:'/images/run.gif'
         })
         fetch('https://daitianfang.1459.top/acg',{
             method:'POST',

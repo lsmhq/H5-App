@@ -8,7 +8,8 @@ export default class Signup extends Component {
         this.state = {
             msg:'',
             btn:'',
-            fun:()=>{}
+            fun:()=>{},
+            src:''
         }
     }
     render() {
@@ -18,7 +19,7 @@ export default class Signup extends Component {
                 <div className='logo'>
                     <img src='/images/logo.png' width='100px'/>
                 </div>
-                <Alert msg={this.state.msg} toPath={()=>{this.state.fun()}} btn={this.state.btn}/>
+                <Alert msg={this.state.msg} toPath={()=>{this.state.fun()}} btn={this.state.btn} src={this.state.src}/>
                 <input type='email' placeholder='邮箱      name@qq.com' className='input' name='email' autoComplete='off'/>
                 <input type='text' placeholder='用户名' className='input' name='username' autoComplete='off'/>
                <input type='password' placeholder='密码' className='input' id='password' name='password' onKeyUp={(e)=>{this.check(e)}}/>
@@ -76,7 +77,8 @@ export default class Signup extends Component {
                             sessionStorage.setItem('username',data.username);
                             sessionStorage.setItem('email',data.email);
                             this.props.history.push('/email');
-                        }
+                        },
+                        src:'/images/success.png'
                     },()=>{
                         ReactDom.findDOMNode(document.getElementById('alert')).style.display='block';
                     })
