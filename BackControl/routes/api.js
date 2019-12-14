@@ -163,13 +163,15 @@ router.post('/person',(req,res,next)=>{
             break; 
         }case 'update':{
             let sqlStr =  `UPDATE users SET id='${data.id}',name='${data.name}',level='${data.level}',email='${data.email}',sex='${data.sex||'秘密'}',hobby='${data.hobby||'吃饭睡觉打豆豆'}',hometown='${data.hometown ||'外太空'}',birthday='${data.birthday||'12·1'}',signatrue='${data.signatrue || '这个人很懒,什么也没留下'}' WHERE id='${data.id}'`;
-
             update(sqlStr,res);
             break;
         }case "select":{
             let sqlStr = `SELECT * FROM users WHERE name LIKE '%${data.search}%'`;
             select(sqlStr,res);
             break;
+        }case 'update_font':{
+            let sqlStr =  `UPDATE users SET sex='${data.sex||'秘密'}',hobby='${data.hobby||'吃饭睡觉打豆豆'}',hometown='${data.hometown ||'外太空'}',birthday='${data.birthday||'12·1'}',signatrue='${data.signatrue || '这个人很懒,什么也没留下'}' WHERE id='${data.id}'`;
+            update(sqlStr,res);
         }
     }
 })
