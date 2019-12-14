@@ -141,7 +141,7 @@ router.post('/orders',(req,res,next)=>{
 router.get('/person',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
     if(params_obj.id === ('all')){
-        let sqlStr = `SELECT id,name,level,email FROM users`;
+        let sqlStr = `SELECT id,name,level,email,status FROM users`;
         lend(sqlStr,res);
     }else{
         // console.log(params_obj);
@@ -160,7 +160,7 @@ router.post('/person',(req,res,next)=>{
             del(sqlStr,res);
             break; 
         }case 'update':{
-            let sqlStr =  `UPDATE users SET id='${data.id}',name='${data.name}',level='${data.level}',email='${data.email}' WHERE id='${data.id}'`;
+            let sqlStr =  `UPDATE users SET id='${data.id}',name='${data.name}',level='${data.level}',email='${data.email}',sex='${data.sex||'秘密'}',hobby='${data.hobby||'吃饭睡觉打豆豆'}',hometown='${data.hometown ||'外太空'}',birthday='${data.birthday||'12·1'}',signatrue='${data.signatrue || '这个人很懒,什么也没留下'}' WHERE id='${data.id}'`;
             update(sqlStr,res);
             break;
         }case "select":{

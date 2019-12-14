@@ -4,7 +4,6 @@ var pg = require('pg');
 var nodemailer = require('nodemailer');
 var md5 = require('md5-node');
 var url = '';
-var fs = require('fs');
 //数据库基本配置  
 var pgdb = new pg.Pool({
   host: '127.0.0.1',
