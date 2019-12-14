@@ -50,6 +50,7 @@ router.get('/chapter',(req,res,next)=>{
 //文章修改接口
 router.post('/chapter',(req,res,next)=>{
     let data = req.body;
+    console.log(data);
     switch (data.type) {
         case 'del':{
             sqlStr = `DELETE FROM context WHERE id = '${data.id}'`;
@@ -96,6 +97,7 @@ router.get('/orders',(req,res,next)=>{
 });
 router.post('/orders',(req,res,next)=>{
     let data = req.body;
+    console.log(data);
     switch (data.type) {
         case 'select':{
             let sqlStr = `SELECT * FROM ordercontent WHERE id = '${data.id}' OR username LIKE '%${data.username}%' OR commodityid='${data.commodityid}'`;
@@ -152,7 +154,7 @@ router.get('/person',(req,res,next)=>{
 });
 router.post('/person',(req,res,next)=>{
     let data = req.body;
-    // console.log(data);
+    console.log(data);
     switch (data.type) {
         case 'del':{
             let sqlStr = `DELETE FROM users WHERE id='${data.id}'`;
@@ -161,7 +163,7 @@ router.post('/person',(req,res,next)=>{
             break; 
         }case 'update':{
             let sqlStr =  `UPDATE users SET id='${data.id}',name='${data.name}',level='${data.level}',email='${data.email}',sex='${data.sex||'秘密'}',hobby='${data.hobby||'吃饭睡觉打豆豆'}',hometown='${data.hometown ||'外太空'}',birthday='${data.birthday||'12·1'}',signatrue='${data.signatrue || '这个人很懒,什么也没留下'}' WHERE id='${data.id}'`;
-            console.log(data);
+
             update(sqlStr,res);
             break;
         }case "select":{
@@ -180,7 +182,7 @@ router.get('/admin',(req,res,next)=>{
 router.post('/admin',(req,res,next)=>{
     let data = req.body;
     // console.log(getObjLen(data));
-    // console.log(data);
+    console.log(data);
     var sqlStr;
     switch (data.type) {
         case 'del':{
@@ -220,7 +222,7 @@ router.get('/goods',(req,res,next)=>{
 });
 router.post('/goods',(req,res,next)=>{
     let data = req.body;
-    // console.log(data);
+    console.log(data);
     switch (data.type) {
         case 'select':{
             let sqlStr = `SELECT * FROM market WHERE id = '${data.search}' OR name LIKE '%${data.search}%'`;
@@ -253,6 +255,7 @@ router.post('/activity',(req,res,next)=>{
     let id = strRandom(10);
     let myDate = new Date();
     let mytime=myDate.toLocaleTimeString();
+    console.log(data);
     switch (data.type) {
         case 'insert':{
             let sqlStr = `INSERT INTO activity VALUES(${id},${data.name},/content/activity/${id}.json,0,0,0,${mytime},${data.position},${data.title},/images/activity/${id})`;
@@ -295,7 +298,7 @@ router.get('/fouce',(req,res,next)=>{
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
-            // console.log(err);
+            console.log('查询错误信息:',err.message);
             res.json({status:'1',data:'error'});
         }else{
             if(val.rowCount<=0)
@@ -310,7 +313,7 @@ function lend(sqlStr,res){
 let del = (sqlStr,res)=>{
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
-            // console.log(err.message);
+            console.log('删除错误:',err.message);
             res.send('error:');
         }else{
             if(val.rowCount<=0){
@@ -326,7 +329,7 @@ let del = (sqlStr,res)=>{
   let update = (sqlStr,res)=>{
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
-            console.log('UpdateErr:',err.message);
+            console.log('更新错误:',err.message);
             res.send('error');
         }else{
             if(val.rowCount <= 0){
@@ -341,7 +344,7 @@ let del = (sqlStr,res)=>{
 let insert = (sqlStr,res)=>{
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
-            // console.log(err.message);
+            console.log('插入错误:',err.message);
             res.send('error');
         }else{
             if(val.rowCount<=0){
@@ -356,7 +359,7 @@ let insert = (sqlStr,res)=>{
 let select = (sqlStr,res)=>{
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
-            // console.log(err.message);
+            console.log('搜索错误:',err.message);
             res.send('error');
         }else{
             if(val.rowCount<=0){
