@@ -247,7 +247,6 @@ router.post('/goods',(req,res,next)=>{
     }
 });
 
-//动态路由,路由按数据库表名称
 router.get('/activity',(req,res,next)=>{
     let sqlStr = `SELECT * FROM activity`;
     lend(sqlStr,res);
@@ -278,7 +277,7 @@ router.post('/activity',(req,res,next)=>{
             select(sqlStr,res);
             break;
         }case 'update':{
-            let sqlStr = `UPDATE market SET id='${data.id}',name='${data.name}',price='${data.price}',collect='${data.collect}' WHERE id = '${data.id}'`;
+            let sqlStr = `UPDATE activity SET id='${data.id}',name='${data.name}',price='${data.price}',collect='${data.collect}' WHERE id = '${data.id}'`;
             update(sqlStr,res);
             break;
         }
