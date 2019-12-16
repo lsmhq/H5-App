@@ -239,7 +239,7 @@ router.post('/goods',(req,res,next)=>{
             insert(sqlStr,res);
             break;
         }case 'update':{
-            let sqlStr = `UPDATE market SET id='${data.id}',name='${data.name}',price='${data.price}',collect='${data.collect}' WHERE id = '${data.id}'`;
+            let sqlStr = `UPDATE market SET id='${data.id}',name='${data.name}',price='${data.price}',collect='${data.collect}',description='${data.description}',brand='${data.brand}' WHERE id = '${data.id}'`;
             update(sqlStr,res);
             break;
         }
