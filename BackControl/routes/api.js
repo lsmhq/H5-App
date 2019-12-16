@@ -235,7 +235,7 @@ router.post('/goods',(req,res,next)=>{
             del(sqlStr,res);
             break;
         }case 'insert':{
-            let sqlStr = `INSERT INTO market VALUES(${data.id},${data.name},${data.path||'?'},${data.price},${data.source||'？'},${data.brand ||'?'},${data.evaluation||'?'},${data.collect})`;
+            let sqlStr = `INSERT INTO market VALUES('${data.id}','${data.name}','${data.path||'?'}','${data.price}','${data.source||'？'}','${data.brand ||'?'}','${data.evaluation||'?'}','${data.collect}')`;
             insert(sqlStr,res);
             break;
         }case 'update':{
