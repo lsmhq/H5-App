@@ -262,12 +262,7 @@ router.post('/activity',(req,res,next)=>{
     console.log(data);
     switch (data.type) {
         case 'insert':{
-            let sqlStr = `INSERT INTO activity VALUES('${data.id}','${data.name}','/content/activity/${data.id}.json','${data.visit}','${data.goods}','${data.evaluationnum}','${data.timetamp}','${data.title}','/images/activity/${data.id}')`;
-            let content = {
-                title:data.title,
-                content:data.content
-            }
-            fs.writeFileSync(`../public/content/activity/${id}.json`,JSON.stringify(content));
+            let sqlStr = `INSERT INTO activity VALUES('${data.id}','${data.name}',${' '},'${data.visit}','${data.goods}','${evaulationnum}','${data.timetamp}','${' '}','${data.title}','${' '}')`;
             insert(sqlStr,res);
             break;
         }case 'del':{
@@ -275,15 +270,15 @@ router.post('/activity',(req,res,next)=>{
             del(sqlStr,res);
             break;
         }case 'select':{
-            let sqlStr = `SELECT * FROM activity WHERE id = '${data.search}' OR name LIKE '%${data.search}%'`;
+            let sqlStr = `SELECT * FROM activity WHERE id = '${data.search}' OR title LIKE '%${data.search}%'`;
             select(sqlStr,res);
             break;
-        }case 'update':{
-            let sqlStr = `UPDATE activity SET id='${data.id}',name='${data.name}',price='${data.price}',collect='${data.collect}' WHERE id = '${data.id}'`;
-            update(sqlStr,res);
+        }case 'insert_font':{
+            //
+            res.send('该功能还没有完成');
             break;
         }
-    }
+        }
 })
 
 //粉丝接口
