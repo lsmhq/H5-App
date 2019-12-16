@@ -176,7 +176,6 @@ router.post('/person',(req,res,next)=>{
         }
     }
 })
-
 router.get('/admin',(req,res,next)=>{
     let sqlStr = `SELECT * FROM admin`;
     lend(sqlStr,res);
@@ -290,13 +289,42 @@ router.get('/fans',(req,res,next)=>{
     let sqlStr = `SELECT * FROM fans WHERE id = '${params_obj.id}'`;
     lend(sqlStr,res);
 })
+router.post('/fans',(req,res,next)=>{
+    let data = req.body;
+    switch (data.type) {
+        case 'insert':{
+            let sqlStr = `INSERT INTO fans VALUES('${' '}','${data.fanname}','${fanid}','${avatarid}','${data.id}')`;
+            insert(sqlStr,res);
+            break;
+        }case 'del':{
+            let sqlStr = `DELETE FROM fans WHERE id='${data.id}' AND fanid='${data.fanid}'`;
+            del(sqlStr,res);
+            break;
+        }case 'select':{
+            break;
+        }   
+    }
+})
 //关注接口
 router.get('/fouce',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
     let sqlStr = `SELECT * FROM fouce WHERE id = '${params_obj.id}'`;
     lend(sqlStr,res);
 })
-
+router.post('/fouce',(req,res,next)=>{
+    let data = req.body;
+    switch (data.type) {
+        case 'insert':{
+            let sqlStr = `INSERT INTO fouce VALUES('${' '}','${data.foucename}','${data.fouceid}','${data.avatartid}','${data.id}')`;
+            insert(sqlStr,res);
+            break;
+        }case 'del':{
+            let sqlStr = `DELETE FROM fouce WHERE id='${data.id}' AND fouceid='${data.fouceid}'`;
+            del(sqlStr,res);
+            break;
+        }
+    }
+})
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
