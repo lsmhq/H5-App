@@ -62,9 +62,9 @@ router.post('/chapter',(req,res,next)=>{
             update(sqlStr,res);
             break;
         }
-        case 'insert':{
+        case 'insert_font':{
             let id = strRandom(10);
-            sqlStr = `INSERT INTO context VALUES(${id},${data.contexttype},${data.autherid},${data.auther},${data.context},${data.good||'0'},${data.visit||'0'},${data.collect||'0'},${data.evaluationnum},${data.timetamp},${data.title})`;
+            sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${data.auther}','${data.context}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum}','${data.timetamp}','${data.title}')`;
             let content = {
                     title:data.title,
                     content:data.content
@@ -80,6 +80,11 @@ router.post('/chapter',(req,res,next)=>{
         case 'select':{
             sqlStr = `SELECT * from context WHERE title LIKE'%${data.search||''}%' OR id='${data.search}' OR auther LIKE '%${data.search}%'`;
             select(sqlStr,res);
+            break;
+        }case 'insert':{
+            let id = strRandom(10);
+            let sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${data.auther}','${data.context}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum}','${data.timetamp}','${data.title}')`;
+            insert(sqlStr,res);
             break;
         }
     }
@@ -259,7 +264,7 @@ router.post('/activity',(req,res,next)=>{
     console.log(data);
     switch (data.type) {
         case 'insert':{
-            let sqlStr = `INSERT INTO activity VALUES(${id},${data.name},/content/activity/${id}.json,0,0,0,${mytime},${data.position},${data.title},/images/activity/${id})`;
+            let sqlStr = `INSERT INTO activity VALUES('${id}','${data.name}','/content/activity/${id}.json','${mytime}',${data.position}','${data.title}',/images/activity/${id})`;
             let content = {
                 title:data.title,
                 content:data.content
