@@ -262,7 +262,7 @@ router.post('/activity',(req,res,next)=>{
     console.log(data);
     switch (data.type) {
         case 'insert':{
-            let sqlStr = `INSERT INTO activity VALUES('${data.id}','${data.name}',${' '},'${data.visit}','${data.goods}','${evaulationnum}','${data.timetamp}','${' '}','${data.title}','${' '}')`;
+            let sqlStr = `INSERT INTO activity VALUES('${id}','${data.name}',${' '},${data.visit},${data.goods},${evaulationnum},'${data.timetamp}','${' '}','${data.title}','${' '}')`;
             insert(sqlStr,res);
             break;
         }case 'del':{
