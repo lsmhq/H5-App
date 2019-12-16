@@ -65,16 +65,7 @@ router.post('/chapter',(req,res,next)=>{
         case 'insert_font':{
             let id = strRandom(10);
             sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${data.auther}','${data.context}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum}','${data.timetamp}','${data.title}')`;
-            let content = {
-                    title:data.title,
-                    content:data.content
-            }
-            fs.writeFileSync(`../public/content/${data.contexttype}/${id}.json`,JSON.stringify(content));
-            if(data.src_img.indexOf('.png'))
-                fs.writeFileSync(`../public/images/animation/${id}/0.png`,data.img_data);
-            else if(data.src_img.indexOf('.jpg'))
-                fs.writeFileSync(`../public/images/animation/${id}/0.jpg`,data.img_data);
-            insert(sqlStr,res);
+            res.send('api未完成')
             break;
         }
         case 'select':{
@@ -262,7 +253,7 @@ router.post('/activity',(req,res,next)=>{
     console.log(data);
     switch (data.type) {
         case 'insert':{
-            let sqlStr = `INSERT INTO activity VALUES('${id}','${data.name}',${' '},${data.visit},${data.goods},${evaulationnum},'${data.timetamp}','${' '}','${data.title}','${' '}')`;
+            let sqlStr = `INSERT INTO activity VALUES('${id}','${data.name}',${' '},'${data.visit}','${data.goods}','${evaulationnum}','${data.timetamp}','${' '}','${data.title}','${' '}')`;
             insert(sqlStr,res);
             break;
         }case 'del':{
@@ -275,7 +266,7 @@ router.post('/activity',(req,res,next)=>{
             break;
         }case 'insert_font':{
             //
-            res.send('该功能还没有完成');
+            res.send('api未完成');
             break;
         }
         }
