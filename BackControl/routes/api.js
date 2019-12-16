@@ -259,12 +259,10 @@ router.get('/activity',(req,res,next)=>{
 router.post('/activity',(req,res,next)=>{
     let data = req.body;
     let id = strRandom(10);
-    let myDate = new Date();
-    let mytime=myDate.toLocaleTimeString();
     console.log(data);
     switch (data.type) {
         case 'insert':{
-            let sqlStr = `INSERT INTO activity VALUES('${id}','${data.name}','/content/activity/${id}.json','${mytime}',${data.position}','${data.title}',/images/activity/${id})`;
+            let sqlStr = `INSERT INTO activity VALUES('${data.id}','${data.name}','/content/activity/${data.id}.json','${data.timetamp}','${data.position}','${data.title}','/images/activity/${data.id}')`;
             let content = {
                 title:data.title,
                 content:data.content
