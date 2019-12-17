@@ -69,24 +69,23 @@ router.post('/chapter',(req,res,next)=>{
             let time = new Date().getMonth() + '月' + new Date().getDate() + '日'
             console.log(data.images_type.split('/'));
             console.log(data.images.split(','));
-            sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${decodeURIComponent(atob(data.auther))}','/content/${data.contexttype}/${id}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}','/images/animation/${id}/${0+imgtype}')`;
-            console.log(sqlStr);
             switch (data.images_type.split('/')[1]) {
-                case 'jpg':{
+                case 'jpg'||'JPG':{
                     imgtype = '.jpg';
                     break;
-                }case 'png':{
+                }case 'png'||'PNG':{
                     imgtype = '.png';
                     break;
-                }case 'gif' : {
+                }case 'gif'||'GIF' : {
                     imgtype = '.gif';
                     break;
-                }case 'jpeg':{
+                }case 'jpeg'||'JPEG':{
                     imgtype = '.jpeg'
                     break;
                 }
-            }
-            insert_context(sqlStr,res,imgtype,id,data);
+            }            
+            sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${decodeURIComponent(atob(data.auther))}','/content/${data.contexttype}/${id}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}','/images/animation/${id}/${0+imgtype}')`;
+            console.log(sqlStr);
             break;
         }
         case 'select':{
