@@ -16,7 +16,7 @@ export default class View extends Component {
         return (
             <div style={style}>
                 <span>{this.props.title}</span>
-                <span>{this.props.num}</span>
+                <p><span>{this.props.num}</span></p>
             </div>
         )
     }

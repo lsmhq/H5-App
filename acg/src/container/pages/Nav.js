@@ -8,7 +8,6 @@ export default class Nav extends Component {
             height:'50px',
             backgroundColor:'#272727'   
         }
-        console.log(document.cookie);
         return (
             <div style = {header_style}>
                 <img src='/images/logo.png' width='50px' style={{marginLeft:'6%'}}/>
@@ -20,7 +19,8 @@ export default class Nav extends Component {
         )
     }
     exit = ()=>{
-        window.location.pathname='/admin';
+        document.cookie = `username=${''}`
+        document.cookie = `loginStatus=${''}`;
     }
 
     //解析cookie

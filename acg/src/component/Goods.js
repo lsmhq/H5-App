@@ -6,7 +6,9 @@ export default class Goods extends Component {
         return (
             <div>
                 <Header title='商品管理'/>
-                <Table title={["ID","商品名","库存","价格","操作"]} url='https://daitianfang.1459.top/api/v1/goods?id=all' data={['id','name','collect','price']} type='goods'/>
+                <Table title={["ID","商品名","库存","价格","厂家地址","品牌",'简介']}
+                 url='https://daitianfang.1459.top/api/v1/goods?id=all'
+                 data={['id','name','collect','price','source','brand','description']} type='goods'/>
             </div>
         )
     }

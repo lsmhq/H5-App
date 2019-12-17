@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
-import ReactDom from 'react-dom';
 export default class Alert extends Component {
     render() {
         let style = {
             position:'absolute',
-            top: '0px',
+            top: '10px',
             width:'370px',
-            height:'150px',
-            display:'',
-            backgroundColor:"blue",
+            height:'250px',
+            display:'none',
+            backgroundColor:"rgb(165, 212, 255)",
             borderRadius:'5px',
             left:'5%',
             opacity:'1',
-            zIndex:'100'
+            zIndex:'100',
+            lineHeight:'50px'
         }
         let btn = {
             width: '90%',
@@ -26,8 +26,8 @@ export default class Alert extends Component {
             backgroundColor:'pink'
         }
         return (
-            <div id="alert" style={style}>
-                <h3 style={{color:'orange'}}>{this.props.title}</h3>
+            <div id="alert" style={style} className='animate fadeInDown'>
+                <h3 style={{color:'rgb(228, 72, 0)'}}>{this.props.title}</h3>
                 <p>请重新输入</p>
                 <button style={btn} onClick={()=>{
                     document.getElementById('alert').style.display = 'none'

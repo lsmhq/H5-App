@@ -6,7 +6,7 @@ export default class Root extends Component {
         return (
             <div>
                <Header title='管理员'/>
-               <Table title={["ID","用户名","权限","联系方式","操作"]} url='https://daitianfang.1459.top/api/v1/admin' data={['userid','username','character','email']} type='admin'/>
+               <Table title={["ID","用户名","权限","联系方式"]} url='https://daitianfang.1459.top/api/v1/admin' data={['userid','username','character','email']} type='admin'/>
             </div>
         )
     }
