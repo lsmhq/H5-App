@@ -108,8 +108,14 @@ router.post('/chapter',(req,res,next)=>{
                                         console.log(err.message);
                                         res.send('error');
                                     }else{
-                                        fs.writeFileSync('../public/content/'+id+'.json',content);
-                                        res.send('success')
+                                        fs.writeFile('../public/content/'+id+'.json',content,(err)=>{
+                                            if(err){
+                                                console.log(err.message);
+                                                res.send('error');
+                                            }else{
+                                                res.send('success');
+                                            }
+                                        });
                                     }
                                 });
                             }
