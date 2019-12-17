@@ -82,8 +82,8 @@ router.post('/chapter',(req,res,next)=>{
                     break;
                 }
             }
-            sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${data.auther}','${data.context}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${data.timetamp}','${data.title}','/images/animation/${id}/${0+imgtype}')`;
-            insert(sqlStr,res);
+            sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${data.auther}','/content/${data.contexttype}/${id}.json','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${data.timetamp}','${data.title}','/images/animation/${id}/${0+imgtype}')`;
+            insert_context(sqlStr,res,imgtype,id,data);
             break;
         }
         case 'select':{
@@ -452,7 +452,22 @@ let select = (sqlStr,res)=>{
         }
     })
 }
-
+let insert_context = (sqlStr,res,imgtype,id,data)=>{
+    pgdb.query(sqlStr,[],(err,val)=>{
+        if(err) console.log('发布错误:',err.message);
+        else{
+            if(val.rowCount > 0){
+                let img = Buffer.from(data.images.split(',')[1],data.images.split(',')[0]);
+                let context = data.context;
+                fs.writeFileSync(`../public/images/animation/${id+imgtype}`,img);
+                fs.writeFileSync(`../public/content/${data.contenttype}/${id}.json`);
+                res.send('success');
+            }else{
+                res.send('error');
+            }
+        }
+    })
+}
   //随机字符串
 function strRandom(j){
     var str = 'ABCDEFGHIGKLMNOPQRSTUVWXYZabcdefghigklmnopqrstuvwxyz123456789';
