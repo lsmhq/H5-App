@@ -93,7 +93,8 @@ router.post('/chapter',(req,res,next)=>{
             break;
         }case 'insert':{
             let id = strRandom(10);
-            let sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${data.auther}','${data.context}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum}','${data.timetamp}','${data.title}')`;
+            let time = new Date().getMonth() + '月' + new Date().getDate() + '日'
+            let sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype||'???'}','${data.autherid||'admin'}','${data.auther||'admin'}','${data.context||'测试'}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}')`;
             insert(sqlStr,res);
             break;
         }
