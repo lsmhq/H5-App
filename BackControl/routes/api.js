@@ -461,8 +461,10 @@ let insert_context = (sqlStr,res,imgtype,id,data)=>{
         } 
         else{
             if(val.rowCount > 0){
+                console.log('到了Buffer了');
                 let img = Buffer.from(data.images.split(',')[1],data.images.split(',')[0]);
                 let context = {title:data.title,content:[{text:data.context,title:''}]};
+                console.log('正在写文件');
                 fs.writeFileSync(`../public/images/animation/${id+imgtype}`,img);
                 fs.writeFileSync(`../public/content/${data.contenttype}/${id}.json`,JSON.stringify(context));
                 res.send('success');
