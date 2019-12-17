@@ -314,7 +314,18 @@ router.post('/activity',(req,res,next)=>{
 router.get('/fans',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
     let sqlStr = `SELECT * FROM fans WHERE id = '${params_obj.id}'`;
-    lend(sqlStr,res);
+    pgdb.query(sqlStr,[],(err,val)=>{
+        if(err){
+            console.log('粉丝错误:',err.message);
+        }else{
+            if(val.rowCount > 0){
+                let json = {status:0,data:{count:val.rowCount,data:val.rows}}
+                res.json(json);
+            }else{
+                res.json({status:1,data:'error'})
+            }
+        }
+    })
 })
 router.post('/fans',(req,res,next)=>{
     let data = req.body;
@@ -336,7 +347,18 @@ router.post('/fans',(req,res,next)=>{
 router.get('/fouce',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
     let sqlStr = `SELECT * FROM fouce WHERE id = '${params_obj.id}'`;
-    lend(sqlStr,res);
+    pgdb.query(sqlStr,[],(err,val)=>{
+        if(err){
+            console.log('关注错误:',err.message);
+        }else{
+            if(val.rowCount > 0){
+                let json = {status:0,data:{count:val.rowCount,data:val.rows}}
+                res.json(json);
+            }else{
+                res.json({status:1,data:'error'})
+            }
+        }
+    })
 })
 router.post('/fouce',(req,res,next)=>{
     let data = req.body;
