@@ -95,15 +95,7 @@ router.post('/chapter',(req,res,next)=>{
                     console.log('发布错误:',err.message);
                     res.send('error');
                 }else{
-                    if(val.rowCount>0){
-                        // let imgData = Buffer.from(images,'base64');
-                        // let content = {title:data.title,content:[{text:data.context,title:''}]};
-                        // fs.writeFileSync(`../public/images/animation/${id}/0${imgtype}`,imgData);
-                        // fs.writeFileSync(`/content/${data.contenttype}/${id}`,JSON.stringify(content));
-                        res.send('success');
-                    }else{
-                        res.send('error');
-                    }
+                    res.send('success');
                 }
             })
             break;
