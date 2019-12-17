@@ -98,19 +98,8 @@ router.post('/chapter',(req,res,next)=>{
                     res.send('error');
                 }else{
                     if(val.rowCount>0){
-                        if(fs.existsSync(`../public/images/animation/${id}/`)){
-                            fs.writeFile(`../public/images/animation/${id}/0${imgtype}`,imgData,(err)=>{
-                                if(err){
-                                    console.log(err.message);
-                                    res.send('error');
-                                }
-                                else{
-                                    fs.writeFileSync(`/content/${data.contenttype}/${id}`,JSON.stringify(content));
-                                    res.send('success');
-                                }
-                            }); 
-                        }else{
-                            fs.mkdir(`../public/images/animation/${id}/`,()=>{
+                        fs.exists(`../public/images/animation/${id}/`,(exists)=>{
+                            if(exists){
                                 fs.writeFile(`../public/images/animation/${id}/0${imgtype}`,imgData,(err)=>{
                                     if(err){
                                         console.log(err.message);
@@ -121,9 +110,21 @@ router.post('/chapter',(req,res,next)=>{
                                         res.send('success');
                                     }
                                 }); 
-                            })
-                        }
-
+                            }else{
+                                fs.mkdir(`../public/images/animation/${id}/`,()=>{
+                                    fs.writeFile(`../public/images/animation/${id}/0${imgtype}`,imgData,(err)=>{
+                                        if(err){
+                                            console.log(err.message);
+                                            res.send('error');
+                                        }
+                                        else{
+                                            fs.writeFileSync(`/content/${data.contenttype}/${id}`,JSON.stringify(content));
+                                            res.send('success');
+                                        }
+                                    }); 
+                                })
+                            }
+                        })
                     }else{
                         res.send('error');
                     }
