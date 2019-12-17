@@ -69,6 +69,7 @@ router.post('/chapter',(req,res,next)=>{
             let time = new Date().getMonth() + '月' + new Date().getDate() + '日';
             let img_type = data.images_type.split('/')[1];
             let images = data.images.split(',')[1];
+            let imgtype;
             console.log("图片类型:",img_type);
             console.log("图片数据:",images);
             switch (img_type) {
@@ -86,8 +87,7 @@ router.post('/chapter',(req,res,next)=>{
                     break;
                 }
             }            
-            sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${decodeURIComponent(atob(data.auther))}','/content/${data.contexttype}/${id}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}','/images/animation/${id}/${0+imgtype}')`;
-            console.log(sqlStr);
+            console.log(imgtype);
             break;
         }
         case 'select':{
