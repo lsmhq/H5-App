@@ -66,7 +66,6 @@ router.post('/chapter',(req,res,next)=>{
         }
         case 'insert_font':{
             let id = strRandom(10);
-            let id = strRandom(10);
             let time = new Date().getMonth() + '月' + new Date().getDate() + '日'
             console.log(data.images_type.split('/'));
             console.log(data.images.split(','));
