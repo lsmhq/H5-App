@@ -3,6 +3,7 @@ var router = express.Router();
 var pg = require('pg');
 var fs = require('fs');
 var qs = require('querystring');
+var formidable = require('formidable');
 //数据库基本配置  
 var pgdb = new pg.Pool({
     host: '127.0.0.1',
@@ -64,8 +65,26 @@ router.post('/chapter',(req,res,next)=>{
         }
         case 'insert_font':{
             let id = strRandom(10);
-            sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${data.auther}','${data.context}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum}','${data.timetamp}','${data.title}')`;
-            res.send('api未完成')
+            switch (data.images_type) {
+                case 'jpg':{
+                    imgtype = '.jpg';
+                    break;
+                }case 'png':{
+                    imgtype = '.png';
+                    break;
+                }case 'gif' : {
+                    imgtype = '.gif';
+                    break;
+                }case 'jpeg':{
+                    imgtype = '.jpeg'
+                    break;
+                }
+            }
+            sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${data.auther}','${data.context}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum}','${data.timetamp}','${data.title}','/images/animation/${id}/${0+imgtype}')`;
+            let buf_img = Buffer.from(data.images.split(',')[1],'base64');
+            fs.writeFileSync(`../public/images/${id}/${0+imgtype}`,buf_img);
+            fs.writeFileSync(`../public/content/${data.contexttype}/${id}.json`);
+            insert(sqlStr,res);
             break;
         }
         case 'select':{
@@ -265,8 +284,27 @@ router.post('/activity',(req,res,next)=>{
             select(sqlStr,res);
             break;
         }case 'insert_font':{
-            //
-            res.send('api未完成');
+            let date = new Date();
+            switch (data.imgType) {
+                case 'jpg':{
+                    imgtype = '.jpg';
+                    break;
+                }case 'png':{
+                    imgtype = '.png';
+                    break;
+                }case 'gif' : {
+                    imgtype = '.gif';
+                    break;
+                }case 'jpeg':{
+                    imgtype = '.jpeg'
+                    break;
+                }
+            }
+            let sqlStr = `INSERT INTO activity VALUES('${id}','${data.name}','${`/content/activity/${id}`}','0','0','0','${date.getMonth()+1+'月'+date.getDate()+'号'}',' ','${data.title}','/images/activity/${id}imgtype')`;
+            let form = new formidable().IncomingForm();
+            form.parse(req,(err,field,file)=>{
+                fs.writeFileSync(`../public/images/activity/${id}imgtype`,fs.readFileSync(file.file.path))
+            })
             break;
         }
         }
