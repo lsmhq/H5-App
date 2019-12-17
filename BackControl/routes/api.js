@@ -66,10 +66,12 @@ router.post('/chapter',(req,res,next)=>{
         }
         case 'insert_font':{
             let id = strRandom(10);
-            let time = new Date().getMonth() + '月' + new Date().getDate() + '日'
-            console.log(data.images_type.split('/'));
-            console.log(data.images.split(','));
-            switch (data.images_type.split('/')[1]) {
+            let time = new Date().getMonth() + '月' + new Date().getDate() + '日';
+            let img_type = data.images_type.split('/')[1];
+            let images = data.images.split(',')[1];
+            console.log("图片类型:",img_type);
+            console.log("图片数据:",images);
+            switch (img_type) {
                 case 'jpg'||'JPG':{
                     imgtype = '.jpg';
                     break;
