@@ -111,7 +111,7 @@ router.post('/chapter',(req,res,next)=>{
                                         console.log(err.message);
                                         res.send('error');
                                     }else{
-                                        fs.writeFile(path.join('/')+'/public/content/'+data.contenttype+'/'+id+'.json',content,(err)=>{
+                                        fs.writeFile(path.join('/')+'/public/content/'+data.contexttype+'/'+id+'.json',content,(err)=>{
                                             if(err){
                                                 console.log(err.message);
                                                 res.send('error');
