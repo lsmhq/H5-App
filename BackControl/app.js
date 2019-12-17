@@ -22,11 +22,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json({limit: '50mb'}));    //最大上传大小不超过50mb
-app.use(bodyParser.urlencoded({
-    limit: '50mb',
-    extended:true
-}));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use('/admin', backloginRouter);//后台登录
 app.use('/check',checkRouter);//检测
 app.use('/acg',fontloginRouter);//前端登录
