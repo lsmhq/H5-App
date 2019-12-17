@@ -101,17 +101,17 @@ router.post('/chapter',(req,res,next)=>{
                         console.log(__dirname);
                         let path = __dirname.split('/');
                         path.pop();
-                        fs.mkdir(path.join('/')+'/../public/images/animation/'+id,{recursive: true},(err)=>{
+                        fs.mkdir(path.join('/')+'/public/images/animation/'+id,{recursive: true},(err)=>{
                             if(err){
                                 console.log(err.message);
                                 res.send('error');
                             }else{
-                                fs.writeFile(path.join('/')+'/../public/images/animation/'+id+'/0'+imgtype,imgData,(err)=>{
+                                fs.writeFile(path.join('/')+'/public/images/animation/'+id+'/0'+imgtype,imgData,(err)=>{
                                     if(err){
                                         console.log(err.message);
                                         res.send('error');
                                     }else{
-                                        fs.writeFile(path.join('/')+'/../public/content/'+id+'.json',content,(err)=>{
+                                        fs.writeFile(path.join('/')+'/public/content/'+id+'.json',content,(err)=>{
                                             if(err){
                                                 console.log(err.message);
                                                 res.send('error');
