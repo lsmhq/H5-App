@@ -88,6 +88,8 @@ router.post('/chapter',(req,res,next)=>{
                 }
             }            
             console.log(imgtype);
+            sqlStr = `INSERT INTO context VALUES('${id}','${data.contenttype}','${data.autherid}','${decodeURIComponent(atob(data.auther))}','/content/${data.contenttype}/${id}','0','0','0','0','${time}','${data.title}','/images/animation/${id}/0${imgtype}')`;
+            console.log(sqlStr);
             break;
         }
         case 'select':{
