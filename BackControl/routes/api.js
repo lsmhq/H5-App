@@ -88,8 +88,8 @@ router.post('/chapter',(req,res,next)=>{
                 }
             }            
             console.log(imgtype);
-            // sqlStr_insert = `INSERT INTO context VALUES('${id}','${data.contenttype}','${data.autherid}','${decodeURIComponent(atob(data.auther))}','/content/${data.contenttype}/${id}','0','0','0','0','${time}','${data.title}','/images/animation/${id}/0${imgtype}')`;
-            // console.log(sqlStr_insert);
+            let sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype||'game'}','${data.autherid||'wVVbRO4n4Y'}','${data.auther||'蓝色灭火器'}','${data.context||'测试'}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}')`;
+            console.log(sqlStr);
             res.send('success');
             break;
         }
