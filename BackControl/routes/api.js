@@ -98,16 +98,32 @@ router.post('/chapter',(req,res,next)=>{
                     res.send('error');
                 }else{
                     if(val.rowCount>0){
-                        fs.writeFile(`../public/images/animation/${id}/0${imgtype}`,imgData,(err)=>{
-                            if(err){
-                                console.log(err.message);
-                                res.send('error');
-                            }
-                            else{
-                                fs.writeFileSync(`/content/${data.contenttype}/${id}`,JSON.stringify(content));
-                                res.send('success');
-                            }
-                        });
+                        if(fs.existsSync(`../public/images/animation/${id}/`)){
+                            fs.writeFile(`../public/images/animation/${id}/0${imgtype}`,imgData,(err)=>{
+                                if(err){
+                                    console.log(err.message);
+                                    res.send('error');
+                                }
+                                else{
+                                    fs.writeFileSync(`/content/${data.contenttype}/${id}`,JSON.stringify(content));
+                                    res.send('success');
+                                }
+                            }); 
+                        }else{
+                            fs.mkdir(`../public/images/animation/${id}/`,()=>{
+                                fs.writeFile(`../public/images/animation/${id}/0${imgtype}`,imgData,(err)=>{
+                                    if(err){
+                                        console.log(err.message);
+                                        res.send('error');
+                                    }
+                                    else{
+                                        fs.writeFileSync(`/content/${data.contenttype}/${id}`,JSON.stringify(content));
+                                        res.send('success');
+                                    }
+                                }); 
+                            })
+                        }
+
                     }else{
                         res.send('error');
                     }
@@ -477,28 +493,6 @@ let select = (sqlStr,res)=>{
             }else{
                 // console.log(val.rows);
                 res.send(JSON.stringify(val.rows));
-            }
-        }
-    })
-}
-let insert_context = (sqlStr,res,imgtype,id,data)=>{
-    pgdb.query(sqlStr,[],(err,val)=>{
-        if(err){
-            console.log('发布错误:',err.message);
-            res.send('error');
-        } 
-        else{
-            console.log('error');
-            if(val.rowCount > 0){
-                console.log('到了Buffer了');
-                let img = Buffer.from(data.images.split(',')[1],data.images.split(',')[0]);
-                let context = {title:data.title,content:[{text:data.context,title:''}]};
-                console.log('正在写文件');
-                fs.writeFileSync(`../public/images/animation/${id+imgtype}`,img);
-                fs.writeFileSync(`../public/content/${data.contenttype}/${id}.json`,JSON.stringify(context));
-                res.send('success');
-            }else{
-                res.send('error');
             }
         }
     })
