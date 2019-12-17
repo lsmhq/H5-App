@@ -455,7 +455,10 @@ let select = (sqlStr,res)=>{
 }
 let insert_context = (sqlStr,res,imgtype,id,data)=>{
     pgdb.query(sqlStr,[],(err,val)=>{
-        if(err) console.log('发布错误:',err.message);
+        if(err){
+            console.log('发布错误:',err.message);
+            res.send('error');
+        } 
         else{
             if(val.rowCount > 0){
                 let img = Buffer.from(data.images.split(',')[1],data.images.split(',')[0]);
