@@ -65,7 +65,7 @@ router.post('/chapter',(req,res,next)=>{
         }
         case 'insert_font':{
             let id = strRandom(10);
-            switch (data.images_type) {
+            switch (data.images_type.split('/')[1]) {
                 case 'jpg':{
                     imgtype = '.jpg';
                     break;
