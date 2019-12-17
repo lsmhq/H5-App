@@ -98,6 +98,7 @@ router.post('/chapter',(req,res,next)=>{
                     res.send('error');
                 }else{
                     if(val.rowCount>0){
+                        console.log(__dirname);
                         fs.mkdir('../public/images/animation/'+id,{recursive: true},(err)=>{
                             if(err){
                                 console.log(err.message);
