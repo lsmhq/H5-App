@@ -51,6 +51,7 @@ router.get('/chapter',(req,res,next)=>{
 //文章修改接口
 router.post('/chapter',(req,res,next)=>{
     let data = req.body;
+    let sqlStr;
     console.log(data);
     switch (data.type) {
         case 'del':{
@@ -65,9 +66,11 @@ router.post('/chapter',(req,res,next)=>{
         }
         case 'insert_font':{
             let id = strRandom(10);
+            let id = strRandom(10);
+            let time = new Date().getMonth() + '月' + new Date().getDate() + '日'
             console.log(data.images_type.split('/'));
             console.log(data.images.split(','));
-            sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${decodeURIComponent(atob(data.auther))}','/content/${data.contexttype}/${id}.json','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${data.timetamp}','${data.title}','/images/animation/${id}/${0+imgtype}')`;
+            sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${decodeURIComponent(atob(data.auther))}','/content/${data.contexttype}/${id}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}','/images/animation/${id}/${0+imgtype}')`;
             console.log(sqlStr);
             switch (data.images_type.split('/')[1]) {
                 case 'jpg':{
@@ -460,6 +463,7 @@ let insert_context = (sqlStr,res,imgtype,id,data)=>{
             res.send('error');
         } 
         else{
+            console.log('error');
             if(val.rowCount > 0){
                 console.log('到了Buffer了');
                 let img = Buffer.from(data.images.split(',')[1],data.images.split(',')[0]);
