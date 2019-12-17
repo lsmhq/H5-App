@@ -67,6 +67,8 @@ router.post('/chapter',(req,res,next)=>{
             let id = strRandom(10);
             console.log(data.images_type.split('/'));
             console.log(data.images.split(','));
+            sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${decodeURIComponent(atob(data.auther))}','/content/${data.contexttype}/${id}.json','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${data.timetamp}','${data.title}','/images/animation/${id}/${0+imgtype}')`;
+            console.log(sqlStr);
             switch (data.images_type.split('/')[1]) {
                 case 'jpg':{
                     imgtype = '.jpg';
@@ -82,8 +84,6 @@ router.post('/chapter',(req,res,next)=>{
                     break;
                 }
             }
-            sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${decodeURIComponent(atob(data.auther))}','/content/${data.contexttype}/${id}.json','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${data.timetamp}','${data.title}','/images/animation/${id}/${0+imgtype}')`;
-            console.log(sqlStr);
             insert_context(sqlStr,res,imgtype,id,data);
             break;
         }
@@ -94,7 +94,7 @@ router.post('/chapter',(req,res,next)=>{
         }case 'insert':{
             let id = strRandom(10);
             let time = new Date().getMonth() + '月' + new Date().getDate() + '日'
-            let sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype||'???'}','${data.autherid||'admin'}','${data.auther||'admin'}','${data.context||'测试'}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}')`;
+            let sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype||'game'}','${data.autherid||'wVVbRO4n4Y'}','${data.auther||'蓝色灭火器'}','${data.context||'测试'}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}')`;
             insert(sqlStr,res);
             break;
         }
