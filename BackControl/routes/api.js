@@ -458,9 +458,9 @@ let insert_context = (sqlStr,res,imgtype,id,data)=>{
         else{
             if(val.rowCount > 0){
                 let img = Buffer.from(data.images.split(',')[1],data.images.split(',')[0]);
-                let context = data.context;
+                let context = {title:data.title,content:[{text:data.context,title:''}]};
                 fs.writeFileSync(`../public/images/animation/${id+imgtype}`,img);
-                fs.writeFileSync(`../public/content/${data.contenttype}/${id}.json`);
+                fs.writeFileSync(`../public/content/${data.contenttype}/${id}.json`,JSON.stringify(context));
                 res.send('success');
             }else{
                 res.send('error');
