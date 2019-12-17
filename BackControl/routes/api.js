@@ -70,6 +70,8 @@ router.post('/chapter',(req,res,next)=>{
             let img_type = data.images_type.split('/')[1];
             let images = data.images.split(',')[1];
             let imgtype,sqlStr_insert;
+            let imgData = Buffer.from(images,'base64');
+            let content = {title:data.title,content:[{text:data.context,title:''}]};
             console.log("图片类型:",img_type);
             console.log("图片数据:",images);
             switch (img_type) {
@@ -96,10 +98,9 @@ router.post('/chapter',(req,res,next)=>{
                     res.send('error');
                 }else{
                     if(val.rowCount>0){
-                        let imgData = Buffer.from(images,'base64');
-                        let content = {title:data.title,content:[{text:data.context,title:''}]};
                         fs.writeFile(`../public/images/animation/${id}/0${imgtype}`,imgData,(err)=>{
                             if(err){
+                                console.log(err.message);
                                 res.send('error');
                             }
                             else{
