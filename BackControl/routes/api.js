@@ -99,17 +99,19 @@ router.post('/chapter',(req,res,next)=>{
                 }else{
                     if(val.rowCount>0){
                         console.log(__dirname);
-                        fs.mkdir('../public/images/animation/'+id,{recursive: true},(err)=>{
+                        let path = __dirname.split('/');
+                        path.pop();
+                        fs.mkdir(path.join('/')+'/../public/images/animation/'+id,{recursive: true},(err)=>{
                             if(err){
                                 console.log(err.message);
                                 res.send('error');
                             }else{
-                                fs.writeFile('../public/images/animation/'+id+'/0'+imgtype,imgData,(err)=>{
+                                fs.writeFile(path.join('/')+'/../public/images/animation/'+id+'/0'+imgtype,imgData,(err)=>{
                                     if(err){
                                         console.log(err.message);
                                         res.send('error');
                                     }else{
-                                        fs.writeFile('../public/content/'+id+'.json',content,(err)=>{
+                                        fs.writeFile(path.join('/')+'/../public/content/'+id+'.json',content,(err)=>{
                                             if(err){
                                                 console.log(err.message);
                                                 res.send('error');
