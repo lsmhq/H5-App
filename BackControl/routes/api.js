@@ -83,9 +83,6 @@ router.post('/chapter',(req,res,next)=>{
                 }
             }
             sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${data.auther}','${data.context}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${data.timetamp}','${data.title}','/images/animation/${id}/${0+imgtype}')`;
-            let buf_img = Buffer.from(data.images.split(',')[1],'base64');
-            fs.writeFileSync(`../public/images/${id}/${0+imgtype}`,buf_img);
-            fs.writeFileSync(`../public/content/${data.contexttype}/${id}.json`);
             insert(sqlStr,res);
             break;
         }
@@ -94,11 +91,6 @@ router.post('/chapter',(req,res,next)=>{
             select(sqlStr,res);
             break;
         }case 'insert':{
-            res.header("Access-Control-Allow-Origin", "*"); // 允许所有路径跨域
-            res.header("Access-Control-Allow-Headers", "X-Requested-With");
-            res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-            res.header("X-Powered-By", ' 3.2.1');
-            res.header("Content-Type", "application/json;charset=utf-8");
             let id = strRandom(10);
             let time = new Date().getMonth() + '月' + new Date().getDate() + '日'
             let sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype||'???'}','${data.autherid||'admin'}','${data.auther||'admin'}','${data.context||'测试'}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}')`;
