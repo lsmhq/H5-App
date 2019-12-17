@@ -98,21 +98,10 @@ router.post('/chapter',(req,res,next)=>{
                     res.send('error');
                 }else{
                     if(val.rowCount>0){
-                        fs.mkdir('../public/images/animation/'+id,(err)=>{
-                            if(err){
-                                console.log(err.message);
-                                res.send('error');
-                            }else{
-                                fs.writeFile('../public/images/animation/'+id+'/0.png',imgData,(err)=>{
-                                    if(err){
-                                        console.log(err.message);
-                                        res.send('error');
-                                    }else{
-                                        res.send('success');
-                                    }
-                                })
-                            }
-                        })
+                        fs.mkdirSync('../public/images/animation'+id);
+                        fs.writeFileSync('../public/images/animation'+id+'/0'+imgtype,imgData);
+                        fs.mkdirSync('../public/content/'+id);
+                        fs.writeFileSync('../public/content/'+id+'.json',content);
                     }else{
                         res.send('error');
                     }
