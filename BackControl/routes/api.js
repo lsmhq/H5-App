@@ -80,7 +80,7 @@ router.post('/chapter',(req,res,next)=>{
                     break;
                 }
             }
-            sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${data.auther}','${data.context}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum}','${data.timetamp}','${data.title}','/images/animation/${id}/${0+imgtype}')`;
+            sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${data.auther}','${data.context}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${data.timetamp}','${data.title}','/images/animation/${id}/${0+imgtype}')`;
             let buf_img = Buffer.from(data.images.split(',')[1],'base64');
             fs.writeFileSync(`../public/images/${id}/${0+imgtype}`,buf_img);
             fs.writeFileSync(`../public/content/${data.contexttype}/${id}.json`);
