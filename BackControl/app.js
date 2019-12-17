@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser = require('body-parser');
 
 var backloginRouter = require('./routes/login_back');//后台登录注册
 var checkRouter = require('./routes/check');//邮箱检测
@@ -21,6 +22,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json({limit: '50mb'}));    //最大上传大小不超过50mb
+app.use(bodyParser.urlencoded({
+    limit: '50mb',
+    extended:true
+}));
 app.use('/admin', backloginRouter);//后台登录
 app.use('/check',checkRouter);//检测
 app.use('/acg',fontloginRouter);//前端登录
