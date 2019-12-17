@@ -94,6 +94,11 @@ router.post('/chapter',(req,res,next)=>{
             select(sqlStr,res);
             break;
         }case 'insert':{
+            res.header("Access-Control-Allow-Origin", "*"); // 允许所有路径跨域
+            res.header("Access-Control-Allow-Headers", "X-Requested-With");
+            res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+            res.header("X-Powered-By", ' 3.2.1');
+            res.header("Content-Type", "application/json;charset=utf-8");
             let id = strRandom(10);
             let time = new Date().getMonth() + '月' + new Date().getDate() + '日'
             let sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype||'???'}','${data.autherid||'admin'}','${data.auther||'admin'}','${data.context||'测试'}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}')`;
@@ -311,7 +316,7 @@ router.post('/activity',(req,res,next)=>{
             break;
         }
         }
-})
+});
 
 //粉丝接口
 router.get('/fans',(req,res,next)=>{
@@ -329,7 +334,7 @@ router.get('/fans',(req,res,next)=>{
             }
         }
     })
-})
+});
 router.post('/fans',(req,res,next)=>{
     let data = req.body;
     switch (data.type) {
@@ -345,7 +350,7 @@ router.post('/fans',(req,res,next)=>{
             break;
         }   
     }
-})
+});
 //关注接口
 router.get('/fouce',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
@@ -362,7 +367,8 @@ router.get('/fouce',(req,res,next)=>{
             }
         }
     })
-})
+});
+
 router.post('/fouce',(req,res,next)=>{
     let data = req.body;
     switch (data.type) {
@@ -376,7 +382,8 @@ router.post('/fouce',(req,res,next)=>{
             break;
         }
     }
-})
+});
+
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
