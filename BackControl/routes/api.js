@@ -69,9 +69,9 @@ router.post('/chapter',(req,res,next)=>{
             let time = new Date().getMonth() + '月' + new Date().getDate() + '日';
             let img_type = data.images_type.split('/')[1];
             let images = data.images.split(',')[1];
-            let imgtype,sqlStr_insert;
+            let imgtype;
             let imgData = Buffer.from(images,'base64');
-            let content = {title:data.title,content:[{text:data.context,title:''}]};
+            let content = JSON.stringify({title:data.title,content:[{text:data.context,title:''}]});
             console.log("图片类型:",img_type);
             console.log("图片数据:",images);
             switch (img_type) {
@@ -111,7 +111,7 @@ router.post('/chapter',(req,res,next)=>{
                                         console.log(err.message);
                                         res.send('error');
                                     }else{
-                                        fs.writeFile(path.join('/')+'/public/content/'+id+'.json',content,(err)=>{
+                                        fs.writeFile(path.join('/')+'/public/content/'+data.contenttype+'/'+id+'.json',content,(err)=>{
                                             if(err){
                                                 console.log(err.message);
                                                 res.send('error');
