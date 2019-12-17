@@ -83,6 +83,7 @@ router.post('/chapter',(req,res,next)=>{
                 }
             }
             sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${data.auther}','/content/${data.contexttype}/${id}.json','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${data.timetamp}','${data.title}','/images/animation/${id}/${0+imgtype}')`;
+            console.log(sqlStr);
             insert_context(sqlStr,res,imgtype,id,data);
             break;
         }
