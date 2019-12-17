@@ -99,9 +99,9 @@ router.post('/chapter',(req,res,next)=>{
                 }else{
                     if(val.rowCount>0){
                         fs.mkdirSync('../public/images/animation'+id);
-                        fs.writeFileSync('../public/images/animation'+id+'/0'+imgtype,imgData);
-                        fs.mkdirSync('../public/content/'+id);
+                        fs.writeFileSync('../public/images/animation/'+id+'/0'+imgtype,imgData);
                         fs.writeFileSync('../public/content/'+id+'.json',content);
+                        res.send('success');
                     }else{
                         res.send('error');
                     }
