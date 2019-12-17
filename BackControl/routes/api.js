@@ -90,7 +90,7 @@ router.post('/chapter',(req,res,next)=>{
             console.log(imgtype);
             let sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype||'game'}','${data.autherid||'wVVbRO4n4Y'}','${data.auther||'蓝色灭火器'}','/content/${data.contenttype}/${id}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}','/images/animation/${id}/0${imgtype}')`;
             console.log(sqlStr);
-            pgdb(sqlStr,[],(err,val)=>{
+            pgdb.query(sqlStr,[],(err,val)=>{
                 if(err){
                     console.log('发布错误:',err.message);
                     res.send('error');
