@@ -456,7 +456,6 @@ router.post('/fouce',(req,res,next)=>{
                                     let sqlStr2 = `INSERT INTO fans VALUES('${id2}','${val1.rows[0].name}','${data.id}','${val1.rows[0].avatarid}','${data.fouceid}')`
                                     insert(sqlStr1,res);
                                     insert(sqlStr2,res);
-                                    return;
                                 }
                             }
                         });
@@ -471,8 +470,7 @@ router.post('/fouce',(req,res,next)=>{
             let sqlStr2 = `DELETE FROM fans WHERE id='${data.fouceid}' AND fanid='${data.id}'`;
             del(sqlStr1,res);
             del(sqlStr2,res);
-            return;
-            // break;
+            break;
         }
     }
 });
@@ -528,9 +526,10 @@ let insert = (sqlStr,res)=>{
             res.send('error');
         }else{
             if(val.rowCount<=0){
-                res.send(JSON.stringify([]))
+                res.send(JSON.stringify([]));
             }else{
                 res.send('success');
+                return;
             }
         }
     })
