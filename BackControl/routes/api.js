@@ -455,7 +455,19 @@ router.post('/fouce',(req,res,next)=>{
                                     let sqlStr1 = `INSERT INTO fouce VALUES('${id1}','${val2.rows[0].name}','${data.fouceid}','${val2.rows[0].avatarid}','${data.id}')`;
                                     let sqlStr2 = `INSERT INTO fans VALUES('${id2}','${val1.rows[0].name}','${data.id}','${val1.rows[0].avatarid}','${data.fouceid}')`
                                     insert(sqlStr1,res);
-                                    insert(sqlStr2,res);
+                                    pgdb.query(sqlStr2,[],(err,val)=>{
+                                        if(err){
+                                            console.log('插入错误:',err.message);
+                                            res.send('error');
+                                        }else{
+                                            if(val.rowCount<=0){
+                                                res.send(JSON.stringify([]));
+                                            }else{
+                                                res.send('success');
+                                                return;
+                                            }
+                                        }
+                                    })
                                 }
                             }
                         });
@@ -469,7 +481,18 @@ router.post('/fouce',(req,res,next)=>{
             let sqlStr1 = `DELETE FROM fouce WHERE id='${data.id}' AND fouceid='${data.fouceid}'`;
             let sqlStr2 = `DELETE FROM fans WHERE id='${data.fouceid}' AND fanid='${data.id}'`;
             del(sqlStr1,res);
-            del(sqlStr2,res);
+            pgdb.query(sqlStr2,[],(err,val)=>{
+                if(err){
+                    console.log('删除错误:',err.message);
+                    res.send('error:');
+                }else{
+                    if(val.rowCount<=0){
+                        res.send(JSON.stringify([]));
+                    }else{
+                        res.send('success');
+                    }  
+                }
+            });
             break;
         }
     }
