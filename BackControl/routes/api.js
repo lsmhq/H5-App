@@ -459,27 +459,27 @@ router.post('/fouce',(req,res,next)=>{
                                             console.log('插入错误:',err.message);
                                             res.send('error');
                                         }else{
-                                            if(val.rowCount<=0){
+                                             if(val.rowCount<=0){
                                                 res.send(JSON.stringify([]));
                                             }else{
-                                                res.send('success');
-                                                return;
+                                                pgdb.query(sqlStr2,[],(err,val)=>{
+                                                    if(err){
+                                                        console.log('插入错误:',err.message);
+                                                        res.send('error');
+                                                    }else{
+                                                         if(val.rowCount<=0){
+                                                            res.send(JSON.stringify([]));
+                                                        }else{
+                                                            res.send('success');
+                                                            return;
+                                                        }
+                                                    }
+                                                })
                                             }
                                         }
                                     })
-                                    pgdb.query(sqlStr2,[],(err,val)=>{
-                                        if(err){
-                                            console.log('插入错误:',err.message);
-                                            res.send('error');
-                                        }else{
-                                            if(val.rowCount<=0){
-                                                res.send(JSON.stringify([]));
-                                            }else{
-                                                res.send('success');
-                                                return;
-                                            }
-                                        }
-                                    })
+                                    // insert(sqlStr1,res);
+                                    // insert(sqlStr2,res);
                                 }
                             }
                         });
@@ -500,22 +500,23 @@ router.post('/fouce',(req,res,next)=>{
                     if(val.rowCount<=0){
                         res.send(JSON.stringify([]));
                     }else{
-                        res.send('success');
+                        pgdb.query(sqlStr2,[],(err,val)=>{
+                            if(err){
+                                console.log('删除错误:',err.message);
+                                res.send('error:');
+                            }else{
+                                if(val.rowCount<=0){
+                                    res.send(JSON.stringify([]));
+                                }else{
+                                    res.send('success');
+                                }  
+                            }
+                        });
                     }  
                 }
             });
-            pgdb.query(sqlStr2,[],(err,val)=>{
-                if(err){
-                    console.log('删除错误:',err.message);
-                    res.send('error:');
-                }else{
-                    if(val.rowCount<=0){
-                        res.send(JSON.stringify([]));
-                    }else{
-                        res.send('success');
-                    }  
-                }
-            });
+            // del(sqlStr1,res);
+            // del(sqlStr2,res);
             break;
         }
     }
@@ -571,7 +572,7 @@ let insert = (sqlStr,res)=>{
             console.log('插入错误:',err.message);
             res.send('error');
         }else{
-            if(val.rowCount<=0){
+             if(val.rowCount<=0){
                 res.send(JSON.stringify([]));
             }else{
                 res.send('success');
