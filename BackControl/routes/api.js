@@ -64,6 +64,7 @@ router.post('/chapter',(req,res,next)=>{
             update(sqlStr,res);
             break;
         }
+        //发布文章
         case 'insert_font':{
             let id = strRandom(10);
             let time = new Date().getMonth() + '月' + new Date().getDate() + '日';
