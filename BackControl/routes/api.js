@@ -454,7 +454,19 @@ router.post('/fouce',(req,res,next)=>{
                                     id2 = strRandom(12);
                                     let sqlStr1 = `INSERT INTO fouce VALUES('${id1}','${val2.rows[0].name}','${data.fouceid}','${val2.rows[0].avatarid}','${data.id}')`;
                                     let sqlStr2 = `INSERT INTO fans VALUES('${id2}','${val1.rows[0].name}','${data.id}','${val1.rows[0].avatarid}','${data.fouceid}')`
-                                    insert(sqlStr1,res);
+                                    pgdb.query(sqlStr1,[],(err,val)=>{
+                                        if(err){
+                                            console.log('插入错误:',err.message);
+                                            res.send('error');
+                                        }else{
+                                            if(val.rowCount<=0){
+                                                res.send(JSON.stringify([]));
+                                            }else{
+                                                res.send('success');
+                                                return;
+                                            }
+                                        }
+                                    })
                                     pgdb.query(sqlStr2,[],(err,val)=>{
                                         if(err){
                                             console.log('插入错误:',err.message);
@@ -480,7 +492,18 @@ router.post('/fouce',(req,res,next)=>{
             console.log(data.fouceid);
             let sqlStr1 = `DELETE FROM fouce WHERE id='${data.id}' AND fouceid='${data.fouceid}'`;
             let sqlStr2 = `DELETE FROM fans WHERE id='${data.fouceid}' AND fanid='${data.id}'`;
-            del(sqlStr1,res);
+            pgdb.query(sqlStr1,[],(err,val)=>{
+                if(err){
+                    console.log('删除错误:',err.message);
+                    res.send('error:');
+                }else{
+                    if(val.rowCount<=0){
+                        res.send(JSON.stringify([]));
+                    }else{
+                        res.send('success');
+                    }  
+                }
+            });
             pgdb.query(sqlStr2,[],(err,val)=>{
                 if(err){
                     console.log('删除错误:',err.message);
