@@ -113,7 +113,7 @@ router.post('/chapter',(req,res,next)=>{
                 }
             }            
             console.log(imgtype);
-            let sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype||'game'}','${data.autherid||'wVVbRO4n4Y'}','${'蓝色灭火器'}','/content/${data.contexttype}/${id}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}','/images/animation/${id}/0${imgtype}')`;
+            let sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${data.auther}','/content/${data.contexttype}/${id}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}','/images/animation/${id}/0${imgtype}')`;
             console.log(sqlStr);
             pgdb.query(sqlStr,[],(err,val)=>{
                 if(err){
