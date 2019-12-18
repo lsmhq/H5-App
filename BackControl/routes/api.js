@@ -582,7 +582,14 @@ function delFile(dir,res){
                                 if(err){
                                     res.send('error');
                                 }else{
-                                    res.send('success');
+                                    fs.rmdir(dir,(err)=>{
+                                        if(err){
+                                            console.log(err.message);
+                                            res.send('error');
+                                        }else{
+                                             res.send('success');
+                                        }
+                                    })
                                 }
                             })
                         }
