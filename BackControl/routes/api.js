@@ -464,6 +464,8 @@ router.post('/fouce',(req,res,next)=>{
             });
             break;
         }case 'del':{
+            console.log(data.id);
+            console.log(data.fouceid);
             let sqlStr1 = `DELETE FROM fouce WHERE id='${data.id}' AND fouceid='${data.fouceid}'`;
             let sqlStr2 = `DELETE FROM fans WHERE id='${data.fouceid}' AND fanid='${data.id}'`;
             del(sqlStr1,res);
