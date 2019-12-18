@@ -407,57 +407,32 @@ router.get('/fouce',(req,res,next)=>{
 });
 
 router.post('/fouce',(req,res,next)=>{
-    let sqlTemp1 = `SELECT name,avatar FROM users WHERE id=${data.id}`;
-    let sqlTemp2 = `SELECT name,avatar FROM users WHERE id=${data.fouceid}`;
-    let temp1 = {
-        status:'1',
-        msg:[]
-    }
-    let temp2 = {
-        status:'1',
-        msg:[]
-    }
-    pgdb.query(sqlTemp1,[],(err,val)=>{
-        if(err){
-            console.log('查询错误信息:',err.message);
-            // res.json({status:'1',data:'error'});
-        }else{
-            if(val.rowCount<=0){
-                temp1.status='1';
-                temp1.msg=[];
-            }
-            else{
-                temp1.status='0';
-                temp1.msg=val.rows;
-            }
-                res.json({status:'0',data:val.rows});
-        }
-    });
-    pgdb.query(sqlTemp2,[],(err,val)=>{
-        if(err){
-            console.log('查询错误信息:',err.message);
-            // res.json({status:'1',data:'error'});
-        }else{
-            if(val.rowCount<=0){
-                temp2.status='1';
-                temp2.msg=[];
-            }
-            else{
-                temp2.status='0';
-                temp2.msg=val.rows;
-            }
-        }
-    });
-    console.log(temp1.msg);
-    console.log(temp2.msg);
     let data = req.body;
+
     switch (data.type) {
         case 'insert':{
-            // let sqlStr1 = `INSERT INTO fouce VALUES('${' '}','${'foucename'}','${data.fouceid}','${'avatartid'}','${data.id}')`;
-            // let sqlStr2 = `INSERT INTO fans VALUES('${' '}','${'fanname'}','${data.id}','${'avatartid'}','${data.fouceid}')`
-            // insert(sqlStr1,res);
-            // insert(sqlStr2,res);
-            console.log('关注');
+            let sqlTemp1 = `SELECT name,avatarid FROM users WHERE id='${data.id}'`;
+            let sqlTemp2 = `SELECT name,avatarid FROM users WHERE id='${data.fouceid}'`;
+            pgdb.query(sqlTemp1,[],(err,val1)=>{
+                pgdb.query(sqlTemp2,[],(err,val2)=>{
+                    if(err){
+                        console.log('关注错误:',err.message);
+                        res.send('error');
+                    }else{
+                        if(val.rowCount<=0)
+                            res.send('error');
+                        else{
+                            console.log(val1.rows);
+                            console.log(val2.rows);
+                            // let sqlStr1 = `INSERT INTO fouce VALUES('${' '}','${'foucename'}','${data.fouceid}','${'avatartid'}','${data.id}')`;
+                            // let sqlStr2 = `INSERT INTO fans VALUES('${' '}','${'fanname'}','${data.id}','${'avatartid'}','${data.fouceid}')`
+                            // insert(sqlStr1,res);
+                            // insert(sqlStr2,res);
+                            res.send('success');
+                        }
+                    }
+                });
+            });
             break;
         }case 'del':{
             let sqlStr = `DELETE FROM fouce WHERE id='${data.id}' AND fouceid='${data.fouceid}'`;
@@ -466,7 +441,6 @@ router.post('/fouce',(req,res,next)=>{
         }
     }
 });
-
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
