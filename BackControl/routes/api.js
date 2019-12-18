@@ -430,7 +430,8 @@ router.get('/fouce',(req,res,next)=>{
 
 router.post('/fouce',(req,res,next)=>{
     let data = req.body;
-
+    console.log(data.id);
+    console.log(fouceid);
     switch (data.type) {
         case 'insert':{
             let sqlTemp1 = `SELECT name,avatarid FROM users WHERE id='${data.id}'`;
@@ -457,8 +458,10 @@ router.post('/fouce',(req,res,next)=>{
             });
             break;
         }case 'del':{
-            let sqlStr = `DELETE FROM fouce WHERE id='${data.id}' AND fouceid='${data.fouceid}'`;
-            del(sqlStr,res);
+            let sqlStr1 = `DELETE FROM fouce WHERE id='${data.id}' AND fouceid='${data.fouceid}'`;
+            let sqlStr2 = `DELETE FROM fans WHERE id='${data.fouceid}' AND fanid='${data.id}'`;
+            del(sqlStr1,res);
+            del(sqlStr2,res);
             break;
         }
     }
