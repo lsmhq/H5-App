@@ -478,8 +478,6 @@ router.post('/fouce',(req,res,next)=>{
                                             }
                                         }
                                     })
-                                    // insert(sqlStr1,res);
-                                    // insert(sqlStr2,res);
                                 }
                             }
                         });
@@ -515,8 +513,6 @@ router.post('/fouce',(req,res,next)=>{
                     }  
                 }
             });
-            // del(sqlStr1,res);
-            // del(sqlStr2,res);
             break;
         }
     }
