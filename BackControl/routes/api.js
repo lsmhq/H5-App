@@ -56,7 +56,7 @@ router.post('/chapter',(req,res,next)=>{
     switch (data.type) {
         case 'del':{
             sqlStr = `DELETE FROM context WHERE id = '${data.id}'`;
-            sqlStr_select = `SELECT * FROM context WHERE id = ${data.id}`;
+            sqlStr_select = `SELECT * FROM context WHERE id = '${data.id}'`;
             let path = __dirname.split('/');
             path.pop();
             pgdb.query(sqlStr_select,[],(err,val)=>{
