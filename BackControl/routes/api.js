@@ -1,4 +1,4 @@
-var express = require('express');
+﻿var express = require('express');
 var router = express.Router();
 var pg = require('pg');
 var fs = require('fs');
@@ -516,6 +516,30 @@ router.post('/fouce',(req,res,next)=>{
             break;
         }
     }
+});
+//订单接口
+router.get('/order',(req,res,next)=>{
+    let params_obj = qs.parse(req.url.split('?')[1]);
+    let sqlStr = `SELECT * FROM ordercontent WHERE id = '${params_obj.id}'`;
+    lend(sqlStr,res);
+});
+router.post('/order',(req,res,next)=>{
+    let data = req.body;
+    let id = strRandom(10);
+    let sqlTemp = `SELECT * FROM market WHERE id = '${data.commodityid}'`;
+    pgdb.query(sqlTemp,[],(err,val2)=>{
+        if(err){
+            console.log('查询错误信息:',err.message);
+            res.send('error');
+        }else{
+            if(val.rowCount<=0)
+                res.send('error');
+            else{
+                let sqlStr = `INSERT INTO ordercontent VALUES('${id}','${val2.rows[0].name}','${data.commodityid}','${data.userid}','${data.username}','${val2.rows[0].price}','未发货')`;
+                insert(sqlStr,res);
+            }
+        }
+    });   
 });
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
