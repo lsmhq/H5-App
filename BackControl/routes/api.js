@@ -56,6 +56,28 @@ router.post('/chapter',(req,res,next)=>{
     switch (data.type) {
         case 'del':{
             sqlStr = `DELETE FROM context WHERE id = '${data.id}'`;
+            sqlStr_select = `SELECT * FROM context WHERE id = '${data.id}'`;
+            let path = __dirname.split('/');
+            path.pop();
+            pgdb.query(sqlStr_select,[],(err,val)=>{
+                if(err){
+                    console.log(err.message);
+                    res.send('error');
+                }else{
+                    if(val.rowCount>0){
+                        //删除文章内容文件
+                        fs.unlink(path.join('/')+'/public/content/'+val.rows[0].contexttype+'/'+data.id+'.json',(err)=>{
+                            if(err){
+                                console.log(err.message);
+                                res.send('error');
+                            }else{
+                                //删除文章图片资源
+                                delFile(path.join('/')+'/public/images/animation/'+data.id,res);
+                            }
+                        });
+                    }
+                }
+            })
             del(sqlStr,res);
             break;
         }
@@ -91,7 +113,7 @@ router.post('/chapter',(req,res,next)=>{
                 }
             }            
             console.log(imgtype);
-            let sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype||'game'}','${data.autherid||'wVVbRO4n4Y'}','${'蓝色灭火器'}','/content/${data.contexttype}/${id}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}','/images/animation/${id}/0${imgtype}')`;
+            let sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype}','${data.autherid}','${data.auther}','/content/${data.contexttype}/${id}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}','/images/animation/${id}/0${imgtype}')`;
             console.log(sqlStr);
             pgdb.query(sqlStr,[],(err,val)=>{
                 if(err){
@@ -514,6 +536,40 @@ let select = (sqlStr,res)=>{
                 // console.log(val.rows);
                 res.send(JSON.stringify(val.rows));
             }
+        }
+    })
+}
+//递归删除文件
+function delFile(dir,res){
+    fs.readdir(dir,(err,files)=>{
+        if(err){
+            console.log(err.message);
+            return false;
+        }else{
+            files.map(item=>{
+                fs.stat(dir+'/'+item,(err,Stats)=>{
+                    if(err){
+                        console.log(err.message);
+                    }else{
+                        if(Stats.isFile()){
+                            fs.unlink(dir+'/'+item,(err)=>{
+                                if(err){
+                                    res.send('error');
+                                }else{
+                                    fs.rmdir(dir,(err)=>{
+                                        if(err){
+                                            console.log(err.message);
+                                            res.send('error');
+                                        }else{
+                                             res.send('success');
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    }
+                });
+            })
         }
     })
 }
