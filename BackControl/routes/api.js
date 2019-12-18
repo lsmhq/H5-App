@@ -452,10 +452,10 @@ router.post('/fouce',(req,res,next)=>{
                                 else{
                                     console.log(val1.rows);
                                     console.log(val2.rows);
-                                    // let sqlStr1 = `INSERT INTO fouce VALUES('${' '}','${'foucename'}','${data.fouceid}','${'avatartid'}','${data.id}')`;
-                                    // let sqlStr2 = `INSERT INTO fans VALUES('${' '}','${'fanname'}','${data.id}','${'avatartid'}','${data.fouceid}')`
-                                    // insert(sqlStr1,res);
-                                    // insert(sqlStr2,res);
+                                    let sqlStr1 = `INSERT INTO fouce VALUES('${' '}','${val2.rows[0].name}','${data.fouceid}','${val2.rows[0].avatarid}','${data.id}')`;
+                                    let sqlStr2 = `INSERT INTO fans VALUES('${' '}','${val1.rows[0].name}','${data.id}','${val1.rows[0].avatarid}','${data.fouceid}')`
+                                    insert(sqlStr1,res);
+                                    insert(sqlStr2,res);
                                     res.send('success');
                                 }
                             }
