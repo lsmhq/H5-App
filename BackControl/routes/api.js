@@ -533,6 +533,7 @@ let insert = (sqlStr,res)=>{
             }
         }
     })
+    return;
 }
 //查询
 let select = (sqlStr,res)=>{
@@ -583,6 +584,7 @@ function delFile(dir,res){
             })
         }
     })
+    return;
 }
   //随机字符串
 function strRandom(j){
