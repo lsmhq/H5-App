@@ -261,8 +261,6 @@ router.post('/person',(req,res,next)=>{
             let imgData = Buffer.from(images,'base64');
             let path = __dirname.split('/');
             path.pop();
-            console.log(imgData);
-            console.log(img_type);
             switch (img_type) {
                 case 'jpg'||'JPG':{
                     imgtype = '.jpg';
@@ -279,7 +277,6 @@ router.post('/person',(req,res,next)=>{
                 }
             }         
             path = `${path.join('/')}/public/images/avatar/${data.id+imgtype}`;
-            console.log(path);
             let sqlStr = `UPDATE users SET avatarid='${data.id+imgtype}' WHERE id='${data.id}'`;
             fs.writeFile(path,imgData,(err)=>{
                 if(err){
