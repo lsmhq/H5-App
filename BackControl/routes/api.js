@@ -358,7 +358,25 @@ router.post('/goods',(req,res,next)=>{
             break;
         }case 'del':{
             let sqlStr = `DELETE FROM market WHERE id = '${data.id}'`;
-            del(sqlStr,res);
+            let sqlStr_select = `SELECT * FROM market WHERE id = '${data.id}'`;
+            let path = __dirname.split('/');
+            path.pop();
+            pgdb.query(sqlStr_select,[],(err,val)=>{
+                if(err){
+                    console.log('商品删除:',err.message);
+                    res.send('error');
+                }else{
+                    path = `${path.join('/')}/public/${val.rows[0].path}`;
+                    fs.unlink(path,(err)=>{
+                        if(err){
+                            console.log('删除商品:',err.message);
+                            res.send('error');
+                        }else{
+                            del(sqlStr,res);
+                        }
+                    })
+                }
+            })
             break;
         }case 'insert':{
             let path = __dirname.split('/');
