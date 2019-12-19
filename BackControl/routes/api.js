@@ -255,12 +255,12 @@ router.post('/person',(req,res,next)=>{
             update(sqlStr,res);
             break;
         }case 'update_img':{
-            let img_type = data.images_type.split('/')[1].split(';')[0];//图片类型
+            let img_type = data.images.split('/')[1].split(';')[0];//图片类型
             let images = data.images.split(',')[1];//图片数据
             let imgtype;
             let imgData = Buffer.from(images,'base64');
-            // let path = __dirname.split('/');
-            // path.pop();
+            let path = __dirname.split('/');
+            path.pop();
             console.log(imgData);
             console.log(img_type);
             switch (img_type) {
@@ -278,8 +278,28 @@ router.post('/person',(req,res,next)=>{
                     break;
                 }
             }         
-            console.log(imgtype);
-            res.send('...');
+            path = `${path.join('/')}/public/images/avatar/${data.id+imgtype}`;
+            console.log(path);
+            let sqlStr = `UPDATE users SET avatarid='${data.id+imgtype}' WHERE id='${data.id}'`;
+            fs.writeFile(path,imgData,(err)=>{
+                if(err){
+                    console.log('修改头像:',err.message);
+                    res.send('error');
+                }else{
+                    pgdb.query(sqlStr,[],(err,val)=>{
+                        if(err){
+                            console.log('修改头像:',err.message);
+                            res.send('error');
+                        }else{
+                            if(val.rowCount>0){
+                                res.send('success');
+                            }else{
+                                res.send('error');
+                            };
+                        }
+                    });
+                }
+            })
             break;
         }
     }
