@@ -133,6 +133,7 @@ export default class Table extends Component {
               }).then(res=>res.text()).then((data)=>{
                   if(data==='success'){
                         alert('操作成功');
+                        this.fetchData()
                   }else {
                       alert('操作失败');
                   }
@@ -162,5 +163,6 @@ export default class Table extends Component {
     add = ()=>{
         document.getElementsByClassName('insert_From')[0].className = 'insert_From animated fadeInDown';
         document.getElementsByClassName('insert_From')[0].style.display = 'block';
-}
+    }
+
 }
