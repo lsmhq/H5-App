@@ -363,7 +363,7 @@ router.post('/goods',(req,res,next)=>{
         }case 'insert':{
             let path = __dirname.split('/');
             path.pop();
-            path = `${path.join('/')}/pubilc/images/avatar/${data.id+'.'+data.imgType}`;
+            path = `${path.join('/')}/public/images/avatar/${data.id+'.'+data.imgType}`;
             console.log(path);
             let sqlStr = `INSERT INTO market VALUES('${data.id}','${data.name}','/images/avatar/${data.id+'.'+data.imgType}','${data.price}','${data.source||'0'}','${data.brand ||'0'}','${data.evaluation||'0'}','${data.collect}','${data.description}')`;
             pgdb.query(sqlStr,[],(err,val)=>{
@@ -376,6 +376,7 @@ router.post('/goods',(req,res,next)=>{
                         fs.writeFile(path,imgData,(err)=>{
                             if(err){
                                 console.log('商品图片:',err.message);
+                                pgdb.query("DELETE FROM market WHERE id='data.id'");
                                 res.send('error');
                             }else{
                                 res.send('success');
