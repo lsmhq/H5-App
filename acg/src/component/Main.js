@@ -32,7 +32,6 @@ export default class Main extends Component {
     }
     fetch_Num(){
         fetch('https://daitianfang.1459.top/api/v1/main').then(req=>req.json()).then(data=>{
-            console.log(data);
             this.setState({
                 content_num:data.data[1].context_count,
                 person_num:data.data[0].user_count
