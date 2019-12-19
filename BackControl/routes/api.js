@@ -364,6 +364,7 @@ router.post('/goods',(req,res,next)=>{
             let path = __dirname.split('/');
             path.pop();
             path = `${path.join('/')}/pubilc/images/avatar/${data.id+'.'+data.imgType}`;
+            console.log(path);
             let sqlStr = `INSERT INTO market VALUES('${data.id}','${data.name}','/images/avatar/${data.id+'.'+data.imgType}','${data.price}','${data.source||'0'}','${data.brand ||'0'}','${data.evaluation||'0'}','${data.collect}','${data.description}')`;
             pgdb.query(sqlStr,[],(err,val)=>{
                 if(err){
