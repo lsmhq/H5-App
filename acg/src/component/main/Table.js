@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import Form from './Form';
 export default class Table extends Component {
     constructor(){
         super();
@@ -44,11 +44,12 @@ export default class Table extends Component {
         }
         return (
             <div>
+                <Form data={this.props.data} type={this.props.type}/>
                 <ul style = {ul_out}>
                     <li key='ul_th'>
                         <ul style={ul_inner}>
-                            {this.props.title.map(item=>{
-                            return(<li className='li_inner li_th' key={item} style={{width:`${63/this.props.title.length}%`}}>{item}</li>);
+                            {this.props.title.map((item,index)=>{
+                            return(<li className='li_inner li_th' key={item+index} style={{width:`${63/this.props.title.length}%`}}>{item}</li>);
                         })}
                             <li className='li_inner_form'>
                                 <form method='POST'>
@@ -65,7 +66,7 @@ export default class Table extends Component {
                                     <form method='POST'>
                                     {
                                         this.props.data.map((item1,index1)=>{                                                                                                                              //item:属性名#item1:属性索引
-                                            return(<li className='li_inner' key={index1} style={{width:`${79/this.props.data.length}%`}}><input type='text' name={item1+'#'+index} value={item[item1]} onChange={(e)=>{this.inputOnchange(e)}}/></li>)
+                                            return(<li className='li_inner' key={item1+index} style={{width:`${79/this.props.data.length}%`}}><input type='text' name={item1+'#'+index} value={item[item1]} onChange={(e)=>{this.inputOnchange(e)}}/></li>)
                                         })
                                     }
                                     <li className='li_inner' key={item+index}>
@@ -78,16 +79,7 @@ export default class Table extends Component {
                         })
                     }
                     <li className='ul_inner animated slideInUp'>
-                        <form>
-                            {
-                                this.props.data.map((item,index)=>{
-                                    return(<li className='li_inner' key={index} style={{width:`${79/this.props.data.length}%`}}><input type='text' name={item} value={item[item]} onChange={(e)=>{this.inputOnchange(e)}}/></li>)
-                                })
-                            }
-                            <li className='li_inner' style={{width:'10.5%'}}>
-                                <input type='button' value='添加' id='insert' name={`insert`} onClick={(e)=>{this.fetch_insert(e)}}/>
-                            </li> 
-                        </form>
+                        <button className={'insert_btn_outter'} onClick={this.add}>添加数据</button>
                     </li>
                 </ul>
             </div>
@@ -112,6 +104,8 @@ export default class Table extends Component {
                   if(data === 'success'){
                     alert('操作成功');
                     this.fetchData();
+                  }else {
+                      alert('操作失败');
                   }
 
               })
@@ -138,7 +132,9 @@ export default class Table extends Component {
                 body: JSON.stringify(data)
               }).then(res=>res.text()).then((data)=>{
                   if(data==='success'){
-
+                        alert('操作成功');
+                  }else {
+                      alert('操作失败');
                   }
                 this.fetchData();
               })
@@ -163,29 +159,8 @@ export default class Table extends Component {
             })
         })
     }   
-    fetch_insert = ()=>{
-        let data = {};
-        data.type = 'insert';
-        this.props.data.map(item=>{
-            data[item] = ReactDOM.findDOMNode(document.getElementsByName(item)[0]).value;
-        })
-        let confirm = window.confirm('确定要添加该信息吗?');
-        if(confirm){
-            fetch(`https://daitianfang.1459.top/api/v1/${this.props.type}`,{
-                method:'POST',
-                headers:{
-                    'Content-Type': 'application/json'
-                },
-                mode:'cors',
-                body:JSON.stringify(data)
-        }).then(req=>req.text()).then(data=>{
-            if(data=='success'){
-                alert('操作成功');
-            }else{
-                alert('操作失败');
-            }
-        }) 
-        }
-
-    }
+    add = ()=>{
+        document.getElementsByClassName('insert_From')[0].className = 'insert_From animated fadeInDown';
+        document.getElementsByClassName('insert_From')[0].style.display = 'block';
+}
 }

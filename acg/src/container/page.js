@@ -8,7 +8,7 @@ import Notfound from './pages/Notfound';
 export default class App extends Component {
     render() {
         let cookie = this.cookieToObj(document.cookie);
-        if(cookie.loginStatus == 'b326b5062b2f0e69046810717534cb09'){
+        if(cookie.loginStatus === 'b326b5062b2f0e69046810717534cb09'){
             return (
                 <Router>
                     <Header/>

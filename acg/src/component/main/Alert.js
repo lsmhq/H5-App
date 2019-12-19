@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 export default class Alert extends Component {
     render() {
         let style = {
@@ -26,7 +26,7 @@ export default class Alert extends Component {
             backgroundColor:'pink'
         }
         return (
-            <div id="alert" style={style} className='animate fadeInDown'>
+            <div id="alert" style={style} className='animated shake'>
                 <h3 style={{color:'rgb(228, 72, 0)'}}>{this.props.title}</h3>
                 <p>请重新输入</p>
                 <button style={btn} onClick={()=>{

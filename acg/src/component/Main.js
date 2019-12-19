@@ -14,9 +14,7 @@ export default class Main extends Component {
         let style = {
             width:'100%',
             top:'100px',
-            position:'relative',
-            backgroundImage:'url(/bg2.png)'
-
+            position:'relative'
         }
         return (
             <div>

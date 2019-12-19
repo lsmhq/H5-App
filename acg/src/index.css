@@ -333,3 +333,115 @@ a{
   color: aliceblue;
   font-size: 20px;
 }
+.exit{
+  border:none;
+  outline: none;
+  height: 50px;
+  width: 30%;
+  float: right;
+  background-color: orangered;
+  cursor: pointer;
+  font-size: 20px;
+  color: #dbdbdb;
+  transition: all linear 0.2s;
+}
+.exit:hover{
+  transition: all linear 0.3s;
+  background-color: orangered;
+  font-weight: 900;
+}
+.insert_From{
+  width: 70%;
+  height: 70%;
+  left: 20%;
+  top: 12%;
+  position: absolute;
+  background-color: #20B2AA;
+  z-index: 100;
+  border-radius: 10px;
+  overflow-y: scroll;
+  display: none;
+}
+.insert_From::-webkit-scrollbar{
+  width: 5px;
+  background-color: bisque;
+}
+.insert_From::-webkit-scrollbar-thumb{
+  border-radius: 5px;
+  background-color: #b6b6b6;
+
+}
+.insert_From>input{
+  width: 80%;
+  height: 30px;
+  margin-top: 20px;
+  margin-left: 10%;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  font-size: 20px;
+  text-indent: 20px;
+}
+.add{
+  width:100%;
+  background-color:blue;
+  height:40px;
+  color:white;
+  text-align:center;
+  line-height:40px;
+  font-size: 30px;
+}
+.close{
+  float:right;
+  border:none;
+  outline:none;
+  height: 40px;
+  background-color: orangered;
+  cursor:pointer;
+  color: #dbdbdb;
+  font-size: 20px;
+}
+.insert_btn{
+  width:30%;
+  height:40px;
+  color:white;
+  border:none;
+  outline: none;
+  margin-left:32%;
+  margin-top:20px;
+  cursor: pointer;
+  background-color:forestgreen;
+  border-radius: 5px;
+  font-size: 20px;
+}
+#img_show{
+  float: left;
+  margin-left: 10%;
+  margin-top: 10px;
+  border: 3px solid white;
+  border-radius: 2px;
+  transition: all linear 0.3s;
+  background-color: antiquewhite;
+  cursor: pointer;
+  height: 50px;
+}
+.img_upload{
+  border:none;
+  outline: none;
+  width: 20%;
+}
+.insert_btn_outter{
+  width: 91%;
+  height: 40px;
+  border: none;
+  outline: none;
+  background-color: cornflowerblue;
+  font-size: 30px;
+  font-weight: 900;
+  color: white;
+}
+.insert_btn_outter:hover{
+  transition: all linear 0.3s;
+  background-color: dodgerblue;
+  cursor: pointer;
+}

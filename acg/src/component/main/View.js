@@ -14,9 +14,9 @@ export default class View extends Component {
             lineHeight:'50px',
         }
         return (
-            <div style={style}>
+            <div style={style} className='animated fadeInDown'>
                 <span>{this.props.title}</span>
-                <p><span>{this.props.num}</span></p>
+                <p><span className='animated fadeIn'>{this.props.num}</span></p>
             </div>
         )
     }

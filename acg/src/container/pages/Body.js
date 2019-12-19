@@ -5,9 +5,7 @@ import Root from '../../component/Root';
 import Person from '../../component/Person';
 import Goods from '../../component/Goods';
 import Chapter from '../../component/Chapter';
-import Talk from '../../component/Talk';
 import Orders from '../../component/Orders';
-import Activity from '../../component/Activity';
 export default class Body extends Component {
     render() {
         return (
@@ -17,9 +15,7 @@ export default class Body extends Component {
                 <Route path='/pages/person' component={Person}/>
                 <Route path='/pages/goods' component={Goods}/>
                 <Route path='/pages/chapter' component={Chapter}/>
-                <Route path='/pages/talk' component={Talk}/>
                 <Route path='/pages/orders' component={Orders}/>
-                <Route path='/pages/activity' component={Activity}/>
             </div>
         )
     }
