@@ -256,7 +256,48 @@ router.post('/person',(req,res,next)=>{
             update(sqlStr,res);
             break;
         }case 'update_img':{
-            
+            let img_type = data.images_type.split('/')[1];
+            let images = data.images.split(',')[1];
+            let imgtype;
+            let imgData = Buffer.from(images,'base64');
+            let path = __dirname.split('/');
+            path.pop();
+            path = `${path.join('/')}/public/images/avatar/${data.id+imgtype}`;
+            switch (img_type) {
+                case 'jpg'||'JPG':{
+                    imgtype = '.jpg';
+                    break;
+                }case 'png'||'PNG':{
+                    imgtype = '.png';
+                    break;
+                }case 'gif'||'GIF' : {
+                    imgtype = '.gif';
+                    break;
+                }case 'jpeg'||'JPEG':{
+                    imgtype = '.jpeg'
+                    break;
+                }
+            }         
+            let sqlStr = `UPDATE users SET avatarid='${data.id+imgtype}' WHERE id='${data.id}'`;
+            fs.writeFile(path,imgData,(err)=>{
+                if(err){
+                    console.log('修改头像:',err.message);
+                    res.send('error');
+                }else{
+                    pgdb.query(sqlStr,[],(err,val)=>{
+                        if(err){
+                            console.log('修改头像:',err.message);
+                            res.send('error');
+                        }else{
+                            if(val.rowCount>0){
+                                res.send('success');
+                            }else{
+                                res.send('error');
+                            };
+                        }
+                    });
+                }
+            })
             break;
         }
     }
@@ -320,8 +361,30 @@ router.post('/goods',(req,res,next)=>{
             del(sqlStr,res);
             break;
         }case 'insert':{
-            let sqlStr = `INSERT INTO market VALUES('${data.id}','${data.name}','${data.path||'/'}','${data.price}','${data.source||'0'}','${data.brand ||'0'}','${data.evaluation||'0'}','${data.collect}','${data.description}')`;
-            insert(sqlStr,res);
+            let path = __dirname.split('/');
+            path.pop();
+            path = `${path.join('/')}/pubilc/images/${data.id+'.'+data.imgType}`;
+            let sqlStr = `INSERT INTO market VALUES('${data.id}','${data.name}','/images/avatar/${data.id+'.'+data.imgType}','${data.price}','${data.source||'0'}','${data.brand ||'0'}','${data.evaluation||'0'}','${data.collect}','${data.description}')`;
+            pgdb.query(sqlStr,[],(err,val)=>{
+                if(err){
+                    console.log('商品插入:',err.message);
+                    res.send('error');
+                }else{
+                    if(val.rowCount > 0){
+                        let imgData = Buffer.from(data.imgData,'base64');
+                        fs.writeFile(path,imgData,(err)=>{
+                            if(err){
+                                console.log('商品图片:',err.message);
+                                res.send('error');
+                            }else{
+                                res.send('success');
+                            }
+                        });
+                    }else{
+                        res.send('error');
+                    }
+                }
+            })
             break;
         }case 'update':{
             let sqlStr = `UPDATE market SET id='${data.id}',name='${data.name}',price='${data.price}',collect='${data.collect}',description='${data.description}',brand='${data.brand}' WHERE id = '${data.id}'`;
@@ -330,56 +393,6 @@ router.post('/goods',(req,res,next)=>{
         }
     }
 });
-
-router.get('/activity',(req,res,next)=>{
-    let sqlStr = `SELECT * FROM activity`;
-    lend(sqlStr,res);
-})
-
-router.post('/activity',(req,res,next)=>{
-    let data = req.body;
-    let id = strRandom(10);
-    console.log(data);
-    switch (data.type) {
-        case 'insert':{
-            let sqlStr = `INSERT INTO activity VALUES('${id}','${data.name}','${' '}','${data.visit}','${data.goods}','${evaulationnum}','${data.timetamp}','${' '}','${data.title}','${' '}')`;
-            insert(sqlStr,res);
-            break;
-        }case 'del':{
-            let sqlStr = `DELETE FROM activity WHERE id = '${data.id}'`;
-            del(sqlStr,res);
-            break;
-        }case 'select':{
-            let sqlStr = `SELECT * FROM activity WHERE id = '${data.search}' OR title LIKE '%${data.search}%'`;
-            select(sqlStr,res);
-            break;
-        }case 'insert_font':{
-            let date = new Date();
-            switch (data.imgType) {
-                case 'jpg':{
-                    imgtype = '.jpg';
-                    break;
-                }case 'png':{
-                    imgtype = '.png';
-                    break;
-                }case 'gif' : {
-                    imgtype = '.gif';
-                    break;
-                }case 'jpeg':{
-                    imgtype = '.jpeg'
-                    break;
-                }
-            }
-            let sqlStr = `INSERT INTO activity VALUES('${id}','${data.name}','${`/content/activity/${id}`}','0','0','0','${date.getMonth()+1+'月'+date.getDate()+'号'}',' ','${data.title}','/images/activity/${id}imgtype')`;
-            let form = new formidable().IncomingForm();
-            form.parse(req,(err,field,file)=>{
-                fs.writeFileSync(`../public/images/activity/${id}imgtype`,fs.readFileSync(file.file.path))
-            })
-            break;
-        }
-        }
-});
-
 //粉丝接口
 router.get('/fans',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
