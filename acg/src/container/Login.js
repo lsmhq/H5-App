@@ -35,7 +35,7 @@ export default class Login extends Component {
                         <ul>
                             <li style={li}><input type="text" placeholder="用户名" name='username' class='user' required='required' autocomplete="off"/></li>
                             <li style={li}><input type="password" placeholder="密码" name='password' class='pwd' required='required' autocomplete="off"/></li>
-                            <li style={li}><input type="button" value="管理员登录" id='btn' onClick={(e)=>{this.fetchForm(e)}}/></li>
+                            <li style={li}><input type="button" value="管理员登录" id='btn' onClick={(e)=>{this.fetchForm(e)}} style={{color:'white'}}/></li>
                         </ul>
                     </form>
                     </div>
@@ -43,7 +43,6 @@ export default class Login extends Component {
                 </div>
             ) 
         }
-
     }
     fetchForm = (e)=>{
         let data = {
