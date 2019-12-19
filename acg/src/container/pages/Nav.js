@@ -13,7 +13,7 @@ export default class Nav extends Component {
             <div style = {header_style}>
                 <img src='/images/logo.png' width='50px' style={{marginLeft:'6%'}}/>
                 <div style={{float:'right',width:'300px'}}>
-                    <span style={{color:'white',float:'left'}}>{`欢迎< ${decodeURIComponent(atob(this.cookieToObj(document.cookie).username)) ||'？？？'} >登录`}</span>
+                    <span style={{color:'white',float:'left'}}>{`欢迎< ${this.cookieToObj(document.cookie).username?decodeURIComponent(atob(this.cookieToObj(document.cookie).username)):'XXX'} >登录`}</span>
                    <Link to={'/login'}><input type='button' value='退出登录' onClick={this.exit} className='exit'/></Link>
                 </div>
             </div>
