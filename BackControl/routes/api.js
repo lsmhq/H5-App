@@ -159,9 +159,17 @@ router.post('/chapter',(req,res,next)=>{
             break;
         }case 'insert':{
             let id = strRandom(10);
-            let time = new Date().getMonth() + '月' + new Date().getDate() + '日'
+            let time = new Date().getMonth() + '月' + new Date().getDate() + '日';
             let sqlStr = `INSERT INTO context VALUES('${id}','${data.contexttype||'game'}','${data.autherid||'wVVbRO4n4Y'}','${data.auther||'蓝色灭火器'}','${data.context||'测试'}','${data.good||'0'}','${data.visit||'0'}','${data.collect||'0'}','${data.evaluationnum||'0'}','${time}','${data.title}')`;
             insert(sqlStr,res);
+            break;
+        }case 'good':{
+            let sqlStr =  `UPDATE context SET good='${parseInt(data.good)+1}' WHERE id = '${data.id}'`;
+            update(sqlStr,res);
+            break;
+        }case 'ungood':{
+            let sqlStr =  `UPDATE context SET good='${parseInt(data.good)-1}' WHERE id = '${data.id}'`;
+            update(sqlStr,res);
             break;
         }
     }
@@ -194,7 +202,7 @@ router.post('/orders',(req,res,next)=>{
             update(sqlStr,res);
             break;
         }case 'insert':{
-            let sqlStr = `INSERT INTO ordercontent (id,commodityname,commodityid,userid,username,price,logistics) VALUES('${strRandom(10)}',$2,$3,$4,$5,$6,'准备出库')`;
+            let sqlStr = `INSERT INTO ordercontent (id,commodityname,commodityid,userid,username,price,logistics) VALUES('${strRandom(10)}',$1,$2,$3,$4,$5,'准备出库')`;
             let sqlStr_select = `SELECT * from market WHERE id = $1`
             pgdb.query(sqlStr_select,[data.commodityid],(err,val)=>{
                 if(err){
@@ -383,7 +391,7 @@ router.post('/goods',(req,res,next)=>{
             path.pop();
             path = `${path.join('/')}/public/images/avatar/${data.id+'.'+data.imgType}`;
             console.log(path);
-            let sqlStr = `INSERT INTO market VALUES('${data.id}','${data.name}','/images/avatar/${data.id+'.'+data.imgType}','${data.price}','${data.source||'0'}','${data.brand ||'0'}','${data.evaluation||'0'}','${data.collect}','${data.description}')`;
+            let sqlStr = `INSERT INTO market VALUES('${data.id}','${data.name}','/images/avatar/${data.id+'.'+data.imgType}','${data.price}','${data.source||'0'}','${data.brand ||'0'}','${data.evaluation||'0'}','${data.collect}','${data.description||'暂时还没有简介哦!'}')`;
             pgdb.query(sqlStr,[],(err,val)=>{
                 if(err){
                     console.log('商品插入:',err.message);
@@ -696,4 +704,5 @@ function strRandom(j){
     }
     return outStr;
   }
+
 module.exports = router;
