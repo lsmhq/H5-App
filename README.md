@@ -26,28 +26,27 @@
 ### 成员信息
 姓名|身份职务
 -|-
-代天放|前端 (组件开发) , 后台开发
-粟慧军|数据库设计 、后台开发
-冯菲珂|前端开发 (页面开发)
+代天放|前端 (某些组件开发,数据交互) 、 后台开发 、 后台管理系统
+粟慧军|数据库设计(数据库设计 创建 维护) 、后台开发(个别接口)
+冯菲珂|前端开发 (页面开发,页面美化)
 赵晓宇|前端开发 (页面开发)
-赵政|测试工程师 
 
 ## 用到的技术 
  
 功能|技术支持 
 -|- 
-移动端站点|react
-登录功能|express + session 状态保持 (参考 cookie 操作) 
-密码加密|MD5加密
-商城功能|React + postgresql 
-购物车|postgresql 
-数据存储|[postgresql](https://www.runoob.com/postgresql/postgresql-tutorial.html) 
-后台支持|[express](http://www.expressjs.com.cn/guide/routing.html) + Nginx
-服务器|云服务器(CentOS) 
+移动端站点| react  
+登录功能| express + session 状态保持 (参考 cookie 操作) 
+注册功能| nodemailer 邮箱验证 
+密码加密| MD5加密
+购物车| localStroage 
+数据存储| [postgresql](https://www.runoob.com/postgresql/postgresql-tutorial.html) + node 文件操作
+后台支持| [express](http://www.expressjs.com.cn/guide/routing.html) + Nginx
+服务器| 云服务器(CentOS) 
 
 
 ## 后台进度
-* #### 已基本完成 login_back.js |
+* #### 已基本完成 login_back.js | login.js | api.js(正在优化)
 * #### 2019-11-25 后台主要UI(已测试) -- daifang
 * #### 2019-11-25 完成了数据库的初步设计 -- suhuijun
 * #### 2019-11-26 后台系统管理员登录(已测试) -- daifang
@@ -83,7 +82,14 @@
     * ##### 在部分数据库填写了数据
 * #### 2019-12-10 下午 完成用户登录注册及邮箱验证 -- daifang
 * #### 20149-12-16 下午 后台管理系统完工 -- daifang
-* #### 2019-12-17 发现上传文章图片无法创建 -- daifang (正在排查)
+* #### 2019-12-17 发现上传文章图片无法创建 -- daifang (已解决)
+    * #### 美化后台管理系统 -- daifang
+	* #### 引入animate.css -- daifang
+* #### 2019-12-18 修改nginx和express默认上传文件大小限制 -- daifang 
+    * #### 完成文章上传接口,图片等资源存放到本地,Base64(支持 png jpg gif jpeg 主流格式) -- daifang 
+* #### 2019-12-19 头像上传问题 -- daifang
+    * #### 
+
 ## 前端进度
 * #### 基本完成
 * #### 2019-11-25
@@ -139,3 +145,4 @@
 * #### 2019-12-17
 	* ##### 首页轮播图 --fengfeike
 	* ##### 文章发布功能与后台对接接口 --zhaoxiaoyu
+* #### 2019-12-19
