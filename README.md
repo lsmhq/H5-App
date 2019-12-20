@@ -36,7 +36,7 @@
 功能|技术支持 
 -|- 
 移动端站点| react  
-登录功能| express + session 状态保持 (参考 cookie 操作) 
+登录功能| express + cookie  
 注册功能| nodemailer 邮箱验证 
 密码加密| MD5加密
 购物车| localStroage 
