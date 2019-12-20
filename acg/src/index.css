@@ -105,7 +105,7 @@ a{
 .ul_inner{
   height: 50px;
   z-index: 10;
-  width: 100%;
+  width: 108%;
   float: left;
 }
 #search{
@@ -431,7 +431,7 @@ a{
   width: 20%;
 }
 .insert_btn_outter{
-  width: 91%;
+  width: 87%;
   height: 40px;
   border: none;
   outline: none;
