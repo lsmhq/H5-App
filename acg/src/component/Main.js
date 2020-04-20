@@ -15,7 +15,7 @@ export default class Main extends Component {
         var myChart = echarts.init(document.getElementById('main'));
         var option = {
             title: {
-                text: 'Javascript语言排名变化'
+                text: '后台统计'
             },
             tooltip: {},
             legend: {
