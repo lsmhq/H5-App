@@ -10,6 +10,7 @@ export default class Left_nav extends Component {
                     <Link to={'/pages/chapter'}><li className='left_li' id='chapter' onClick={this.clickLink}>文章管理</li></Link>
                     <Link to={'/pages/orders'}><li className='left_li' id='orders' onClick={this.clickLink}>订单管理</li></Link>
                     <Link to={'/pages/goods'}><li className='left_li' id='goods' onClick={this.clickLink}>商品管理</li></Link>
+                    <Link to={'/pages/video'}><li className='left_li' id='goods' onClick={this.clickLink}>视频管理</li></Link>
                 </ul>
         )
     }

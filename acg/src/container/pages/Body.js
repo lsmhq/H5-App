@@ -6,6 +6,7 @@ import Person from '../../component/Person';
 import Goods from '../../component/Goods';
 import Chapter from '../../component/Chapter';
 import Orders from '../../component/Orders';
+import Video from '../../component/Video'
 export default class Body extends Component {
     render() {
         return (
@@ -16,6 +17,7 @@ export default class Body extends Component {
                 <Route path='/pages/goods' component={Goods}/>
                 <Route path='/pages/chapter' component={Chapter}/>
                 <Route path='/pages/orders' component={Orders}/>
+                <Route path='/pages/video' component={Video}/>
             </div>
         )
     }
