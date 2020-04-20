@@ -576,6 +576,11 @@ router.post('/order',(req,res,next)=>{
         }
     });   
 });
+//视频接口
+router.get('/video',(req,res,next)=>{
+    let sqlStr = `SELECT * FROM video`;
+    lend(sqlStr,res);
+});
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
