@@ -578,9 +578,21 @@ router.post('/order',(req,res,next)=>{
 });
 //视频接口
 router.get('/video',(req,res,next)=>{
-    let sqlStr = `SELECT * FROM video`;
+    let params_id = qs.parse(req.url.split('/')[qs.parse(req.url.split('/').length)]);
+    let sqlStr = `SELECT * FROM video where id = ${params_id}`;
     lend(sqlStr,res);
 });
+router.post('/video',(req,res,next)=>{
+    let data = req.body;
+    switch(data.type){
+        case 'insert':{
+
+        }
+        case 'delete':{
+
+        }
+    }
+})
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){
