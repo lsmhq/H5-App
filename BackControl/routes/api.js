@@ -367,7 +367,7 @@ router.post('/talk',(req,res,next)=>{
             break;
         }
         case 'insert':{
-            let sqlStr = `INSERT INTO ordercontent (contentid,evalutor,evaluation,good,replynum,reply,replier,evaluatorid)VALUES('${data.id}','${data.auterid}','${data.evaluation}',0,'','','${data.timetamp}')`;
+            let sqlStr = `INSERT INTO ordercontent (contentid,evalutor,evaluation,good,replynum,reply,temitemp,evaluatorid)VALUES('${data.id}','${data.auterid}','${data.evaluation}',0,'','','${data.timetamp}','')`;
             insert(sqlStr,res);
             break;
         }
