@@ -155,6 +155,8 @@ router.post('/chapter',(req,res,next)=>{
                     }
                 }
             })
+            
+            t
             break;
         }
         case 'select':{
@@ -616,9 +618,7 @@ router.post('/order',(req,res,next)=>{
 });
 //视频接口
 router.get('/video',(req,res,next)=>{
-    let params_id = qs.parse(req.url.split('/')[qs.parse(req.url.split('/').length)]);
-    console.log(params_id);
-    let sqlStr = `SELECT * FROM video where id = ${params_id}`;
+    let sqlStr = `SELECT * FROM video`;
     lend(sqlStr,res);
 });
 router.post('/video',(req,res,next)=>{
