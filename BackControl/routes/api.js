@@ -374,6 +374,45 @@ router.post('/talk',(req,res,next)=>{
     }
 })
 
+//获取购物车数据
+router.get('/shoppingcart',(req,res,next)=>{
+    let params_obj = qs.parse(req.url.split('?')[1]);
+    if(params_obj.id === ('all') || params_obj.goodscharater === ('all')){
+        let sqlStr = `SELECT * FROM shoppingcart`;
+        lend(sqlStr,res);
+    }else if(params_obj.id != ('all') || params_obj.goodscharater === ('all')){
+        let sqlStr = `SELECT * FROM shoppingcart WHERE userid = '${(params_obj.id)}'`;
+        lend(sqlStr,res);
+    }else if(params_obj.id != ('all') || params_obj.goodscharater != ('all')){
+        let sqlStr = `SELECT * FROM shoppingcart WHERE userid = '${(params_obj.id)}' AND goodsid = '${(params_obj.goodscharater)}'`;
+        lend(sqlStr,res);
+    }
+})
+
+//管理购物车数据
+router.post('/shoppingcart',(req,res,next)=>{
+    let data = req.body;
+    let sqlStr;
+    console.log(data);
+    switch (data.type) {
+        case 'del':{
+            sqlStr = `DELETE FROM shoppingcart WHERE userid = '${data.userid}' AND goodsid = '${data.goodsid}' AND timetemp = '${data.timetemp}'`;
+            del(sqlStr,res);
+            break;
+        }
+        case 'select':{
+            sqlStr = `SELECT * from shoppingcart WHERE userid='${data.search||''}' OR goodsid='${data.search||''}' OR goodsname LIKE '%${data.search}%'`;
+            select(sqlStr,res);
+            break;
+        }
+        case 'insert':{
+            let sqlStr = `INSERT INTO shoppingcart (userid,goodsid,timetemp,goodsname)VALUES('${data.userid}','${data.goodsid}','${data.timetamp}','${data.goodsid}')`;
+            insert(sqlStr,res);
+            break;
+        }
+    }
+})
+
 router.get('/goods',(req,res,next)=>{
     // console.log('goods');
     let params_obj = qs.parse(req.url.split('?')[1]);
