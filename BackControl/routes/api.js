@@ -618,8 +618,17 @@ router.post('/order',(req,res,next)=>{
 });
 //视频接口
 router.get('/video',(req,res,next)=>{
-    let sqlStr = `SELECT * FROM video`;
-    lend(sqlStr,res);
+    let params_obj = qs.parse(req.url.split('?')[1]);
+    switch(params_obj.id){
+        case 'all':{
+            let sqlStr = `SELECT * FROM video`;
+            lend(sqlStr,res);
+            break;
+        }
+        default:
+            lend(`SELECT * FROM video where id = ${params_obj.id}`,res);
+    }
+
 });
 router.post('/video',(req,res,next)=>{
     let data = req.body;
