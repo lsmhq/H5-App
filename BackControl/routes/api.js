@@ -12,6 +12,8 @@ var pgdb = new pg.Pool({
     password: '147852369',
     database: 'ACG'
 });
+
+//获取用户数量
 router.get('/main',(req,res,next)=>{
     let sqlStr_user = `SELECT id FROM users`;
     let sqlStr_context = `SELECT id FROM context`;
@@ -26,6 +28,7 @@ router.get('/main',(req,res,next)=>{
     });
 });
 
+//获取文章
 router.get('/chapter',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
     if(params_obj.type == 'animation'){
@@ -48,7 +51,8 @@ router.get('/chapter',(req,res,next)=>{
         lend(sqlStr,res);
     }
 });
-//文章修改接口
+
+//文章修改
 router.post('/chapter',(req,res,next)=>{
     let data = req.body;
     let sqlStr;
@@ -174,6 +178,8 @@ router.post('/chapter',(req,res,next)=>{
         }
     }
 });
+
+//获取订单数据
 router.get('/orders',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
     if(params_obj.id === ('all')){
@@ -185,6 +191,8 @@ router.get('/orders',(req,res,next)=>{
         lend(sqlStr,res);
     }
 });
+
+//管理订单
 router.post('/orders',(req,res,next)=>{
     let data = req.body;
     console.log(data);
@@ -221,6 +229,8 @@ router.post('/orders',(req,res,next)=>{
         }
     }
 })
+
+//获取用户数据
 router.get('/person',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
     if(params_obj.id === ('all')){
@@ -233,6 +243,8 @@ router.get('/person',(req,res,next)=>{
         lend(sqlStr,res);
     }
 });
+
+//管理用户数据
 router.post('/person',(req,res,next)=>{
     let data = req.body;
     console.log(data);
@@ -301,11 +313,14 @@ router.post('/person',(req,res,next)=>{
         }
     }
 })
+
+//获取管理员数据
 router.get('/admin',(req,res,next)=>{
     let sqlStr = `SELECT * FROM admin`;
     lend(sqlStr,res);
 });
-//管理员接口
+
+//管理员管理
 router.post('/admin',(req,res,next)=>{
     let data = req.body;
     // console.log(getObjLen(data));
@@ -324,8 +339,11 @@ router.post('/admin',(req,res,next)=>{
         }
     }
 });
+
+//获取评论
 router.get('/talk',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
+    //后台管理用
     if(params_obj.id === ('all')){
         let sqlStr = `SELECT * FROM evaluation`;
         lend(sqlStr,res);
@@ -334,6 +352,26 @@ router.get('/talk',(req,res,next)=>{
         lend(sqlStr,res);
     }
 });
+
+//管理评论
+router.post('/talk',(req,res,next)=>{
+    let data = req.body;
+    let sqlStr;
+    console.log(data);
+    switch (data.type) {
+        case 'del':{
+            sqlStr = `DELETE FROM evaluation WHERE contentid = '${data.id}'`;
+            del(sqlStr,res);
+            break;
+        }
+        case 'insert':{
+            let sqlStr = `INSERT INTO ordercontent (contentid,evalutor,evaluation,good,replynum,reply,replier,evaluatorid)VALUES('${data.id}','${data.auterid}','${data.evaluation}',0,'','','${data.timetamp}')`;
+            insert(sqlStr,res);
+            break;
+        }
+    }
+})
+
 router.get('/goods',(req,res,next)=>{
     // console.log('goods');
     let params_obj = qs.parse(req.url.split('?')[1]);
