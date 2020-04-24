@@ -673,7 +673,26 @@ router.post('/video',(req,res,next)=>{
     let data = req.body;
     switch(data.type){
         case 'insert':{
+            let sqlStr = ``;
+        }
+        case 'delete':{
 
+        }
+    }
+})
+//弹幕接口
+router.get('/barrage',(req,res,next)=>{
+    let params_obj = qs.parse(req.url.split('?')[1]);
+    console.log(params_obj);
+    lend(`SELECT * FROM barrage where id = ${params_obj.id}`,res);
+})
+router.post('/barrage',(req,res,next)=>{
+    let data = req.body;
+    switch(data.type){
+        case 'insert':{
+            let sqlStr = `INSERT INTO barrage (barrageid,timetemp,content) VALUES(${data.id},${data.time},${data.val})`;
+            insert(sqlStr,res);
+            break;
         }
         case 'delete':{
 
@@ -693,7 +712,6 @@ function lend(sqlStr,res){
         }
     });
 }
-
   //删除
 let del = (sqlStr,res)=>{
     pgdb.query(sqlStr,[],(err,val)=>{
