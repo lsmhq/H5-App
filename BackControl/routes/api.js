@@ -683,8 +683,7 @@ router.post('/video',(req,res,next)=>{
 //弹幕接口
 router.get('/barrage',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
-    console.log(params_obj);
-    lend(`SELECT * FROM barrage where id = ${params_obj.id}`,res);
+    lend(`SELECT * FROM barrage where barrageid = ${params_obj.id}`,res);
 })
 router.post('/barrage',(req,res,next)=>{
     let data = req.body;
