@@ -690,7 +690,7 @@ router.post('/barrage',(req,res,next)=>{
     console.log(data);
     switch(data.type){
         case 'insert':{
-            let sqlStr = `INSERT INTO barrage (barrageid,timetemp,content) VALUES(${data.id},${data.time},${data.val})`;
+            let sqlStr = `INSERT INTO barrage (barrageid,timetemp,content) VALUES(${data.id},${data.time},'${data.val}')`;
             insert(sqlStr,res);
             break;
         }
