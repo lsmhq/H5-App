@@ -362,7 +362,7 @@ router.post('/talk',(req,res,next)=>{
     console.log(data);
     switch (data.type) {
         case 'del':{
-            sqlStr = `DELETE FROM evaluation WHERE contentid = '${data.id}' AND timetemp = '${data.timetemp}'`;
+            sqlStr = `DELETE FROM evaluation WHERE contentid = '${data.id}' AND timetemp = ${data.timetemp}`;
             del(sqlStr,res);
             break;
         }
