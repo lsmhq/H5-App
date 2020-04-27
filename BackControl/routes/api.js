@@ -367,7 +367,7 @@ router.post('/talk',(req,res,next)=>{
             break;
         }
         case 'insert':{
-            let sqlStr = `INSERT INTO evaluation (contentid,evalutor,evaluation,good,temitemp,evaluatorid)VALUES('${data.id}','${data.auterid}','${data.evaluation}',0,'${data.timetamp}','')`;
+            let sqlStr = `INSERT INTO evaluation (contentid,evalutor,evaluation,good,timetemp,evaluatorid)VALUES('${data.id}','${data.auterid}','${data.evaluation}',0,'${data.timetamp}','')`;
             insert(sqlStr,res);
             break;
         }
@@ -398,11 +398,6 @@ router.post('/shoppingcart',(req,res,next)=>{
         case 'del':{
             sqlStr = `DELETE FROM shoppingcart WHERE userid = '${data.userid}' AND goodsid = '${data.goodsid}' AND timetemp = '${data.timetemp}'`;
             del(sqlStr,res);
-            break;
-        }
-        case 'select':{
-            sqlStr = `SELECT * from shoppingcart WHERE userid='${data.search||''}' OR goodsid='${data.search||''}' OR goodsname LIKE '%${data.search}%'`;
-            select(sqlStr,res);
             break;
         }
         case 'insert':{
