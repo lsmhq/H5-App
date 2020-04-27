@@ -362,7 +362,7 @@ router.post('/talk',(req,res,next)=>{
     console.log(data);
     switch (data.type) {
         case 'del':{
-            sqlStr = `DELETE FROM evaluation WHERE contentid = '${data.id}' AND timetemp = ${data.timetemp}`;
+            sqlStr = `DELETE FROM evaluation WHERE contentid = '${data.id}' AND timetemp = '${data.timetemp}'`;
             del(sqlStr,res);
             break;
         }
@@ -710,11 +710,13 @@ function lend(sqlStr,res){
   //删除
 let del = (sqlStr,res)=>{
     pgdb.query(sqlStr,[],(err,val)=>{
+        console.log('删除');
         if(err){
             console.log('删除错误:',err.message);
             res.send('error:');
         }else{
             if(val.rowCount<=0){
+                console.log('null');
                 res.send(JSON.stringify([]));
             }else{
                 console.log('success');
