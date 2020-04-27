@@ -717,6 +717,7 @@ let del = (sqlStr,res)=>{
             if(val.rowCount<=0){
                 res.send(JSON.stringify([]));
             }else{
+                console.log('success');
                 res.send('success');
             }  
         }
