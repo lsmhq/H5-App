@@ -9,7 +9,7 @@ class Form extends Component {
                     <button className={'close'} onClick={this.close}>关闭</button>
                 </div>
                 <input type={'file'} name={'img'} id={'img_upload'} onChange={this.upload} style={{display:'none'}}/>
-                <img src={'/images/add.png'} width={'50px'} id={'img_show'}  onClick={this.upFile} alt={this.props.type+'图片'}/>
+                <img src={'./add.png'} width={'50px'} id={'img_show'}  onClick={this.upFile} alt={this.props.type+'图片'}/>
                 {
                     this.props.data.map(item=>{
                         return(

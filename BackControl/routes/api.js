@@ -423,7 +423,7 @@ router.get('/goods',(req,res,next)=>{
 });
 router.post('/goods',(req,res,next)=>{
     let data = req.body;
-    console.log(data);
+    console.log(data); 
     switch (data.type) {
         case 'select':{
             let sqlStr = `SELECT * FROM market WHERE id = '${data.search}' OR name LIKE '%${data.search}%'`;
@@ -458,7 +458,7 @@ router.post('/goods',(req,res,next)=>{
             console.log(path);
             let sqlStr = `INSERT INTO market VALUES('${data.id}','${data.name}','/images/avatar/${data.id+'.'+data.imgType}','${data.price}','${data.source||'0'}','${data.brand ||'0'}','${data.evaluation||'0'}','${data.collect}','${data.description||'暂时还没有简介哦!'}')`;
             pgdb.query(sqlStr,[],(err,val)=>{
-                if(err){
+                if(err){  
                     console.log('商品插入:',err.message);
                     res.send('error');
                 }else{
@@ -480,7 +480,7 @@ router.post('/goods',(req,res,next)=>{
             })
             break;
         }case 'update':{
-            let sqlStr = `UPDATE market SET id='${data.id}',name='${data.name}',price='${data.price}',collect='${data.collect}',description='${data.description}',brand='${data.brand}' WHERE id = '${data.id}'`;
+            let sqlStr = `UPDATE market SET id='${data.id}',name='${data.name}',price='${data.price}',collect='${data.collect}',source='${data.source}',description='${data.description}',brand='${data.brand}' WHERE id = '${data.id}'`;
             update(sqlStr,res);
             break;
         }

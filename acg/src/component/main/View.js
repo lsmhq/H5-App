@@ -12,6 +12,7 @@ export default class View extends Component {
             fontSize:'20px',
             marginLeft:'15%',
             lineHeight:'50px',
+            marginTop:'100px'
         }
         return (
             <div style={style} className='animated fadeInDown'>

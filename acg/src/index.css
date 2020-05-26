@@ -105,7 +105,7 @@ a{
 .ul_inner{
   height: 50px;
   z-index: 10;
-  width: 108%;
+  width: 100%;
   float: left;
 }
 #search{
