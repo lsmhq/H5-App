@@ -666,9 +666,11 @@ router.get('/video',(req,res,next)=>{
 });
 router.post('/video',(req,res,next)=>{
     let data = req.body;
+    console.log(data);
     switch(data.type){
         case 'insert':{
             let sqlStr = ``;
+            let 
         }
         case 'delete':{
 

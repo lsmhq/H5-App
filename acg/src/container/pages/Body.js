@@ -10,7 +10,7 @@ import Video from '../../component/Video'
 export default class Body extends Component {
     render() {
         return (
-            <div>
+            <div style={{width:'100%',height:'100%'}}>
                 <Route path='/pages/' exact component={Main}/>
                 <Route path='/pages/root' component={Root}/>
                 <Route path='/pages/person' component={Person}/>
