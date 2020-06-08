@@ -51,11 +51,11 @@ class Form extends Component {
         reader.readAsDataURL(cover);
         reader.onload = ()=>{
             data.imgType = reader.result.split('/')[1].split(';')[0];
-            data.imgData = reader.result.split(',')[1];
+            // data.imgData = reader.result.split(',')[1];
             reader.readAsDataURL(video);
             reader.onload = ()=>{
                 data.videoType = reader.result.split('/')[1].split(';')[0];
-                data.videoData = reader.result.split(',')[1];
+                // data.videoData = reader.result.split(',')[1];
                 let confirm = window.confirm('确定要添加该信息吗?');
                 if(confirm){
                     console.log(data);
@@ -64,11 +64,10 @@ class Form extends Component {
                         headers:{
                             'Content-Type': 'application/json'
                         },
-                        mode:'cors',
                         body:JSON.stringify(data)
                     }).then(req=>req.text()).then(data=>{
                         if(data=='success'){
-                            alert('操作成功');
+                            alert('上传成功');
                             document.getElementsByClassName('insert_From')[0].style.display='none';
                         }else{
                             alert('操作失败');

@@ -669,8 +669,66 @@ router.post('/video',(req,res,next)=>{
     console.log(data);
     switch(data.type){
         case 'insert':{
-            let sqlStr = ``;
-            let 
+            let sqlStr = `insert into video (id,titel,cover,barragefile) values ('${data.id}','${data.title}','https://daitianfang.1459.top/video/${cover}','https://daitianfang.1459.top/video/${barragefile}')`;
+            let videoData = Buffer.from(data.videoData,'base64');
+            let ImgData = Buffer.from(data.ImgData,'base64');
+            let imgtype;
+            switch (data.imgType) {
+                case 'jpg'||'JPG':{
+                    imgtype = '.jpg';
+                    break;
+                }case 'png'||'PNG':{
+                    imgtype = '.png';
+                    break;
+                }case 'gif'||'GIF' : {
+                    imgtype = '.gif';
+                    break;
+                }case 'jpeg'||'JPEG':{
+                    imgtype = '.jpeg'
+                    break;
+                }
+            } 
+            let videotype;
+            switch (data.videoType){
+                case 'mp4'||'MP4':{
+                    videotype = '.mp4';
+                    break;
+                }
+            }
+            pgdb.query(sqlStr,[],(err,val)=>{
+                if(err){
+                    console.log('错误信息:'+err);
+                }else{
+                    if(val.rowCount<=0)
+                    res.send('error');
+                else{
+                    let path = __dirname.split('/').pop();
+                    //创建文件夹
+                    fs.mkdir(path.join('/')+data.dirname,(err)=>{
+                        if(err){
+                            console.log('上传失败');
+                            res.send('error');
+                        }else{
+                            fs.writeFile(path.join('/')+data.dirname+`/${data.barragefile}${imgtype}`,ImgData,(err)=>{
+                                if(err){
+                                    console.log('上传失败:'+err);
+                                    res.send('error');
+                                }else{
+                                    fs.writeFile(path.join('/')+data.dirname+`/${data.cover}${videotype}`,videoData,(err)=>{
+                                        if(err){
+                                            console.log('上传失败:'+err);
+                                            res.send('error');
+                                        }else{
+                                            res.send('success');
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                }
+            })
         }
         case 'delete':{
 
