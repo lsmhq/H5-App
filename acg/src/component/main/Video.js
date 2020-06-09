@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Upload from '../main/video/Video_table';
+import { findDOMNode } from 'react-dom';
 export default class Video extends Component {
     constructor(){
         super()
@@ -17,6 +18,24 @@ export default class Video extends Component {
                 data:res.data
             })
         })
+    }
+    remove = ()=>{
+        let data = {
+            type:'delete',
+            id:findDOMNode(document.getElementById('delete')).name.trim()
+        }
+        console.log(data);
+        fetch(this.state.url,
+            {
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                mode:'cors',
+                body:JSON.stringify(data)
+            }).then((res)=>res.text()).then((data)=>{
+                alert(data);
+            })
     }
     render() {
         return (
@@ -37,7 +56,10 @@ export default class Video extends Component {
                                         onClick = {(e)=>{this.remove(e)}} 
                                         title='删除'
                                         value='删除' 
-                                        style={{width:'10%',height:'100%',float:'right',backgroundColor:'OrangeRed',borderRadius:'5px',border:'none',cursor:'pointer'}}/>
+                                        id='delete'
+                                        name={val.id}
+                                        style={{width:'10%',height:'100%',float:'right',backgroundColor:'OrangeRed',borderRadius:'5px',border:'none',cursor:'pointer'}}  
+                                    />
                                 </div>
                                 <video 
                                     src={val.barragefile} 
