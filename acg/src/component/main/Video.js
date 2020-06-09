@@ -20,22 +20,28 @@ export default class Video extends Component {
         })
     }
     remove = ()=>{
+        let confirmed = window.confirm('确定要删除该视频吗?');
         let data = {
             type:'delete',
             id:findDOMNode(document.getElementById('delete')).name.trim()
         }
         console.log(data);
-        fetch(this.state.url,
-            {
-                method:'POST',
-                headers:{
-                    'Content-Type': 'application/json'
-                },
-                mode:'cors',
-                body:JSON.stringify(data)
-            }).then((res)=>res.text()).then((data)=>{
-                alert(data);
-            })
+        if(confirmed){
+            fetch(this.state.url,
+                {
+                    method:'POST',
+                    headers:{
+                        'Content-Type': 'application/json'
+                    },
+                    mode:'cors',
+                    body:JSON.stringify(data)
+                }).then((res)=>res.text()).then((data)=>{
+                    alert(data);
+                })
+        }else{
+            alert('😄');
+        }
+
     }
     render() {
         return (
