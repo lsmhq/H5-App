@@ -664,7 +664,7 @@ router.get('/video',(req,res,next)=>{
             lend(`SELECT * FROM video where id = ${params_obj.id}`,res);
     }
 });
-router.post('/video',(req,res,next)=>{
+router.post('/video',(req,res)=>{
     let data = req.body;
     console.log(data);
     switch(data.type){
@@ -672,7 +672,6 @@ router.post('/video',(req,res,next)=>{
             console.log('插入视频ing');
             let sqlStr = `insert into video (id,titel,cover,barragefile) values ('${data.id}','${data.title}','https://daitianfang.1459.top/video/${data.cover}','https://daitianfang.1459.top/video/${data.barragefile}')`;
             console.log('插入1');
-
             let imgtype;
             console.log('插入2');
             switch (data.imgType) {
@@ -705,8 +704,7 @@ router.post('/video',(req,res,next)=>{
                     if(val.rowCount<=0)
                     res.send('error');
                 else{
-                    let videoData = Buffer.from(data.videoData,'base64');
-                    let ImgData = Buffer.from(data.ImgData,'base64');
+
                     let path = __dirname.split('/');
                     path.pop();
                     console.log(path,path.join('/')+data.dirname);
@@ -717,6 +715,8 @@ router.post('/video',(req,res,next)=>{
                             res.send('error');
                         }else{
                             console.log('创建目录成功');
+                            let videoData = Buffer.from(data.videoData,'base64');
+                            let ImgData = Buffer.from(data.ImgData,'base64');
                             fs.writeFile(path.join('/')+data.dirname+`/${data.barragefile}${imgtype}`,ImgData,(err)=>{
                                 if(err){
                                     console.log('上传失败:'+err);
