@@ -694,7 +694,7 @@ router.post('/video',(req,res)=>{
                 }
             }
             console.log('插入视频ing');
-            let sqlStr = `insert into video (id,titel,cover,barragefile) values ('${data.id}','${data.title}','https://daitianfang.1459.top/video/${data.dirname}${imgtype}','https://daitianfang.1459.top/video/${data.dirname}${videotype}')`;
+            let sqlStr = `insert into video (id,titel,cover,barragefile) values ('${data.id}','${data.title}','https://daitianfang.1459.top/video/${data.dirname}/${data.dirname}${imgtype}','https://daitianfang.1459.top/video/${data.dirname}/${data.dirname}${videotype}')`;
             console.log('插入1');
 
             console.log(videotype,imgtype);
