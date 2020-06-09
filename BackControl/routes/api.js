@@ -709,31 +709,38 @@ router.post('/video',(req,res)=>{
                     path.pop();
                     console.log(path,path.join('/')+'/public/video/'+data.dirname);
                     //创建文件夹
-                    fs.mkdir(path.join('/')+'/public/video/'+data.dirname,(err)=>{
-                        if(err){
-                            console.log('上传失败'+err);
-                            res.send('error');
+                    fs.exists(path.join('/')+'/public/video/'+data.dirname,(e)=>{
+                        if(e){
+                            res.send('文件夹已存在');
                         }else{
-                            console.log('创建目录成功');
-                            let videoData = Buffer.from(JSON.stringify(data.videoData),'base64');
-                            let ImgData = Buffer.from(JSON.stringify(data.ImgData),'base64');
-                            fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.barragefile}${videotype}`,ImgData,(err)=>{
+                            fs.mkdir(path.join('/')+'/public/video/'+data.dirname,(err)=>{
                                 if(err){
-                                    console.log('上传失败:'+err);
+                                    console.log('上传失败'+err);
                                     res.send('error');
                                 }else{
-                                    fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.cover}${imgtype}`,videoData,(err)=>{
+                                    console.log('创建目录成功');
+                                    let videoData = Buffer.from(JSON.stringify(data.videoData),'base64');
+                                    let ImgData = Buffer.from(JSON.stringify(data.ImgData),'base64');
+                                    fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.barragefile}${videotype}`,ImgData,(err)=>{
                                         if(err){
                                             console.log('上传失败:'+err);
                                             res.send('error');
                                         }else{
-                                            res.send('success');
+                                            fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.cover}${imgtype}`,videoData,(err)=>{
+                                                if(err){
+                                                    console.log('上传失败:'+err);
+                                                    res.send('error');
+                                                }else{
+                                                    res.send('success');
+                                                }
+                                            })
                                         }
                                     })
                                 }
                             })
                         }
-                    })
+                    });
+
                 }
                 }
             })
