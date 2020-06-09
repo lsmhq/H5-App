@@ -669,6 +669,7 @@ router.post('/video',(req,res,next)=>{
     console.log(data);
     switch(data.type){
         case 'insert':{
+            console.log('插入视频ing');
             let sqlStr = `insert into video (id,titel,cover,barragefile) values ('${data.id}','${data.title}','https://daitianfang.1459.top/video/${cover}','https://daitianfang.1459.top/video/${barragefile}')`;
             let videoData = Buffer.from(data.videoData,'base64');
             let ImgData = Buffer.from(data.ImgData,'base64');
