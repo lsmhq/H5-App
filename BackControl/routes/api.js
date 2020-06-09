@@ -721,12 +721,12 @@ router.post('/video',(req,res)=>{
                                     console.log('创建目录成功');
                                     let videoData = Buffer.from(data.videoData+'','base64');
                                     let ImgData = Buffer.from(data.ImgData+'','base64');
-                                    fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.dirname}${videotype}`,ImgData,(err)=>{
+                                    fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.dirname}${imgtype}`,ImgData,(err)=>{
                                         if(err){
                                             console.log('上传失败:'+err);
                                             res.send('error');
                                         }else{
-                                            fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.dirname}${imgtype}`,videoData,(err)=>{
+                                            fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.dirname}${videotype}`,videoData,(err)=>{
                                                 if(err){
                                                     console.log('上传失败:'+err);
                                                     res.send('error');
