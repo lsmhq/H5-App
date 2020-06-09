@@ -711,7 +711,7 @@ router.post('/video',(req,res)=>{
                     //创建文件夹
                     fs.mkdir(path.join('/')+'/public/video/'+data.dirname,(err)=>{
                         if(err){
-                            console.log('上传失败');
+                            console.log('上传失败'+err);
                             res.send('error');
                         }else{
                             console.log('创建目录成功');
