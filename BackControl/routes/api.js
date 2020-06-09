@@ -703,8 +703,10 @@ router.post('/video',(req,res,next)=>{
                     res.send('error');
                 else{
                     let path = __dirname.split('/').pop();
+                    console.log(path,path.join('/')+data.dirname);
                     //创建文件夹
                     fs.mkdir(path.join('/')+data.dirname,(err)=>{
+                        
                         if(err){
                             console.log('上传失败');
                             res.send('error');
