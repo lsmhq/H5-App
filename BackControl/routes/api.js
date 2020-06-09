@@ -696,6 +696,7 @@ router.post('/video',(req,res,next)=>{
                     break;
                 }
             }
+            console.log(videotype,imgtype);
             pgdb.query(sqlStr,[],(err,val)=>{
                 if(err){
                     console.log('错误信息:'+err);
