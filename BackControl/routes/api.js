@@ -704,7 +704,8 @@ router.post('/video',(req,res,next)=>{
                     if(val.rowCount<=0)
                     res.send('error');
                 else{
-                    let path = __dirname.split('/').pop();
+                    let path = __dirname.split('/');
+                    path.pop();
                     console.log(path,path.join('/')+data.dirname);
                     //创建文件夹
                     fs.mkdir(path.join('/')+data.dirname,(err)=>{
@@ -713,21 +714,21 @@ router.post('/video',(req,res,next)=>{
                             res.send('error');
                         }else{
                             console.log('创建目录成功');
-                            // fs.writeFile(path.join('/')+data.dirname+`/${data.barragefile}${imgtype}`,ImgData,(err)=>{
-                            //     if(err){
-                            //         console.log('上传失败:'+err);
-                            //         res.send('error');
-                            //     }else{
-                            //         fs.writeFile(path.join('/')+data.dirname+`/${data.cover}${videotype}`,videoData,(err)=>{
-                            //             if(err){
-                            //                 console.log('上传失败:'+err);
-                            //                 res.send('error');
-                            //             }else{
-                            //                 res.send('success');
-                            //             }
-                            //         })
-                            //     }
-                            // })
+                            fs.writeFile(path.join('/')+data.dirname+`/${data.barragefile}${imgtype}`,ImgData,(err)=>{
+                                if(err){
+                                    console.log('上传失败:'+err);
+                                    res.send('error');
+                                }else{
+                                    fs.writeFile(path.join('/')+data.dirname+`/${data.cover}${videotype}`,videoData,(err)=>{
+                                        if(err){
+                                            console.log('上传失败:'+err);
+                                            res.send('error');
+                                        }else{
+                                            res.send('success');
+                                        }
+                                    })
+                                }
+                            })
                         }
                     })
                 }
