@@ -71,7 +71,7 @@ class Form extends Component {
                             alert('上传成功');
                             document.getElementsByClassName('insert_From')[0].style.display='none';
                         }else{
-                            alert('操作失败');
+                            alert('上传失败');
                             document.getElementsByClassName('insert_From')[0].style.display='none';
                         }
                     })

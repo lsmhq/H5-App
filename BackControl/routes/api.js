@@ -670,7 +670,7 @@ router.post('/video',(req,res)=>{
     switch(data.type){
         case 'insert':{
             console.log('插入视频ing');
-            let sqlStr = `insert into video (id,titel,cover,barragefile) values ('${data.id}','${data.title}','https://daitianfang.1459.top/video/${data.cover}','https://daitianfang.1459.top/video/${data.barragefile}')`;
+            let sqlStr = `insert into video (id,titel,cover,barragefile) values ('${data.id}','${data.title}','https://daitianfang.1459.top/video/${data.dirname}','https://daitianfang.1459.top/video/${data.dirname}')`;
             console.log('插入1');
             let imgtype;
             console.log('插入2');
@@ -719,14 +719,14 @@ router.post('/video',(req,res)=>{
                                     res.send('error');
                                 }else{
                                     console.log('创建目录成功');
-                                    let videoData = Buffer.from(data.videoData,'base64');
-                                    let ImgData = Buffer.from(data.ImgData,'base64');
-                                    fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.barragefile}${videotype}`,ImgData,(err)=>{
+                                    let videoData = Buffer.from(data.videoData+'','base64');
+                                    let ImgData = Buffer.from(data.ImgData+'','base64');
+                                    fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.dirname}${videotype}`,ImgData,(err)=>{
                                         if(err){
                                             console.log('上传失败:'+err);
                                             res.send('error');
                                         }else{
-                                            fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.cover}${imgtype}`,videoData,(err)=>{
+                                            fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.dirname}${imgtype}`,videoData,(err)=>{
                                                 if(err){
                                                     console.log('上传失败:'+err);
                                                     res.send('error');

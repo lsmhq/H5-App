@@ -21,7 +21,7 @@ export default class Video extends Component {
     render() {
         return (
             <div style={{height:'100%',width:'100%',float:'left',marginTop:'5%'}}>
-                <Upload data={['barragefile','cover','id','title','dirname']} id = {this.state.data.length+1}/>
+                <Upload data={['id','title','dirname']} id = {this.state.data.length+1}/>
                 {
                     this.state.data.map((val,idx)=>{
                         console.log(val)
