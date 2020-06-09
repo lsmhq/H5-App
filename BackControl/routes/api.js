@@ -717,12 +717,12 @@ router.post('/video',(req,res)=>{
                             console.log('创建目录成功');
                             let videoData = Buffer.from(JSON.stringify(data.videoData),'base64');
                             let ImgData = Buffer.from(JSON.stringify(data.ImgData),'base64');
-                            fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.barragefile}${imgtype}`,ImgData,(err)=>{
+                            fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.barragefile}${videotype}`,ImgData,(err)=>{
                                 if(err){
                                     console.log('上传失败:'+err);
                                     res.send('error');
                                 }else{
-                                    fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.cover}${videotype}`,videoData,(err)=>{
+                                    fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.cover}${imgtype}`,videoData,(err)=>{
                                         if(err){
                                             console.log('上传失败:'+err);
                                             res.send('error');
