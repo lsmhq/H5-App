@@ -669,9 +669,6 @@ router.post('/video',(req,res)=>{
     console.log(data);
     switch(data.type){
         case 'insert':{
-            console.log('插入视频ing');
-            let sqlStr = `insert into video (id,titel,cover,barragefile) values ('${data.id}','${data.title}','https://daitianfang.1459.top/video/${data.dirname}','https://daitianfang.1459.top/video/${data.dirname}')`;
-            console.log('插入1');
             let imgtype;
             console.log('插入2');
             switch (data.imgType) {
@@ -696,6 +693,10 @@ router.post('/video',(req,res)=>{
                     break;
                 }
             }
+            console.log('插入视频ing');
+            let sqlStr = `insert into video (id,titel,cover,barragefile) values ('${data.id}','${data.title}','https://daitianfang.1459.top/video/${data.dirname}${imgtype}','https://daitianfang.1459.top/video/${data.dirname}${videotype}')`;
+            console.log('插入1');
+
             console.log(videotype,imgtype);
             pgdb.query(sqlStr,[],(err,val)=>{
                 if(err){
