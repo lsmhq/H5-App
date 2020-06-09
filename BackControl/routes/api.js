@@ -707,9 +707,9 @@ router.post('/video',(req,res)=>{
 
                     let path = __dirname.split('/');
                     path.pop();
-                    console.log(path,path.join('/')+data.dirname);
+                    console.log(path,path.join('/')+'/public/video/'+data.dirname);
                     //创建文件夹
-                    fs.mkdir(path.join('/')+data.dirname,(err)=>{
+                    fs.mkdir(path.join('/')+'/public/video/'+data.dirname,(err)=>{
                         if(err){
                             console.log('上传失败');
                             res.send('error');
@@ -717,12 +717,12 @@ router.post('/video',(req,res)=>{
                             console.log('创建目录成功');
                             let videoData = Buffer.from(JSON.stringify(data.videoData),'base64');
                             let ImgData = Buffer.from(JSON.stringify(data.ImgData),'base64');
-                            fs.writeFile(path.join('/')+data.dirname+`/${data.barragefile}${imgtype}`,ImgData,(err)=>{
+                            fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.barragefile}${imgtype}`,ImgData,(err)=>{
                                 if(err){
                                     console.log('上传失败:'+err);
                                     res.send('error');
                                 }else{
-                                    fs.writeFile(path.join('/')+data.dirname+`/${data.cover}${videotype}`,videoData,(err)=>{
+                                    fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.cover}${videotype}`,videoData,(err)=>{
                                         if(err){
                                             console.log('上传失败:'+err);
                                             res.send('error');
