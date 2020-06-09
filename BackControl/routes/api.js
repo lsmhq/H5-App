@@ -671,8 +671,8 @@ router.post('/video',(req,res,next)=>{
         case 'insert':{
             console.log('插入视频ing');
             let sqlStr = `insert into video (id,titel,cover,barragefile) values ('${data.id}','${data.title}','https://daitianfang.1459.top/video/${cover}','https://daitianfang.1459.top/video/${barragefile}')`;
-            let videoData = Buffer.from(data.videoData,'base64');
-            let ImgData = Buffer.from(data.ImgData,'base64');
+            // let videoData = Buffer.from(data.videoData,'base64');
+            // let ImgData = Buffer.from(data.ImgData,'base64');
             let imgtype;
             switch (data.imgType) {
                 case 'jpg'||'JPG':{
@@ -708,26 +708,26 @@ router.post('/video',(req,res,next)=>{
                     console.log(path,path.join('/')+data.dirname);
                     //创建文件夹
                     fs.mkdir(path.join('/')+data.dirname,(err)=>{
-                        
                         if(err){
                             console.log('上传失败');
                             res.send('error');
                         }else{
-                            fs.writeFile(path.join('/')+data.dirname+`/${data.barragefile}${imgtype}`,ImgData,(err)=>{
-                                if(err){
-                                    console.log('上传失败:'+err);
-                                    res.send('error');
-                                }else{
-                                    fs.writeFile(path.join('/')+data.dirname+`/${data.cover}${videotype}`,videoData,(err)=>{
-                                        if(err){
-                                            console.log('上传失败:'+err);
-                                            res.send('error');
-                                        }else{
-                                            res.send('success');
-                                        }
-                                    })
-                                }
-                            })
+                            console.log('创建目录成功');
+                            // fs.writeFile(path.join('/')+data.dirname+`/${data.barragefile}${imgtype}`,ImgData,(err)=>{
+                            //     if(err){
+                            //         console.log('上传失败:'+err);
+                            //         res.send('error');
+                            //     }else{
+                            //         fs.writeFile(path.join('/')+data.dirname+`/${data.cover}${videotype}`,videoData,(err)=>{
+                            //             if(err){
+                            //                 console.log('上传失败:'+err);
+                            //                 res.send('error');
+                            //             }else{
+                            //                 res.send('success');
+                            //             }
+                            //         })
+                            //     }
+                            // })
                         }
                     })
                 }
