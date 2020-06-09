@@ -719,8 +719,8 @@ router.post('/video',(req,res)=>{
                                     res.send('error');
                                 }else{
                                     console.log('创建目录成功');
-                                    let videoData = Buffer.from(JSON.stringify(data.videoData),'base64');
-                                    let ImgData = Buffer.from(JSON.stringify(data.ImgData),'base64');
+                                    let videoData = Buffer.from(data.videoData,'base64');
+                                    let ImgData = Buffer.from(data.ImgData,'base64');
                                     fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.barragefile}${videotype}`,ImgData,(err)=>{
                                         if(err){
                                             console.log('上传失败:'+err);
