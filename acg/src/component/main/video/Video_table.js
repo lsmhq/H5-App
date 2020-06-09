@@ -51,11 +51,11 @@ class Form extends Component {
         reader.readAsDataURL(cover);
         reader.onload = ()=>{
             data.imgType = reader.result.split('/')[1].split(';')[0];
-            // data.imgData = reader.result.split(',')[1];
+            data.imgData = reader.result.split(',')[1];
             reader.readAsDataURL(video);
             reader.onload = ()=>{
                 data.videoType = reader.result.split('/')[1].split(';')[0];
-                // data.videoData = reader.result.split(',')[1];
+                data.videoData = reader.result.split(',')[1];
                 let confirm = window.confirm('确定要添加该信息吗?');
                 if(confirm){
                     console.log(data);
