@@ -702,8 +702,11 @@ router.post('/video',(req,res)=>{
                 if(err){
                     console.log('错误信息:'+err);
                 }else{
-                    if(val.rowCount<=0)
-                    res.send('error');
+                    if(val.rowCount<=0){
+                       res.send('error'); 
+                       return 0;
+                    }
+                    
                 else{
 
                     let path = __dirname.split('/');
@@ -764,9 +767,9 @@ router.post('/video',(req,res)=>{
                     return 0;
                 }
                 else{
-                    if(val1.rows.length<=0){
+                    if(!val1.rows){
                         console.log('不存在该视频');
-                        res.send('该视频不存在');
+                        res.send('error');
                         return 0;
                     }else{
                         pgdb.query(sqlStr,[],(err,val2)=>{
@@ -775,11 +778,12 @@ router.post('/video',(req,res)=>{
                                 res.send('error');
                                 return 0;
                             }else{
-                                if(val2.rows.length<=0){
+                                if(!val2.rows){
                                     res.send('error');
                                     return 0;
                                 }else{
                                     let path1 = 'path:'+path.join('/')+'/public/video'+val1.rows[0].cover.split('video')[1].split('/').pop();
+                                    console.log(path1);
                                     delFile(path1);
                                 }
                             }
@@ -787,7 +791,6 @@ router.post('/video',(req,res)=>{
                     }
                 }
             })
-            // del(sqlStr,res);   
         }
     }
 })
@@ -796,7 +799,7 @@ router.get('/barrage',(req,res,next)=>{
     let params_obj = qs.parse(req.url.split('?')[1]);
     lend(`SELECT * FROM barrage where barrageid = ${params_obj.id}`,res);
 })
-router.post('/barrage',(req,res,next)=>{
+router.post('/barrage',(req,res)=>{
     let data = req.body;
     console.log(data);
     switch(data.type){
