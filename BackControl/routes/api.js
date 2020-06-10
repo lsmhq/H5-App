@@ -746,7 +746,7 @@ router.post('/video',(req,res)=>{
             })
         }
         case 'delete':{
-            let sqlStr = `delete from video where id = ${data.id}`;
+            let sqlStr = `delete from video where id = '${data.id}'`;
             console.log(data);
             del(sqlStr,res);   
         }
