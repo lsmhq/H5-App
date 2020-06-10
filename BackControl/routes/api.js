@@ -769,9 +769,8 @@ router.post('/video',(req,res)=>{
                                 if(val2.rows.length<=0){
                                     res.send('error');
                                 }else{
-                                    console.log('path:'+path.join('/')+'/public/video'+val1.rows[0].cover.split('video')[1]);
-                                    delFile(path.join('/')+'/public/video'+val1.rows[0].cover.split('video')[1]);
-                                    delFile(path.join('/')+'/public/video'+val1.rows[0].barragefile.split('video')[1]);
+                                    let path1 = 'path:'+path.join('/')+'/public/video'+val1.rows[0].cover.split('video')[1].split('/').pop();
+                                    delFile(path1);
                                 }
                             }
                         });
