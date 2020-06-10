@@ -37,6 +37,7 @@ export default class Video extends Component {
                     body:JSON.stringify(data)
                 }).then((res)=>res.text()).then((data)=>{
                     alert(data);
+                    this.componentDidMount();
                 })
         }else{
             alert('😄');

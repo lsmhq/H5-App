@@ -747,7 +747,27 @@ router.post('/video',(req,res)=>{
         }
         case 'delete':{
             let sqlStr = `delete from video where id = '${data.id}'`;
+            let sql = `select id from video where id = '${data.id}'`;
             console.log(data);
+            pgdb.query(sql,[],(err,val)=>{
+                if(err){
+                    console.log('删除失败:'+err);
+                    res.send('error');
+                }
+                else{
+                    if(val<=0){
+                        console.log('不存在该视频');
+                        res.send('该视频不存在');
+                    }else{
+                        console.log(val);
+                        // pgdb.query(sql,[],(err,val)=>{
+                        //     if(err){
+                        //         console.log('');
+                        //     }
+                        // });
+                    }
+                }
+            })
             del(sqlStr,res);   
         }
     }
