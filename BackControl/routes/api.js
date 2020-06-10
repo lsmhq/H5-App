@@ -748,23 +748,32 @@ router.post('/video',(req,res)=>{
         case 'delete':{
             let sqlStr = `delete from video where id = '${data.id}'`;
             let sql = `select * from video where id = '${data.id}'`;
+            let path = __dirname.split('/');
+            path.pop();
             console.log(data);
-            pgdb.query(sql,[],(err,val)=>{
+            pgdb.query(sql,[],(err,val1)=>{
                 if(err){
                     console.log('删除失败:'+err);
                     res.send('error');
                 }
                 else{
-                    if(val<=0){
+                    if(val1.rows.length<=0){
                         console.log('不存在该视频');
                         res.send('该视频不存在');
                     }else{
-                        console.log(val);
-                        // pgdb.query(sql,[],(err,val)=>{
-                        //     if(err){
-                        //         console.log('');
-                        //     }
-                        // });
+                        pgdb.query(sqlStr,[],(err,val2)=>{
+                            if(err){
+                                console.log('删除错误:'+err);
+                                res.send('error');
+                            }else{
+                                if(val2.rows.length<=0){
+                                    res.send('error');
+                                }else{
+                                    delFile(path.join('/')+'/public/video'+val1.rows[0].cover.split('video')[1]);
+                                    delFile(path.join('/')+'/public/video'+val1.rows[0].barragefile.split('video')[1]);
+                                }
+                            }
+                        });
                     }
                 }
             })
