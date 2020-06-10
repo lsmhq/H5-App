@@ -782,7 +782,7 @@ router.post('/video',(req,res)=>{
                                     res.send('error');
                                     return 0;
                                 }else{
-                                    let path1 = 'path:'+path.join('/')+'/public/video'+val1.rows[0].cover.split('video')[1].split('/').pop();
+                                    let path1 = path.join('/')+'/public/video/'+val1.rows[0].cover.split('video')[1].split('/')[1];
                                     console.log(path1);
                                     delFile(path1);
                                 }
