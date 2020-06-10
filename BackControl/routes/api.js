@@ -769,6 +769,7 @@ router.post('/video',(req,res)=>{
                                 if(val2.rows.length<=0){
                                     res.send('error');
                                 }else{
+                                    console.log('path:'+path.join('/')+'/public/video'+val1.rows[0].cover.split('video')[1]);
                                     delFile(path.join('/')+'/public/video'+val1.rows[0].cover.split('video')[1]);
                                     delFile(path.join('/')+'/public/video'+val1.rows[0].barragefile.split('video')[1]);
                                 }
@@ -891,6 +892,7 @@ function delFile(dir,res){
                         if(Stats.isFile()){
                             fs.unlink(dir+'/'+item,(err)=>{
                                 if(err){
+                                    console.log(err);
                                     res.send('error');
                                 }else{
                                     fs.rmdir(dir,(err)=>{
