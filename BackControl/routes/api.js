@@ -713,11 +713,13 @@ router.post('/video',(req,res)=>{
                     fs.exists(path.join('/')+'/public/video/'+data.dirname,(e)=>{
                         if(e){
                             res.send('文件夹已存在');
+                            return 0;
                         }else{
                             fs.mkdir(path.join('/')+'/public/video/'+data.dirname,(err)=>{
                                 if(err){
                                     console.log('上传失败'+err);
                                     res.send('error');
+                                    return 0;
                                 }else{
                                     console.log('创建目录成功');
                                     let videoData = Buffer.from(data.videoData+'','base64');
@@ -726,13 +728,16 @@ router.post('/video',(req,res)=>{
                                         if(err){
                                             console.log('上传失败:'+err);
                                             res.send('error');
+                                            return 0;
                                         }else{
                                             fs.writeFile(path.join('/')+'/public/video/'+data.dirname+`/${data.dirname}${videotype}`,videoData,(err)=>{
                                                 if(err){
                                                     console.log('上传失败:'+err);
                                                     res.send('error');
+                                                    return 0;
                                                 }else{
                                                     res.send('success');
+                                                    return 0;
                                                 }
                                             })
                                         }
@@ -744,6 +749,7 @@ router.post('/video',(req,res)=>{
                 }
                 }
             })
+            break;
         }
         case 'delete':{
             let sqlStr = `delete from video where id = '${data.id}'`;
@@ -755,19 +761,23 @@ router.post('/video',(req,res)=>{
                 if(err){
                     console.log('删除失败:'+err);
                     res.send('error');
+                    return 0;
                 }
                 else{
                     if(val1.rows.length<=0){
                         console.log('不存在该视频');
                         res.send('该视频不存在');
+                        return 0;
                     }else{
                         pgdb.query(sqlStr,[],(err,val2)=>{
                             if(err){
                                 console.log('删除错误:'+err);
                                 res.send('error');
+                                return 0;
                             }else{
                                 if(val2.rows.length<=0){
                                     res.send('error');
+                                    return 0;
                                 }else{
                                     let path1 = 'path:'+path.join('/')+'/public/video'+val1.rows[0].cover.split('video')[1].split('/').pop();
                                     delFile(path1);
