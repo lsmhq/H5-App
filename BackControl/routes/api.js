@@ -747,7 +747,7 @@ router.post('/video',(req,res)=>{
         }
         case 'delete':{
             let sqlStr = `delete from video where id = '${data.id}'`;
-            let sql = `select id from video where id = '${data.id}'`;
+            let sql = `select * from video where id = '${data.id}'`;
             console.log(data);
             pgdb.query(sql,[],(err,val)=>{
                 if(err){
@@ -768,7 +768,7 @@ router.post('/video',(req,res)=>{
                     }
                 }
             })
-            del(sqlStr,res);   
+            // del(sqlStr,res);   
         }
     }
 })
