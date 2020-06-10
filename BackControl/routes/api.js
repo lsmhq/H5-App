@@ -784,7 +784,7 @@ router.post('/video',(req,res)=>{
                                 }else{
                                     let path1 = path.join('/')+'/public/video/'+val1.rows[0].cover.split('video')[1].split('/')[1];
                                     console.log(path1);
-                                    delFile(path1);
+                                    delFile(path1,res);
                                 }
                             }
                         });
@@ -912,7 +912,7 @@ function delFile(dir,res){
                                             console.log(err.message);
                                             res.send('error');
                                         }else{
-                                             res.send('success');
+                                            res.send('success');
                                         }
                                     })
                                 }
