@@ -19,11 +19,11 @@ export default class Video extends Component {
             })
         })
     }
-    remove = ()=>{
+    remove = (e)=>{
         let confirmed = window.confirm('确定要删除该视频吗?');
         let data = {
             type:'delete',
-            id:findDOMNode(document.getElementById('delete')).name.trim()
+            id:e.target.name.trim()
         }
         console.log(data);
         if(confirmed){
@@ -62,7 +62,7 @@ export default class Video extends Component {
                                         onClick = {(e)=>{this.remove(e)}} 
                                         title='删除'
                                         value='删除' 
-                                        id='delete'
+                                        id={'delete'+val.id}
                                         name={val.id}
                                         style={{width:'10%',height:'100%',float:'right',backgroundColor:'OrangeRed',borderRadius:'5px',border:'none',cursor:'pointer'}}  
                                     />
