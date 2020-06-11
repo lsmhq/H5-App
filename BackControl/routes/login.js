@@ -35,14 +35,14 @@ router.post('/',function(req,res,next){
               res.json({res:'success',id:value.rows[0].id});
             }else if(value.rows[0].status==='未激活'){
               res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
-              res.send('未激活账号');
+              res.json({res:'账号未激活',id:value.rows[0].id});
             }else{
               res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
-              res.send('error');
+              res.json({res:'error',id:value.rows[0].id});
             }
           }else{
             res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
-            res.send('未注册账号');
+            res.json({res:'error',id:value.rows[0].id});
           }
         }
       })
