@@ -32,7 +32,7 @@ router.post('/',function(req,res,next){
           if(value.rowCount > 0){
             if(value.rows[0].password == md5(data.password)&&value.rows[0].name==data.username&&value.rows[0].status==='已激活'){
               res.setHeader('Set-cookie',[`loginStatus=${md5('true')}`,`username=${new Buffer(encodeURIComponent(value.rows[0].name)).toString('base64')}`,`userid=${value.rows[0].id}`]);
-              res.send('success');
+              res.json({res:'success',id:value.rows[0].id});
             }else if(value.rows[0].status==='未激活'){
               res.setHeader('Set-cookie',[`loginStatus=${md5('false')}`]);
               res.send('未激活账号');
