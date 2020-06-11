@@ -20,9 +20,9 @@ router.get('/', function(req, res, next) {
 //登录验证
 router.post('/',function(req,res,next){
   let data = req.body;
-  // console.log(data);
+  console.log(data);
   if(data.type==='login'){
-    // console.log('登录验证');
+    console.log('登录验证');
       let sqlStr = 'SELECT name,password,status,id FROM users WHERE name=$1';
       pgdb.query(sqlStr,[data.username],(err,value) => {
         // console.log(value.rows[0].password);
