@@ -813,6 +813,12 @@ router.post('/barrage',(req,res)=>{
         }
     }
 })
+router.post('/payali',(req,res)=>{
+
+});
+router.post('/payaliCallback',(req,res)=>{
+    
+});
 function lend(sqlStr,res){
     pgdb.query(sqlStr,[],(err,val)=>{
         if(err){

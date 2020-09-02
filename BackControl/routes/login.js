@@ -27,6 +27,7 @@ router.post('/',function(req,res,next){
       pgdb.query(sqlStr,[data.username],(err,value) => {
         // console.log(value.rows[0].password);
         if(err){
+          console.log(err);
           res.send('db is error');
         }else{
           if(value.rowCount > 0){
